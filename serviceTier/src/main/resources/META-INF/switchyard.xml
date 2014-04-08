@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sy:switchyard xmlns:sca="http://docs.oasis-open.org/ns/opencsa/sca/200912" xmlns:sy="urn:switchyard-config:switchyard:1.1" name="serviceTier" targetNamespace="urn:com.example.switchyard:serviceTier:1.0">
+  <sca:composite name="serviceTier" targetNamespace="urn:com.example.switchyard:serviceTier:1.0">
+    <sca:service name="PolicyQuoteProcessLifeCycleManagement" promote="PolicyQuoteLifeCycleComponent/PolicyQuoteProcessLifeCycleManagement">
+      <sca:interface.java interface="com.example.switchyard.serviceTier.PolicyQuoteProcessLifeCycleManagement"/>
+    </sca:service>
+    <sca:component name="PolicyQuoteLifeCycleComponent">
+      <sca:service name="PolicyQuoteProcessLifeCycleManagement">
+        <sca:interface.java interface="com.example.switchyard.serviceTier.PolicyQuoteProcessLifeCycleManagement"/>
+      </sca:service>
+      <sca:reference name="PolicyQuoteProcessLifeCycleManagement">
+        <sca:interface.java interface="com.example.switchyard.serviceTier.PolicyQuoteProcessLifeCycleManagement"/>
+      </sca:reference>
+    </sca:component>
+    <sca:reference name="StartProcess" multiplicity="0..1" promote="PolicyQuoteLifeCycleComponent/PolicyQuoteProcessLifeCycleManagement">
+      <sca:interface.java interface="com.example.switchyard.serviceTier.StartProcess"/>
+    </sca:reference>
+    <sca:reference name="GetTasks" multiplicity="0..1" promote="PolicyQuoteLifeCycleComponent/PolicyQuoteProcessLifeCycleManagement">
+      <sca:interface.java interface="com.example.switchyard.serviceTier.GetPotentialTasks"/>
+    </sca:reference>
+    <sca:reference name="ClaimTask" multiplicity="0..1" promote="PolicyQuoteLifeCycleComponent/PolicyQuoteProcessLifeCycleManagement">
+      <sca:interface.java interface="com.example.switchyard.serviceTier.ClaimTask"/>
+    </sca:reference>
+    <sca:reference name="StartTask" multiplicity="0..1" promote="PolicyQuoteLifeCycleComponent/PolicyQuoteProcessLifeCycleManagement">
+      <sca:interface.java interface="com.example.switchyard.serviceTier.StartTask"/>
+    </sca:reference>
+    <sca:reference name="CompleteTask" multiplicity="0..1" promote="PolicyQuoteLifeCycleComponent/PolicyQuoteProcessLifeCycleManagement">
+      <sca:interface.java interface="com.example.switchyard.serviceTier.CompleteTask"/>
+    </sca:reference>
+  </sca:composite>
+</sy:switchyard>
