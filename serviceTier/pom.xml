@@ -7,10 +7,10 @@
     <artifactId>switchyard-parent</artifactId>
     <version>1.1.1-p5-redhat-1</version>
   </parent>
-  <groupId>com.redhat.gpe.refarch.fsw-bpms-integration</groupId>
+  <groupId>com.redhat.gpe.refarch.fsw_bpms_integration</groupId>
   <artifactId>serviceTier</artifactId>
   <version>1.1.1-p5-redhat-1</version>
-  <name>com.redhat.gpe.refarch.fsw-bpms-integration:serviceTier</name>
+  <name>com.redhat.gpe.refarch.fsw_bpms_integration:serviceTier</name>
   <dependencies>
     <dependency>
       <groupId>org.switchyard</groupId>
@@ -38,13 +38,16 @@
       <artifactId>switchyard-component-test-mixin-cdi</artifactId>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.switchyard.components</groupId>
+      <artifactId>switchyard-component-bean</artifactId>
+    </dependency>
   </dependencies>
   <build>
     <plugins>
       <plugin>
         <groupId>org.switchyard</groupId>
         <artifactId>switchyard-plugin</artifactId>
-        <version>${switchyard.version}</version>
         <executions>
           <execution>
             <goals>
