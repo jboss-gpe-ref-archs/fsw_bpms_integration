@@ -11,6 +11,10 @@
   <artifactId>serviceTier</artifactId>
   <version>1.1.1-p5-redhat-1</version>
   <name>com.redhat.gpe.refarch.fsw_bpms_integration:serviceTier</name>
+
+  <properties>
+  </properties>
+
   <dependencies>
     <dependency>
       <groupId>org.switchyard</groupId>
@@ -50,23 +54,8 @@
       <groupId>org.switchyard.components</groupId>
       <artifactId>switchyard-component-jca</artifactId>
     </dependency>
-    <dependency>
-      <groupId>org.hornetq</groupId>
-      <artifactId>hornetq-core-client</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.hornetq</groupId>
-      <artifactId>hornetq-jms-client</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>io.netty</groupId>
-      <artifactId>netty</artifactId>
-      <scope>test</scope>
-    </dependency>
-
   </dependencies>
+
   <build>
     <plugins>
       <plugin>
@@ -96,6 +85,7 @@
           <showDeprecation>true</showDeprecation>
         </configuration>
       </plugin>
+
     </plugins>
   </build>
 </project>

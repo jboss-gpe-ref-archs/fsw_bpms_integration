@@ -1,4 +1,4 @@
-package com.redhat.gpe.refarch.fsw_bpms_integration.serviceTier;
+package com.redhat.gpe.refarch.fsw_bpms_integration.loadtest;
 
 import javax.jms.Connection;
 import javax.jms.JMSException;

@@ -1,1 +1,18 @@
 == FSW / BPM Suite 6 Integration
+
+== Problems
+
+=== Maven transitive deps
+
+* jboss-eap-6.1.1.GA-maven-repository/org/jboss/component/management/jboss-component-version-master/6.1.1.Final-redhat-61/jboss-component-version-master-6.1.1.Final-redhat-61.pom
+** defines:  <version.bsf>2.4.0-redhat-1</version.bsf>
+* bsf is a transitive dependency of jmeter
+* a version of bsf-2.4.0-redhat-1 is not found and over-rides the actual version of bsf required by jmeter-2.*:  bsf-2.4.0
+* subsequently, a separate _loadtest_ project has been created that uses community jmeter, hornetq and jackson and does not rely on supported RHT repositories
+
+* use of jmeter v2.11
+-----
+Could not resolve dependencies for project com.redhat.gpe.refarch.fsw_bpms_integration:loadtest:jar:1.0: Failure to find com.fifesoft:rsyntaxtextarea:jar:2.5.1 in file:///u02/maven/jboss-eap-6.1.1.GA-maven-repository
+-----
+
+* this is OK for now considering jmeter-maven-plugin 1.9.0 uses jmeter 2.10.  jmeter2.10 does not cause the above maven dep conflict with EAP repo
