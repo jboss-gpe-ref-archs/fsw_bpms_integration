@@ -54,6 +54,11 @@
       <groupId>org.switchyard.components</groupId>
       <artifactId>switchyard-component-jca</artifactId>
     </dependency>
+    <dependency>
+      <groupId>com.redhat.gpe.refarch.fsw_bpms_integration</groupId>
+      <artifactId>domain</artifactId>
+      <version>1.0</version>
+    </dependency>
   </dependencies>
 
   <build>

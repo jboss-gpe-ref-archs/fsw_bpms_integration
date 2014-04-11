@@ -99,7 +99,7 @@
                     <hornetq.port>5445</hornetq.port>
                     <hornetq.user></hornetq.user>
                     <hornetq.password></hornetq.password>
-                    <queue.name>PolicyEvaluation</queue.name>
+                    <queue.name>bpmnProcessQueue</queue.name>
                 </propertiesSystem>
             </configuration>
             <dependencies>

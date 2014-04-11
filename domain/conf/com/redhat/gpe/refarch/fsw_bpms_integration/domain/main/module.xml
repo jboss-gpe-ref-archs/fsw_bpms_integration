@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.0" name="com.redhat.gpe.refarch.fsw_bpms_integration.domain">
+
+  <resources>
+    <resource-root path="domain-1.0.jar" />
+  </resources>
+
+</module>
