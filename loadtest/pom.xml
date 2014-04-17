@@ -13,6 +13,7 @@
     <version.jackson>1.9.13</version.jackson>
     <version.netty>3.2.6.Final</version.netty>
     <version.log4j>1.2.17</version.log4j>
+    <process.id>processTier.policyQuoteProcess</process.id>
   </properties>
 
   <dependencies>
@@ -40,6 +41,11 @@
       <groupId>org.apache.jmeter</groupId>
       <artifactId>ApacheJMeter_java</artifactId>
       <version>${version.jmeter}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.redhat.gpe.refarch.fsw_bpms_integration</groupId>
+      <artifactId>domain</artifactId>
+      <version>1.0</version>
     </dependency>
   </dependencies>
 
@@ -87,6 +93,7 @@
                     </goals>
                     <configuration>
                         <propertiesJMeter>
+                            <!-- provide jmeter maven plugin with path to compiled java test class -->
                             <search_paths>${basedir}/target</search_paths>
                         </propertiesJMeter>
                     </configuration>
@@ -97,9 +104,10 @@
                     <path.to.log4j.xml>${basedir}/src/test/resources/log4j.xml</path.to.log4j.xml>
                     <hornetq.host.addr>localhost</hornetq.host.addr>
                     <hornetq.port>5445</hornetq.port>
-                    <hornetq.user></hornetq.user>
-                    <hornetq.password></hornetq.password>
+                    <hornetq.user>guest</hornetq.user>
+                    <hornetq.password>guest</hornetq.password>
                     <queue.name>bpmnProcessQueue</queue.name>
+                    <process.id>${processId}</process.id>
                 </propertiesSystem>
             </configuration>
             <dependencies>
@@ -127,6 +135,11 @@
       <groupId>log4j</groupId>
       <artifactId>log4j</artifactId>
       <version>${version.log4j}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.redhat.gpe.refarch.fsw_bpms_integration</groupId>
+      <artifactId>domain</artifactId>
+      <version>1.0</version>
     </dependency>
             </dependencies>
         </plugin>

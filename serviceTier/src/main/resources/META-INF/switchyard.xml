@@ -59,7 +59,7 @@
     <sca:reference name="StartProcess" multiplicity="0..1" promote="ProcessMgmt/StartProcess">
       <sca:interface.java interface="com.redhat.gpe.refarch.fsw_bpms_integration.serviceTier.StartProcess"/>
       <http:binding.http name="startProcess">
-        <http:address>http://${hostname}:${port}${exec.server.context}${deploymentId}/process/${processId}/start</http:address>
+        <http:address>http://${hostname}:${port}${exec.server.runtime.context}${deploymentId}/process/${processId}/start</http:address>
         <http:method>POST</http:method>
         <http:contentType>application/x-www-form-urlencoded</http:contentType>
         <http:basic>
@@ -70,19 +70,56 @@
     </sca:reference>
     <sca:reference name="GetTasks" multiplicity="0..1" promote="ProcessMgmt/GetPotentialTasks">
       <sca:interface.java interface="com.redhat.gpe.refarch.fsw_bpms_integration.serviceTier.GetPotentialTasks"/>
+      <http:binding.http name="getPotentialTasks">
+        <http:address>http://${hostname}:${port}${exec.server.task.context}/query?potentialOwner=reviewer</http:address>
+        <http:method>GET</http:method>
+        <http:contentType>application/x-www-form-urlencoded</http:contentType>
+        <http:basic>
+          <http:user>jboss</http:user>
+          <http:password>brms</http:password>
+        </http:basic>
+      </http:binding.http>
     </sca:reference>
     <sca:reference name="ClaimTask" multiplicity="0..1" promote="ProcessMgmt/ClaimTask">
       <sca:interface.java interface="com.redhat.gpe.refarch.fsw_bpms_integration.serviceTier.ClaimTask"/>
+      <http:binding.http name="startProcess">
+        <http:address>http://${hostname}:${port}${exec.server.runtime.context}${deploymentId}/process/${processId}/start</http:address>
+        <http:method>POST</http:method>
+        <http:contentType>application/x-www-form-urlencoded</http:contentType>
+        <http:basic>
+          <http:user>jboss</http:user>
+          <http:password>brms</http:password>
+        </http:basic>
+      </http:binding.http>
     </sca:reference>
     <sca:reference name="StartTask" multiplicity="0..1" promote="ProcessMgmt/StartTask">
       <sca:interface.java interface="com.redhat.gpe.refarch.fsw_bpms_integration.serviceTier.StartTask"/>
+      <http:binding.http name="startProcess">
+        <http:address>http://${hostname}:${port}${exec.server.runtime.context}${deploymentId}/process/${processId}/start</http:address>
+        <http:method>POST</http:method>
+        <http:contentType>application/x-www-form-urlencoded</http:contentType>
+        <http:basic>
+          <http:user>jboss</http:user>
+          <http:password>brms</http:password>
+        </http:basic>
+      </http:binding.http>
     </sca:reference>
     <sca:reference name="CompleteTask" multiplicity="0..1" promote="ProcessMgmt/CompleteTask">
       <sca:interface.java interface="com.redhat.gpe.refarch.fsw_bpms_integration.serviceTier.CompleteTask"/>
+      <http:binding.http name="startProcess">
+        <http:address>http://${hostname}:${port}${exec.server.runtime.context}${deploymentId}/process/${processId}/start</http:address>
+        <http:method>POST</http:method>
+        <http:contentType>application/x-www-form-urlencoded</http:contentType>
+        <http:basic>
+          <http:user>jboss</http:user>
+          <http:password>brms</http:password>
+        </http:basic>
+      </http:binding.http>
     </sca:reference>
     <sca:property value="${bpms.exec.server.hostname:zareason}" name="hostname"/>
     <sca:property value="${bpms.exec.server.port:8080}" name="port"/>
-    <sca:property value="${bpms.exec.server.context:/business-central/rest/runtime/}" name="exec.server.context"/>
+    <sca:property value="${bpms.exec.server.runtime.context:/business-central/rest/runtime/}" name="exec.server.runtime.context"/>
+    <sca:property value="${bpms.exec.server.task.context:/business-central/rest/task/}" name="exec.server.task.context"/>
     <sca:property value="com.redhat.gpe.refarch.fsw_bpms_integration:processTier:1.0" name="deploymentId"/>
     <sca:property value="policyQuoteProcess" name="processId"/>
   </sca:composite>

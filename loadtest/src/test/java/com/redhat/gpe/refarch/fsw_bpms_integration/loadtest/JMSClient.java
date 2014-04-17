@@ -22,6 +22,8 @@ import org.apache.jmeter.samplers.SampleResult;
 import org.apache.log4j.xml.DOMConfigurator;
 import org.apache.log4j.Logger;
 
+import com.redhat.gpe.refarch.fsw_bpms_integration.domain.ProcessDetails;
+
 /**
  * JMS client to send a message to a queue
  */
@@ -29,8 +31,10 @@ public final class JMSClient extends AbstractJavaSamplerClient {
 
     private static final String PATH_TO_LOG4J_CONFIG = "path.to.log4j.xml";
     private static final String QUEUE_NAME = "queue.name";
+    private static final String PROCESS_ID = "process.id";
     
     private static String dName = "PolicyEvaluation";         // queue name to send message it
+    private static String pDetailsJSON = null;
     private static ObjectMapper jsonMapper = new ObjectMapper();
     private static Random rGenerator = new Random();
     private static IJMSClientProvider jmsProvider = new HornetQClientProvider();
@@ -43,6 +47,14 @@ public final class JMSClient extends AbstractJavaSamplerClient {
             DOMConfigurator.configure(pathToLog4jConfig);
         }
     }
+
+    private static void createProcessDetailsJson() throws JsonGenerationException, JsonMappingException, java.io.IOException {
+        String pId = System.getProperty(PROCESS_ID, "processTier.policyQuoteProcess");
+        ProcessDetails pDetails = new ProcessDetails(pId);
+        pDetailsJSON = jsonMapper.writeValueAsString(pDetails);
+        log.info("createProcessDetailsJson json = "+pDetailsJSON);
+    }
+
     
     public JMSClient() {}
     
@@ -66,9 +78,10 @@ public final class JMSClient extends AbstractJavaSamplerClient {
         return results;
     }
     
-    private void prep() throws JMSException {
+    private void prep() throws Exception {
         dName = System.getProperty(QUEUE_NAME, dName);
         connection = jmsProvider.getConnection();
+        createProcessDetailsJson();
     }
     
     private void send() throws JMSException {
@@ -77,17 +90,15 @@ public final class JMSClient extends AbstractJavaSamplerClient {
             session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
             Queue dQueue = jmsProvider.getQueue(dName);
             final MessageProducer producer = session.createProducer(dQueue);
-            String jsonRep = "test";
-            Message message = session.createTextMessage(jsonRep);
+            Message message = session.createTextMessage(pDetailsJSON);
             producer.send(message);
             log.info("send() just sent message = "+message);
-            
         } finally {
             if(connection != null)
                 connection.close();
         }
-        
     }
+
     
     /* sample command-line execution:
     *   mvn clean test exec:java -Dexec.mainClass="com.redhat.gpe.refarch.fsw_bpms_integration.serviceTier.JMSClient" -Dexec.classpathScope="test" -DHOST_URL=localhost -DPORT=5445 -DUSER=fswAdmin -DPASSWORD=jb0ssredhat!

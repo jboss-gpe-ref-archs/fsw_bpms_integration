@@ -4,6 +4,12 @@ public class ProcessDetails {
 
     private String processId;
 
+    public ProcessDetails() {}
+
+    public ProcessDetails(String processId){
+        this.processId = processId;
+    }
+
     public String toString(){
         StringBuilder sBuilder = new StringBuilder();
         sBuilder.append("processId = ");
