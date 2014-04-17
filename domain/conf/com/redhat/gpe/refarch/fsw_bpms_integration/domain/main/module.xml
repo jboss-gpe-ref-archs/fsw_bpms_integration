@@ -5,4 +5,8 @@
     <resource-root path="domain-1.0.jar" />
   </resources>
 
+  <dependencies>
+    <module name="javax.xml.bind.api"/>
+  </dependencies>
+
 </module>

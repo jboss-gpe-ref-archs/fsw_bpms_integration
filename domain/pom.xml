@@ -6,8 +6,33 @@
   <artifactId>domain</artifactId>
   <version>1.0</version>
 
+  <!-- use jandex to explicitly index annotations in domain model jar deployed as static module -->
   <build>
     <plugins>
+      <plugin>
+        <groupId>org.jboss.jandex</groupId>
+        <artifactId>jandex-maven-plugin</artifactId>
+        <version>1.0.1</version>
+        <executions>
+          <execution>
+            <id>make-index</id>
+            <goals>
+              <goal>jandex</goal>
+            </goals>
+            <configuration>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+      <version>4.9</version>
+    </dependency>
+  </dependencies>
 </project>
