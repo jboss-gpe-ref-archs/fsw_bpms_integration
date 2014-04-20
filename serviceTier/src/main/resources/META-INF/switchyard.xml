@@ -62,9 +62,10 @@
         <http:address>http://${hostname}:${port}${exec.server.runtime.context}${deploymentId}/process/${processId}/start</http:address>
         <http:method>POST</http:method>
         <http:contentType>application/x-www-form-urlencoded</http:contentType>
+        <http:timeout>5000</http:timeout>
         <http:basic>
-          <http:user>jboss</http:user>
-          <http:password>brms</http:password>
+          <http:user>${userId}</http:user>
+          <http:password>${passwd}</http:password>
         </http:basic>
       </http:binding.http>
     </sca:reference>
@@ -75,8 +76,8 @@
         <http:method>GET</http:method>
         <http:contentType>application/x-www-form-urlencoded</http:contentType>
         <http:basic>
-          <http:user>jboss</http:user>
-          <http:password>brms</http:password>
+          <http:user>${userId}</http:user>
+          <http:password>${passwd}</http:password>
         </http:basic>
       </http:binding.http>
     </sca:reference>
@@ -87,8 +88,8 @@
         <http:method>POST</http:method>
         <http:contentType>application/x-www-form-urlencoded</http:contentType>
         <http:basic>
-          <http:user>jboss</http:user>
-          <http:password>brms</http:password>
+          <http:user>${userId}</http:user>
+          <http:password>${passwd}</http:password>
         </http:basic>
       </http:binding.http>
     </sca:reference>
@@ -99,8 +100,8 @@
         <http:method>POST</http:method>
         <http:contentType>application/x-www-form-urlencoded</http:contentType>
         <http:basic>
-          <http:user>jboss</http:user>
-          <http:password>brms</http:password>
+          <http:user>${userId}</http:user>
+          <http:password>${passwd}</http:password>
         </http:basic>
       </http:binding.http>
     </sca:reference>
@@ -111,16 +112,18 @@
         <http:method>POST</http:method>
         <http:contentType>application/x-www-form-urlencoded</http:contentType>
         <http:basic>
-          <http:user>jboss</http:user>
-          <http:password>brms</http:password>
+          <http:user>${userId}</http:user>
+          <http:password>${passwd}</http:password>
         </http:basic>
       </http:binding.http>
     </sca:reference>
     <sca:property value="${bpms.exec.server.hostname:localhost}" name="hostname"/>
     <sca:property value="${bpms.exec.server.port:8080}" name="port"/>
+    <sca:property value="${bpms.exec.server.userId:jboss}" name="userId"/>
+    <sca:property value="${bpms.exec.server.passwd:brms}" name="passwd"/>
     <sca:property value="${bpms.exec.server.runtime.context:/business-central/rest/runtime/}" name="exec.server.runtime.context"/>
     <sca:property value="${bpms.exec.server.task.context:/business-central/rest/task/}" name="exec.server.task.context"/>
     <sca:property value="${bpms.deployment.id:com.redhat.gpe.refarch.fsw_bpms_integration:processTier:1.0}" name="deploymentId"/>
-    <sca:property value="policyQuoteProcess" name="processId"/>
+    <sca:property value="processTier.policyQuoteProcess" name="processId"/>
   </sca:composite>
 </sy:switchyard>

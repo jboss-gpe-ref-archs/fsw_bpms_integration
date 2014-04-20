@@ -1,13 +1,17 @@
 instructions:
   1)  mvn clean install
-  2)  cp -r domain/conf/com $JBOSS_HOME/modules/system/layers/base
-  3)  cp domain/target/domain-1.0.jar $JBOSS_HOME/modules/system/layers/base/com/redhat/gpe/refarch/fsw_bpms_integration/domain/main
+  2)  local :   cp -r domain/conf/com $JBOSS_HOME/modules/system/layers/base
+    
+      remote:   ssh <ssh_url_to_your_openshift_environment> 'mkdir -p app-root/data/appModules'
+                scp -r domain/conf/com <ssh_url_to_your_openshift_environment>:~/app-root/data/appModules/
+  3)  local :   cp domain/target/domain-1.0.jar $JBOSS_HOME/modules/system/layers/base/com/redhat/gpe/refarch/fsw_bpms_integration/domain/main
+      remote:   scp domain/target/domain-1.0.jar    <ssh_url_to_your_openshift_environment>:~/app-root/data/appModules/com/redhat/gpe/refarch/fsw_bpms_integration/domain/main/
   4)  add an explicit dependency on this static module
 
         ....
         <dependencies>
-            <module name="org.acme.insurance" export="true"/>
+            <module name="com.redhat.gpe.refarch.fsw_bpms_integration.domain" export="true"/>
         </dependencies
         ...
 
-  5)  bounce the JBoss EAP JVM
+  5)  bounce the JBoss EAP/BPMS JVM :   ctl_app restart  (select option 1. bpms-6.0)

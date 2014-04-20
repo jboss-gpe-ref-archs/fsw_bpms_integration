@@ -11,10 +11,6 @@
   <artifactId>serviceTier</artifactId>
   <version>1.1.1-p5-redhat-1</version>
   <name>com.redhat.gpe.refarch.fsw_bpms_integration:serviceTier</name>
-
-  <properties>
-  </properties>
-
   <dependencies>
     <dependency>
       <groupId>org.switchyard</groupId>
@@ -59,8 +55,12 @@
       <artifactId>domain</artifactId>
       <version>1.0</version>
     </dependency>
+    <dependency>
+      <groupId>org.switchyard.components</groupId>
+      <artifactId>switchyard-component-test-mixin-http</artifactId>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
-
   <build>
     <plugins>
       <plugin>
@@ -90,6 +90,18 @@
           <showDeprecation>true</showDeprecation>
         </configuration>
       </plugin>
+      <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <configuration>
+                    <executable>java</executable>
+                    <classpathScope>test</classpathScope>
+                    <mainClass>com.redhat.gpe.refarch.fsw_bpms_integration.serviceTier.ProcessMgmtTest</mainClass>
+                    <arguments>
+                        <argument>Skippy</argument>
+                    </arguments>
+                </configuration>
+            </plugin>
 
     </plugins>
   </build>
