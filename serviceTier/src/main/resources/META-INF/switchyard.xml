@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<sy:switchyard xmlns:bean="urn:switchyard-component-bean:config:1.1" xmlns:http="urn:switchyard-component-http:config:1.1" xmlns:jca="urn:switchyard-component-jca:config:1.1" xmlns:sca="http://docs.oasis-open.org/ns/opencsa/sca/200912" xmlns:sy="urn:switchyard-config:switchyard:1.1" name="serviceTier" targetNamespace="urn:com.redhat.gpe.refarch.fsw_bpms_integration:serviceTier:1.0">
+<sy:switchyard xmlns:bean="urn:switchyard-component-bean:config:1.1" xmlns:http="urn:switchyard-component-http:config:1.1" xmlns:jca="urn:switchyard-component-jca:config:1.1" xmlns:resteasy="urn:switchyard-component-resteasy:config:1.1" xmlns:sca="http://docs.oasis-open.org/ns/opencsa/sca/200912" xmlns:sy="urn:switchyard-config:switchyard:1.1" name="serviceTier" targetNamespace="urn:com.redhat.gpe.refarch.fsw_bpms_integration:serviceTier:1.0">
   <sca:composite name="serviceTier" targetNamespace="urn:com.redhat.gpe.refarch.fsw_bpms_integration:serviceTier:1.0">
-    <sca:service name="ProcessPolicy" promote="ProcessMgmt/ProcessMgmt">
+    <sca:service name="ProcessMgmt" promote="ProcessMgmt/ProcessMgmt">
       <sca:interface.java interface="com.redhat.gpe.refarch.fsw_bpms_integration.serviceTier.ProcessPolicyQuote"/>
       <jca:binding.jca name="processPolicy">
         <jca:inboundConnection>
@@ -18,104 +18,45 @@
         </jca:inboundInteraction>
       </jca:binding.jca>
     </sca:service>
-    <sca:service name="ProcessApprovals" promote="ProcessMgmt/ProcessMgmt">
-      <sca:interface.java interface="com.redhat.gpe.refarch.fsw_bpms_integration.serviceTier.ProcessApprovals"/>
-      <jca:binding.jca name="processApprovals">
-        <jca:inboundConnection>
-          <jca:resourceAdapter name="hornetq-ra.rar"/>
-          <jca:activationSpec>
-            <jca:property name="destination" value="queue/bpmnProcessQueue"/>
-            <jca:property name="destinationType" value="javax.jms.Queue"/>
-          </jca:activationSpec>
-        </jca:inboundConnection>
-        <jca:inboundInteraction>
-          <jca:listener>javax.jms.MessageListener</jca:listener>
-          <jca:endpoint type="org.switchyard.component.jca.endpoint.JMSEndpoint"/>
-          <jca:transacted>true</jca:transacted>
-        </jca:inboundInteraction>
-      </jca:binding.jca>
-    </sca:service>
     <sca:component name="ProcessMgmt">
       <bean:implementation.bean class="com.redhat.gpe.refarch.fsw_bpms_integration.serviceTier.ProcessMgmtBean"/>
-      <sca:reference name="StartProcess">
-        <sca:interface.java interface="com.redhat.gpe.refarch.fsw_bpms_integration.serviceTier.StartProcess"/>
+      <sca:reference name="PInstanceLifecycle">
+        <sca:interface.java interface="com.redhat.gpe.refarch.fsw_bpms_integration.serviceTier.ProcessInstanceLifecycle"/>
       </sca:reference>
-      <sca:reference name="GetPotentialTasks">
-        <sca:interface.java interface="com.redhat.gpe.refarch.fsw_bpms_integration.serviceTier.GetPotentialTasks"/>
-      </sca:reference>
-      <sca:reference name="ClaimTask">
-        <sca:interface.java interface="com.redhat.gpe.refarch.fsw_bpms_integration.serviceTier.ClaimTask"/>
-      </sca:reference>
-      <sca:reference name="StartTask">
-        <sca:interface.java interface="com.redhat.gpe.refarch.fsw_bpms_integration.serviceTier.StartTask"/>
-      </sca:reference>
-      <sca:reference name="CompleteTask">
-        <sca:interface.java interface="com.redhat.gpe.refarch.fsw_bpms_integration.serviceTier.CompleteTask"/>
+      <sca:reference name="TaskLifecycle">
+        <sca:interface.java interface="com.redhat.gpe.refarch.fsw_bpms_integration.serviceTier.TaskLifecycle"/>
       </sca:reference>
       <sca:service name="ProcessMgmt">
         <sca:interface.java interface="com.redhat.gpe.refarch.fsw_bpms_integration.serviceTier.ProcessMgmt"/>
       </sca:service>
     </sca:component>
-    <sca:reference name="StartProcess" multiplicity="0..1" promote="ProcessMgmt/StartProcess">
-      <sca:interface.java interface="com.redhat.gpe.refarch.fsw_bpms_integration.serviceTier.StartProcess"/>
-      <http:binding.http name="startProcess">
-        <http:address>http://${hostname}:${port}${exec.server.runtime.context}${deploymentId}/process/${processId}/start</http:address>
-        <http:method>POST</http:method>
-        <http:contentType>application/x-www-form-urlencoded</http:contentType>
-        <http:timeout>5000</http:timeout>
-        <http:basic>
-          <http:user>${userId}</http:user>
-          <http:password>${passwd}</http:password>
-        </http:basic>
-      </http:binding.http>
+    <sca:reference name="PInstanceLifecycle" multiplicity="0..1" promote="ProcessMgmt/PInstanceLifecycle">
+      <sca:interface.java interface="com.redhat.gpe.refarch.fsw_bpms_integration.serviceTier.ProcessInstanceLifecycle"/>
+      <resteasy:binding.rest name="pInstanceLifecycle">
+        <resteasy:interfaces>com.redhat.gpe.refarch.fsw_bpms_integration.serviceTier.ProcessInstanceLifecycleResource</resteasy:interfaces>
+        <resteasy:address>http://${hostname}:${port}/business-central/rest/runtime/${deploymentId}</resteasy:address>
+        <resteasy:timeout>5000</resteasy:timeout>
+        <resteasy:basic>
+          <resteasy:user>${userId}</resteasy:user>
+          <resteasy:password>${passwd}</resteasy:password>
+          <resteasy:host>${hostname}</resteasy:host>
+          <resteasy:port>${port}</resteasy:port>
+        </resteasy:basic>
+      </resteasy:binding.rest>
     </sca:reference>
-    <sca:reference name="GetTasks" multiplicity="0..1" promote="ProcessMgmt/GetPotentialTasks">
-      <sca:interface.java interface="com.redhat.gpe.refarch.fsw_bpms_integration.serviceTier.GetPotentialTasks"/>
-      <http:binding.http name="getPotentialTasks">
-        <http:address>http://${hostname}:${port}${exec.server.task.context}/query?potentialOwner=reviewer</http:address>
-        <http:method>GET</http:method>
-        <http:contentType>application/x-www-form-urlencoded</http:contentType>
-        <http:basic>
-          <http:user>${userId}</http:user>
-          <http:password>${passwd}</http:password>
-        </http:basic>
-      </http:binding.http>
-    </sca:reference>
-    <sca:reference name="ClaimTask" multiplicity="0..1" promote="ProcessMgmt/ClaimTask">
-      <sca:interface.java interface="com.redhat.gpe.refarch.fsw_bpms_integration.serviceTier.ClaimTask"/>
-      <http:binding.http name="startProcess">
-        <http:address>http://${hostname}:${port}${exec.server.runtime.context}${deploymentId}/process/${processId}/start</http:address>
-        <http:method>POST</http:method>
-        <http:contentType>application/x-www-form-urlencoded</http:contentType>
-        <http:basic>
-          <http:user>${userId}</http:user>
-          <http:password>${passwd}</http:password>
-        </http:basic>
-      </http:binding.http>
-    </sca:reference>
-    <sca:reference name="StartTask" multiplicity="0..1" promote="ProcessMgmt/StartTask">
-      <sca:interface.java interface="com.redhat.gpe.refarch.fsw_bpms_integration.serviceTier.StartTask"/>
-      <http:binding.http name="startProcess">
-        <http:address>http://${hostname}:${port}${exec.server.runtime.context}${deploymentId}/process/${processId}/start</http:address>
-        <http:method>POST</http:method>
-        <http:contentType>application/x-www-form-urlencoded</http:contentType>
-        <http:basic>
-          <http:user>${userId}</http:user>
-          <http:password>${passwd}</http:password>
-        </http:basic>
-      </http:binding.http>
-    </sca:reference>
-    <sca:reference name="CompleteTask" multiplicity="0..1" promote="ProcessMgmt/CompleteTask">
-      <sca:interface.java interface="com.redhat.gpe.refarch.fsw_bpms_integration.serviceTier.CompleteTask"/>
-      <http:binding.http name="startProcess">
-        <http:address>http://${hostname}:${port}${exec.server.runtime.context}${deploymentId}/process/${processId}/start</http:address>
-        <http:method>POST</http:method>
-        <http:contentType>application/x-www-form-urlencoded</http:contentType>
-        <http:basic>
-          <http:user>${userId}</http:user>
-          <http:password>${passwd}</http:password>
-        </http:basic>
-      </http:binding.http>
+    <sca:reference name="TaskLifecycle" multiplicity="0..1" promote="ProcessMgmt/TaskLifecycle">
+      <sca:interface.java interface="com.redhat.gpe.refarch.fsw_bpms_integration.serviceTier.TaskLifecycle"/>
+      <resteasy:binding.rest name="taskLifecycle">
+        <resteasy:interfaces>com.redhat.gpe.refarch.fsw_bpms_integration.serviceTier.TaskLifecycleResource</resteasy:interfaces>
+        <resteasy:address>http://${hostname}:${port}/business-central/rest</resteasy:address>
+        <resteasy:timeout>5000</resteasy:timeout>
+        <resteasy:basic>
+          <resteasy:user>${userId}</resteasy:user>
+          <resteasy:password>${passwd}</resteasy:password>
+          <resteasy:host>${hostname}</resteasy:host>
+          <resteasy:port>${port}</resteasy:port>
+        </resteasy:basic>
+      </resteasy:binding.rest>
     </sca:reference>
     <sca:property value="${bpms.exec.server.hostname:localhost}" name="hostname"/>
     <sca:property value="${bpms.exec.server.port:8080}" name="port"/>

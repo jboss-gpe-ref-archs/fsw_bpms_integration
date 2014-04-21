@@ -16,3 +16,6 @@ This reference architecture includes the following manual:  doc/ref_arch.adoc .
 This reference architecture also includes both client and server-side source code to a scenario called
 _policyQuote_.  This _policyQuote_ scenario is referenced throughout the manual for this reference
 architecture.
+
+== DETAILS:
+Complete documentation for this reference architecture can be found in the _docs_ directory of this project

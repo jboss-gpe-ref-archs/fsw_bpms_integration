@@ -4,6 +4,7 @@
   <dependencies>
 
     <module name="com.redhat.gpe.refarch.fsw_bpms_integration.domain" export="true" meta-inf="import"/>
+    <module name="org.apache.commons.lang"/>
 
   </dependencies>
 </deployment>
