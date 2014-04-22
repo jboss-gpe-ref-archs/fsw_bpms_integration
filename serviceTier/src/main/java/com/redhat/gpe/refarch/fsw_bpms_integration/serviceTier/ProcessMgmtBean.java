@@ -79,7 +79,6 @@ public class ProcessMgmtBean implements ProcessMgmt {
         try {
             // 1)  Start Process
             String policyJaxb = getPolicyJaxb(); 
-            //String httpEntity = sProcessReference.start(policyJaxb);
             String processId = pDetails.getProcessId();
             String httpEntity = pInstanceLifecycle.startProcess(processId);
             String pInstanceId = getNodeFromXPath(httpEntity, START_PROCESS_ID_PATH, -1).getTextContent();
@@ -102,7 +101,7 @@ public class ProcessMgmtBean implements ProcessMgmt {
                     log.info("executeProcessLifecycle() just claimed task with Id = "+taskId);
                     break;
                 }else {
-                	log.info("executeProcessLifecycle() attempt to claim task with id = "+taskId+" returned response status of: "+response.getStatus()+".  Will try next potential task");
+                    log.info("executeProcessLifecycle() attempt to claim task with id = "+taskId+" returned response status of: "+response.getStatus()+".  Will try next potential task");
                 }
                 
             }
@@ -112,6 +111,7 @@ public class ProcessMgmtBean implements ProcessMgmt {
             log.info("executeProcessLifecycle() about to complete task with taskId = "+taskId);
             taskLifecycle.completeTask(taskId);
         }catch(Throwable x) {
+            log.error("executeProcessLifecycle() 000001:  Throwable = "+x.getLocalizedMessage());
             x.printStackTrace();
         }
     }

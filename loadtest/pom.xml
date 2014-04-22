@@ -8,12 +8,19 @@
   <packaging>jar</packaging>
 
   <properties>
+    <hornetq.host.addr>localhost</hornetq.host.addr>
+    <hornetq.port>5445</hornetq.port>
+    <hornetq.user>guest</hornetq.user>
+    <hornetq.password>guest</hornetq.password>
+    <queue.name>bpmnProcessQueue</queue.name>
+    <process.id>processTier.policyQuoteProcess</process.id>
+    <deployment.id>com.redhat.gpe.refarch.fsw_bpms_integration:processTier:1.0</deployment.id>
+
     <version.jmeter>2.10</version.jmeter>
     <version.hornetq>2.2.19.Final</version.hornetq>
     <version.jackson>1.9.13</version.jackson>
     <version.netty>3.2.6.Final</version.netty>
     <version.log4j>1.2.17</version.log4j>
-    <process.id>processTier.policyQuoteProcess</process.id>
   </properties>
 
   <dependencies>
@@ -101,13 +108,14 @@
             </executions>
             <configuration>
                 <propertiesSystem>
+                    <hornetq.host.addr>${hornetq.host.addr}</hornetq.host.addr>
+                    <hornetq.port>${hornetq.port}</hornetq.port>
+                    <hornetq.user>${hornetq.user}</hornetq.user>
+                    <hornetq.password>${hornetq.password}</hornetq.password>
+                    <queue.name>${queue.name}</queue.name>
+                    <process.id>${process.id}</process.id>
+                    <deployment.id>${deployment.id}</deployment.id>
                     <path.to.log4j.xml>${basedir}/src/test/resources/log4j.xml</path.to.log4j.xml>
-                    <hornetq.host.addr>localhost</hornetq.host.addr>
-                    <hornetq.port>5445</hornetq.port>
-                    <hornetq.user>guest</hornetq.user>
-                    <hornetq.password>guest</hornetq.password>
-                    <queue.name>bpmnProcessQueue</queue.name>
-                    <process.id>${processId}</process.id>
                 </propertiesSystem>
             </configuration>
             <dependencies>

@@ -31,6 +31,7 @@ public final class JMSClient extends AbstractJavaSamplerClient {
 
     private static final String PATH_TO_LOG4J_CONFIG = "path.to.log4j.xml";
     private static final String QUEUE_NAME = "queue.name";
+    private static final String DEPLOYMENT_ID = "deployment.id";
     private static final String PROCESS_ID = "process.id";
     
     private static String dName = "PolicyEvaluation";         // queue name to send message it
@@ -49,8 +50,9 @@ public final class JMSClient extends AbstractJavaSamplerClient {
     }
 
     private static void createProcessDetailsJson() throws JsonGenerationException, JsonMappingException, java.io.IOException {
+        String deploymentId = System.getProperty(DEPLOYMENT_ID, "com.redhat.gpe.refarch.fsw_bpms_integration:processTier:1.0");
         String pId = System.getProperty(PROCESS_ID, "processTier.policyQuoteProcess");
-        ProcessDetails pDetails = new ProcessDetails(pId);
+        ProcessDetails pDetails = new ProcessDetails(deploymentId, pId);
         pDetailsJSON = jsonMapper.writeValueAsString(pDetails);
         log.info("createProcessDetailsJson json = "+pDetailsJSON);
     }
