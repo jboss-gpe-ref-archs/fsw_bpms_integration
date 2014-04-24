@@ -11,6 +11,10 @@ import javax.jms.MessageProducer;
 import javax.jms.Queue;
 import javax.jms.Session;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -23,6 +27,7 @@ import org.apache.log4j.xml.DOMConfigurator;
 import org.apache.log4j.Logger;
 
 import com.redhat.gpe.refarch.fsw_bpms_integration.domain.ProcessDetails;
+import com.redhat.gpe.refarch.fsw_bpms_integration.domain.Policy;
 
 /**
  * JMS client to send a message to a queue
@@ -33,6 +38,7 @@ public final class JMSClient extends AbstractJavaSamplerClient {
     private static final String QUEUE_NAME = "queue.name";
     private static final String DEPLOYMENT_ID = "deployment.id";
     private static final String PROCESS_ID = "process.id";
+    private static final String EXECUTE_TASK_LIFECYCLE="execute.task.lifecycle";
     
     private static String dName = "PolicyEvaluation";         // queue name to send message it
     private static String pDetailsJSON = null;
@@ -40,6 +46,7 @@ public final class JMSClient extends AbstractJavaSamplerClient {
     private static Random rGenerator = new Random();
     private static IJMSClientProvider jmsProvider = new HornetQClientProvider();
     private static Logger log = Logger.getLogger("JMSClient");
+    private static Random random = new Random();
     private Connection connection = null;
 
     static{
@@ -49,14 +56,26 @@ public final class JMSClient extends AbstractJavaSamplerClient {
         }
     }
 
-    private static void createProcessDetailsJson() throws JsonGenerationException, JsonMappingException, java.io.IOException {
+    private static void createProcessDetailsJson() throws Exception {
         String deploymentId = System.getProperty(DEPLOYMENT_ID, "com.redhat.gpe.refarch.fsw_bpms_integration:processTier:1.0");
         String pId = System.getProperty(PROCESS_ID, "processTier.policyQuoteProcess");
-        ProcessDetails pDetails = new ProcessDetails(deploymentId, pId);
+        boolean executeTaskLifecycle = Boolean.getBoolean(System.getProperty(EXECUTE_TASK_LIFECYCLE, "TRUE"));
+        String policyJaxb = getPolicyJaxb();
+        ProcessDetails pDetails = new ProcessDetails(deploymentId, pId, policyJaxb, executeTaskLifecycle);
         pDetailsJSON = jsonMapper.writeValueAsString(pDetails);
         log.info("createProcessDetailsJson json = "+pDetailsJSON);
     }
 
+    // Policy Jaxb representation sent to processTier and used as process instance variable
+    private static String getPolicyJaxb() throws JAXBException {
+        Policy policyObj = new Policy(random.nextInt(1000));
+        JAXBContext jaxbContext = JAXBContext.newInstance(Policy.class);
+        Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+        jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+        StringWriter sw = new StringWriter();
+        jaxbMarshaller.marshal(policyObj, sw);
+        return sw.toString();
+    }
     
     public JMSClient() {}
     

@@ -2,7 +2,7 @@
 <sy:switchyard xmlns:bean="urn:switchyard-component-bean:config:1.1" xmlns:http="urn:switchyard-component-http:config:1.1" xmlns:jca="urn:switchyard-component-jca:config:1.1" xmlns:resteasy="urn:switchyard-component-resteasy:config:1.1" xmlns:sca="http://docs.oasis-open.org/ns/opencsa/sca/200912" xmlns:sy="urn:switchyard-config:switchyard:1.1" name="serviceTier" targetNamespace="urn:com.redhat.gpe.refarch.fsw_bpms_integration:serviceTier:1.0">
   <sca:composite name="serviceTier" targetNamespace="urn:com.redhat.gpe.refarch.fsw_bpms_integration:serviceTier:1.0">
     <sca:service name="ProcessMgmt" promote="ProcessMgmt/ProcessMgmt">
-      <sca:interface.java interface="com.redhat.gpe.refarch.fsw_bpms_integration.serviceTier.ProcessPolicyQuote"/>
+      <sca:interface.java interface="com.redhat.gpe.refarch.fsw_bpms_integration.serviceTier.ProcessMgmt"/>
       <jca:binding.jca name="processPolicy">
         <jca:inboundConnection>
           <jca:resourceAdapter name="hornetq-ra.rar"/>
@@ -14,7 +14,7 @@
         <jca:inboundInteraction>
           <jca:listener>javax.jms.MessageListener</jca:listener>
           <jca:endpoint type="org.switchyard.component.jca.endpoint.JMSEndpoint"/>
-          <jca:transacted>true</jca:transacted>
+          <jca:transacted>false</jca:transacted>
         </jca:inboundInteraction>
       </jca:binding.jca>
     </sca:service>
@@ -33,8 +33,9 @@
     <sca:reference name="PInstanceLifecycle" multiplicity="0..1" promote="ProcessMgmt/PInstanceLifecycle">
       <sca:interface.java interface="com.redhat.gpe.refarch.fsw_bpms_integration.serviceTier.ProcessInstanceLifecycle"/>
       <resteasy:binding.rest name="pInstanceLifecycle">
+        <resteasy:messageComposer class="com.redhat.gpe.refarch.fsw_bpms_integration.serviceTier.ProcessInstanceLifecycleCustomComposer"/>
         <resteasy:interfaces>com.redhat.gpe.refarch.fsw_bpms_integration.serviceTier.ProcessInstanceLifecycleResource</resteasy:interfaces>
-        <resteasy:address>http://${hostname}:${port}/business-central/rest/runtime/${deploymentId}</resteasy:address>
+        <resteasy:address>http://${hostname}:${port}/business-central/rest/runtime</resteasy:address>
         <resteasy:timeout>5000</resteasy:timeout>
         <resteasy:basic>
           <resteasy:user>${userId}</resteasy:user>
@@ -48,7 +49,7 @@
       <sca:interface.java interface="com.redhat.gpe.refarch.fsw_bpms_integration.serviceTier.TaskLifecycle"/>
       <resteasy:binding.rest name="taskLifecycle">
         <resteasy:interfaces>com.redhat.gpe.refarch.fsw_bpms_integration.serviceTier.TaskLifecycleResource</resteasy:interfaces>
-        <resteasy:address>http://${hostname}:${port}/business-central/rest</resteasy:address>
+        <resteasy:address>http://${hostname}:${port}/business-central/rest/task</resteasy:address>
         <resteasy:timeout>5000</resteasy:timeout>
         <resteasy:basic>
           <resteasy:user>${userId}</resteasy:user>
@@ -62,9 +63,10 @@
     <sca:property value="${bpms.exec.server.port:8080}" name="port"/>
     <sca:property value="${bpms.exec.server.userId:jboss}" name="userId"/>
     <sca:property value="${bpms.exec.server.passwd:brms}" name="passwd"/>
-    <sca:property value="${bpms.exec.server.runtime.context:/business-central/rest/runtime/}" name="exec.server.runtime.context"/>
-    <sca:property value="${bpms.exec.server.task.context:/business-central/rest/task/}" name="exec.server.task.context"/>
-    <sca:property value="${bpms.deployment.id:com.redhat.gpe.refarch.fsw_bpms_integration:processTier:1.0}" name="deploymentId"/>
-    <sca:property value="processTier.policyQuoteProcess" name="processId"/>
   </sca:composite>
+  <sy:domain>
+    <sy:properties>
+      <sy:property name="org.switchyard.handlers.messageTrace.enabled" value="false"/>
+    </sy:properties>
+  </sy:domain>
 </sy:switchyard>

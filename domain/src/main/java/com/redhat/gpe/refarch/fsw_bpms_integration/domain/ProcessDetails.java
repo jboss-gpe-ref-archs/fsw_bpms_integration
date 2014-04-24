@@ -4,12 +4,16 @@ public class ProcessDetails {
 
     private String deploymentId;
     private String processId;
+    private String policyJaxb;
+    private boolean executeTaskLifecycle;
 
     public ProcessDetails() {}
 
-    public ProcessDetails(String deploymentId, String processId){
+    public ProcessDetails(String deploymentId, String processId, String policyJaxb, boolean executeTaskLifecycle){
         this.deploymentId = deploymentId;
         this.processId = processId;
+        this.policyJaxb = policyJaxb;
+        this.executeTaskLifecycle = executeTaskLifecycle;
     }
 
     public String toString(){
@@ -18,6 +22,10 @@ public class ProcessDetails {
         sBuilder.append(deploymentId);
         sBuilder.append("\n\tprocessId = ");
         sBuilder.append(processId);
+        sBuilder.append("\n\tpolicyJaxb = ");
+        sBuilder.append(policyJaxb);
+        sBuilder.append("\n\texecuteTaskLifecycle = ");
+        sBuilder.append(executeTaskLifecycle);
         return sBuilder.toString();
     }
 
@@ -32,5 +40,17 @@ public class ProcessDetails {
     }
     public void setProcessId(String x) {
         processId = x;
+    }
+    public String getPolicyJaxb() {
+        return policyJaxb;
+    }
+    public void setPolicyJaxb(String x) {
+        policyJaxb = x;
+    }
+    public boolean getExecuteTaskLifecycle() {
+        return executeTaskLifecycle;
+    }
+    public void setExecuteTaskLifecycle(boolean x) {
+        executeTaskLifecycle = x;
     }
 }

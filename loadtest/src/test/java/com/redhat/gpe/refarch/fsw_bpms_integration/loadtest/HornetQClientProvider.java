@@ -37,13 +37,13 @@ public class HornetQClientProvider implements IJMSClientProvider {
         port = Integer.parseInt(System.getProperty(PORT, Integer.toString(port)));
         
         StringBuffer sBuffer = new StringBuffer("static{} sending message using following properties : ");
-        sBuffer.append("userId = ");
+        sBuffer.append("\n\tuserId = ");
         sBuffer.append(userId);
-        sBuffer.append(" : passwd=");
+        sBuffer.append("\n\t : passwd=");
         sBuffer.append(passwd);
-        sBuffer.append(" : hostAddr=");
+        sBuffer.append("\n\t : hostAddr=");
         sBuffer.append(hostAddr);
-        sBuffer.append(" : port=");
+        sBuffer.append("\n\t : port=");
         sBuffer.append(port);
         log.info(sBuffer.toString());
     }
@@ -61,7 +61,7 @@ public class HornetQClientProvider implements IJMSClientProvider {
                 cFactory = new HornetQConnectionFactory(false, new TransportConfiguration(NettyConnectorFactory.class.getName(), params));
             }
         }
-        return cFactory.createConnection();
+        return cFactory.createConnection(userId, passwd);
     }
 
     public Queue getQueue(String name) throws JMSException {

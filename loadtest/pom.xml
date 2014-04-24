@@ -10,11 +10,12 @@
   <properties>
     <hornetq.host.addr>localhost</hornetq.host.addr>
     <hornetq.port>5445</hornetq.port>
-    <hornetq.user>guest</hornetq.user>
-    <hornetq.password>guest</hornetq.password>
+    <hornetq.user>fswAdmin</hornetq.user>
+    <hornetq.password>jb0ssredhat!</hornetq.password>
     <queue.name>bpmnProcessQueue</queue.name>
     <process.id>processTier.policyQuoteProcess</process.id>
     <deployment.id>com.redhat.gpe.refarch.fsw_bpms_integration:processTier:1.0</deployment.id>
+    <execute.task.lifecycle>false</execute.task.lifecycle>
 
     <version.jmeter>2.10</version.jmeter>
     <version.hornetq>2.2.19.Final</version.hornetq>
@@ -116,6 +117,7 @@
                     <process.id>${process.id}</process.id>
                     <deployment.id>${deployment.id}</deployment.id>
                     <path.to.log4j.xml>${basedir}/src/test/resources/log4j.xml</path.to.log4j.xml>
+                    <execute.task.lifecycle>${execute.task.lifecycle}</execute.task.lifecycle>
                 </propertiesSystem>
             </configuration>
             <dependencies>

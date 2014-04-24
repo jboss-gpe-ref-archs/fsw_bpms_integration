@@ -1,13 +1,8 @@
 package com.redhat.gpe.refarch.fsw_bpms_integration.serviceTier;
 
 import java.io.ByteArrayInputStream;
-import java.io.StringWriter;
-import java.util.Random;
 
 import javax.inject.Inject;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.xpath.XPath;
@@ -21,13 +16,11 @@ import org.switchyard.component.bean.Service;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import javax.ws.rs.core.Response;
 
 import com.redhat.gpe.refarch.fsw_bpms_integration.domain.ProcessDetails;
-import com.redhat.gpe.refarch.fsw_bpms_integration.domain.Policy;
 
 /**
  * TO-DO:
@@ -49,7 +42,6 @@ public class ProcessMgmtBean implements ProcessMgmt {
     private static final String TASK_ID_LIST_PATH = "/task-summary-list/task-summary/id";
     private static final String ID = "id";
     private static Logger log = Logger.getLogger("ProcessMgmtBean");
-    private static Random random = new Random();
     
     @Inject
     private Context context;
@@ -78,11 +70,15 @@ public class ProcessMgmtBean implements ProcessMgmt {
       
         try {
             // 1)  Start Process
-            String policyJaxb = getPolicyJaxb(); 
+            String policyJaxb = pDetails.getPolicyJaxb(); 
             String processId = pDetails.getProcessId();
-            String httpEntity = pInstanceLifecycle.startProcess(processId);
+            String httpEntity = pInstanceLifecycle.startProcess(pDetails);
             String pInstanceId = getNodeFromXPath(httpEntity, START_PROCESS_ID_PATH, -1).getTextContent();
             log.info("executeProcessLifecycle() pInstanceId = "+pInstanceId);
+            
+            //1.5)  break out of this function now if been instructed to NOT execute task lifecycle on this process
+            if(!pDetails.getExecuteTaskLifecycle())
+            	return;
             
             // 2)  Query for tasks
             httpEntity =  taskLifecycle.queryForPotentialTasks("reviewer");
@@ -105,9 +101,12 @@ public class ProcessMgmtBean implements ProcessMgmt {
                 }
                 
             }
+            
+            // 4)  start the previously claimed task
             log.info("executeProcessLifecycle() about to start task with taskId = "+taskId);
             taskLifecycle.startTask(taskId);
             
+            // 5)  complete the previously started task
             log.info("executeProcessLifecycle() about to complete task with taskId = "+taskId);
             taskLifecycle.completeTask(taskId);
         }catch(Throwable x) {
@@ -116,16 +115,7 @@ public class ProcessMgmtBean implements ProcessMgmt {
         }
     }
 
-    // Policy Jaxb representation sent to processTier and used as process instance variable
-    private String getPolicyJaxb() throws JAXBException {
-        Policy policyObj = new Policy(random.nextInt(1000));
-        JAXBContext jaxbContext = JAXBContext.newInstance(Policy.class);
-        Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-        jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-        StringWriter sw = new StringWriter();
-        jaxbMarshaller.marshal(policyObj, sw);
-        return sw.toString();
-    }
+    
     
     private Node getNodeFromXPath(String httpResponseEntity, String xPath, int nodeListNumber) throws Exception {
         log.info("getNodeFromXPath() xPath = "+xPath+" : entity = "+httpResponseEntity);
