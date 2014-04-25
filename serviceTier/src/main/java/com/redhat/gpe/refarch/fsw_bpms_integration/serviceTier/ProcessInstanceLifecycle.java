@@ -7,6 +7,7 @@ import com.redhat.gpe.refarch.fsw_bpms_integration.domain.ProcessDetails;
 
 public interface ProcessInstanceLifecycle {
 	
-    public String startProcess(ProcessDetails pDetails) throws Exception;
+    public String startProcessRest(ProcessDetails pDetails) throws Exception;
+    public String startProcessExecutor(ProcessDetails pDetails) throws Exception;
 
 }

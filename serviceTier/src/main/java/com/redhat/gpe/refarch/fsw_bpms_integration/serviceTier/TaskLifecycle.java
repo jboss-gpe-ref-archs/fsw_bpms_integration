@@ -4,7 +4,7 @@ import javax.ws.rs.core.Response;
 
 public interface TaskLifecycle {
 	
-	public String queryForPotentialTasks(String groupId) throws Exception;
+    public String queryForPotentialTasks(String groupId) throws Exception;
     public Response claimTask(String taskId) throws Exception;
     public Response startTask(String taskId) throws Exception;
     public Response completeTask(String taskId) throws Exception;

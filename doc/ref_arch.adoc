@@ -18,6 +18,9 @@
 
 === transaction boundaries
 
+=== Exception Handling
+* https://bugzilla.redhat.com/show_bug.cgi?id=1091061
+
 === To-Do
 * send policy object as payload of startProcess POST
 * specify processId to start as per the message payload to this component

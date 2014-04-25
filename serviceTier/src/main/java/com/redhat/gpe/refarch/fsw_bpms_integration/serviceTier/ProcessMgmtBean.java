@@ -25,10 +25,10 @@ import com.redhat.gpe.refarch.fsw_bpms_integration.domain.ProcessDetails;
 /**
  * TO-DO:
  *    1)  send policy object as payload of startProcess POST
- *    2)  specify processId to start as per the message payload to this component
- *    3)  specify role used to query for potential tasks
- *    4)  identify tasks that have already been claimed and iterate to next task in NodeList
- *    5)  demonstrate invocation of the following BPM Suite 6 task operation:  claimnextavailable 
+ *    2)  specify role used to query for potential tasks
+ *    3)  identify tasks that have already been claimed and iterate to next task in NodeList
+ *    4)  demonstrate invocation of the following BPM Suite 6 task operation:  claimnextavailable 
+ *    5)  signal process instance
  *
  */
 @Service(ProcessMgmt.class)
@@ -65,14 +65,12 @@ public class ProcessMgmtBean implements ProcessMgmt {
         log.info(sBuilder.toString());
     }
 
-    public void executeProcessLifecycle(ProcessDetails pDetails) {
+    public void executeProcessLifecycleViaRest(ProcessDetails pDetails) {
         log.info("executeProcessLifecycle() pDetails = "+pDetails);
       
         try {
-            // 1)  Start Process
-            String policyJaxb = pDetails.getPolicyJaxb(); 
-            String processId = pDetails.getProcessId();
-            String httpEntity = pInstanceLifecycle.startProcess(pDetails);
+            // 1)  Start Process and parse for processId from response
+            String httpEntity = pInstanceLifecycle.startProcessRest(pDetails);
             String pInstanceId = getNodeFromXPath(httpEntity, START_PROCESS_ID_PATH, -1).getTextContent();
             log.info("executeProcessLifecycle() pInstanceId = "+pInstanceId);
             
@@ -115,7 +113,14 @@ public class ProcessMgmtBean implements ProcessMgmt {
         }
     }
 
-    
+    public void executeProcessLifecycleViaExecutionAPI(ProcessDetails pDetails) {
+        log.info("executeProcessLifecycleViaExecutionAPI() pDetails = "+pDetails);
+        try {
+        }catch(Throwable x) {
+            log.error("executeProcessLifecycleViaExecutionAPI() 000002:  Throwable = "+x.getLocalizedMessage());
+            x.printStackTrace();
+        }
+    }
     
     private Node getNodeFromXPath(String httpResponseEntity, String xPath, int nodeListNumber) throws Exception {
         log.info("getNodeFromXPath() xPath = "+xPath+" : entity = "+httpResponseEntity);

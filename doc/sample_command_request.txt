@@ -1,0 +1,19 @@
+POST /business-central/rest/runtime/org.acme.insurance:policyquote:1.0/execute HTTP/1.1
+
+Accept-Encoding: gzip, deflate
+
+Content-Length: 602
+
+Content-Type: application/xml
+
+Host: bpms-gpetraining.itos.redhat.com
+
+Connection: Keep-Alive
+
+User-Agent: org.kie.services.client (1 / zareason/192.168.122.1)
+
+Authorization: Basic amJvc3M6YnJtcw==
+
+
+
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><command-request><deployment-id>org.acme.insurance:policyquote:1.0</deployment-id><ver>1</ver><start-process processId="policyquote.policyquoteprocess"><parameter><item key="policy"><value xsi:type="policy" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><driver><age>23</age><creditScore>750</creditScore><driverName>azra</driverName><numberOfAccidents>2</numberOfAccidents><numberOfTickets>2</numberOfTickets></driver><policyType>AUTO</policyType><vehicleYear>2010</vehicleYear></value></item></parameter></start-process></command-request>

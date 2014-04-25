@@ -12,8 +12,8 @@ import com.redhat.gpe.refarch.fsw_bpms_integration.domain.ProcessDetails;
 
 public class ProcessInstanceLifecycleCustomComposer extends RESTEasyMessageComposer {
 	
-	private static final String MAP_POLICY = "map_policy=";
-	private static Logger log = Logger.getLogger("ProcessInstanceLifecycleCustomComposer");
+    private static final String MAP_POLICY = "map_policy=";
+    private static Logger log = Logger.getLogger("ProcessInstanceLifecycleCustomComposer");
 
     @Override
     public Message compose(RESTEasyBindingData source, Exchange exchange) throws Exception {
@@ -29,10 +29,23 @@ public class ProcessInstanceLifecycleCustomComposer extends RESTEasyMessageCompo
         log.info("decompose() opName = "+opName+" : pDetails = "+pDetails);
         
         target = super.decompose(exchange, target);
-        
-        target.setParameters(new Object[]{pDetails.getDeploymentId(), pDetails.getProcessId(), pDetails.getPolicyJaxb()});
-
+       
+        if(ProcessInstanceLifecycleResource.START_PROCESS_REST.equals(opName)) {      
+            target.setParameters(new Object[]{pDetails.getDeploymentId(), pDetails.getProcessId(), getMapPayload(pDetails)});
+        }else if(ProcessInstanceLifecycleResource.START_PROCESS_EXECUTOR.equals(opName)) {
+            target.setParameters(new Object[]{pDetails.getDeploymentId(), getCommandRequestPayload(pDetails)});
+        }else {
+            throw new RuntimeException("decompose() providerOperationName is invalid: "+opName);
+        }
         return target;
+    }
+    
+    private String getMapPayload(ProcessDetails pDetails) throws Exception {
+    	return null;
+    }
+    
+    private String getCommandRequestPayload(ProcessDetails pDetails) throws Exception {
+    	return null;
     }
 
 }

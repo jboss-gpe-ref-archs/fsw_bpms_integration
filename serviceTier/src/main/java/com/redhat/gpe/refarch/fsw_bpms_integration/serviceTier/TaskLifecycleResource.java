@@ -9,11 +9,11 @@ import javax.ws.rs.core.Response;
 
 @Path("/")
 public interface TaskLifecycleResource {
-	
-	@GET
-	@Path("/query?potentialOwner=")
-	@Consumes("application/x-www-form-urlencoded")
-	public String queryForPotentialTasks(@PathParam("groupId") String groupId) throws Exception;
+    
+    @GET
+    @Path("/query?potentialOwner=")
+    @Consumes("application/x-www-form-urlencoded")
+    public String queryForPotentialTasks(@PathParam("groupId") String groupId) throws Exception;
 
     @POST
     @Path("/{taskId}/claim")

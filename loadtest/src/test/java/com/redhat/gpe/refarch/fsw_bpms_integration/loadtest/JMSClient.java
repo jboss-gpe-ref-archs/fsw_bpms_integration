@@ -39,6 +39,9 @@ public final class JMSClient extends AbstractJavaSamplerClient {
     private static final String DEPLOYMENT_ID = "deployment.id";
     private static final String PROCESS_ID = "process.id";
     private static final String EXECUTE_TASK_LIFECYCLE="execute.task.lifecycle";
+    private static final String OPERATION = "OPERATION";
+    private static final String REST_API = "REST_API";
+    private static final String EXECUTOR_API = "EXECUTOR_API";
     
     private static String dName = "PolicyEvaluation";         // queue name to send message it
     private static String pDetailsJSON = null;
@@ -61,7 +64,8 @@ public final class JMSClient extends AbstractJavaSamplerClient {
         String pId = System.getProperty(PROCESS_ID, "processTier.policyQuoteProcess");
         boolean executeTaskLifecycle = Boolean.getBoolean(System.getProperty(EXECUTE_TASK_LIFECYCLE, "TRUE"));
         String policyJaxb = getPolicyJaxb();
-        ProcessDetails pDetails = new ProcessDetails(deploymentId, pId, policyJaxb, executeTaskLifecycle);
+        ProcessDetails pDetails = new ProcessDetails(deploymentId, pId, executeTaskLifecycle);
+        pDetails.setPayload(policyJaxb);
         pDetailsJSON = jsonMapper.writeValueAsString(pDetails);
         log.info("createProcessDetailsJson json = "+pDetailsJSON);
     }
@@ -112,6 +116,7 @@ public final class JMSClient extends AbstractJavaSamplerClient {
             Queue dQueue = jmsProvider.getQueue(dName);
             final MessageProducer producer = session.createProducer(dQueue);
             Message message = session.createTextMessage(pDetailsJSON);
+            message.setStringProperty(OPERATION, REST_API);
             producer.send(message);
             log.info("send() just sent message = "+message);
         } finally {

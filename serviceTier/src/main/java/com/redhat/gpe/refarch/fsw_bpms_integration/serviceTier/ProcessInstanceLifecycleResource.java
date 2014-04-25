@@ -13,13 +13,20 @@ import com.redhat.gpe.refarch.fsw_bpms_integration.domain.Policy;
 
 @Path("/{deploymentId}")
 public interface ProcessInstanceLifecycleResource {
+
+    public static final String START_PROCESS_REST = "startProcessRest";
+    public static final String START_PROCESS_EXECUTOR = "startProcessExecutor";
 	
     @POST
     @Path("/process/{processId}/start")
     @Consumes("application/x-www-form-urlencoded")
     @Produces("application/x-www-form-urlencoded")
-    public String startProcess(@PathParam("deploymentId") String deploymentId, 
+    public String startProcessRest(@PathParam("deploymentId") String deploymentId, 
     		                   @PathParam("processId") String processId, 
-    		                   @FormParam("policy") String policyJaxb) throws Exception;
+    		                   @FormParam("policy") String map_payload) throws Exception;
+
+    @POST
+    @Path("/execute")
+    public String startProcessExecutor(@FormParam("payload") String executor_request_payload) throws Exception; 
     
 }

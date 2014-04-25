@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sy:switchyard xmlns:bean="urn:switchyard-component-bean:config:1.1" xmlns:http="urn:switchyard-component-http:config:1.1" xmlns:jca="urn:switchyard-component-jca:config:1.1" xmlns:resteasy="urn:switchyard-component-resteasy:config:1.1" xmlns:sca="http://docs.oasis-open.org/ns/opencsa/sca/200912" xmlns:sy="urn:switchyard-config:switchyard:1.1" name="serviceTier" targetNamespace="urn:com.redhat.gpe.refarch.fsw_bpms_integration:serviceTier:1.0">
   <sca:composite name="serviceTier" targetNamespace="urn:com.redhat.gpe.refarch.fsw_bpms_integration:serviceTier:1.0">
-    <sca:service name="ProcessMgmt" promote="ProcessMgmt/ProcessMgmt">
+    <sca:service name="ProcessMgmtRest" promote="ProcessMgmt/ProcessMgmt">
       <sca:interface.java interface="com.redhat.gpe.refarch.fsw_bpms_integration.serviceTier.ProcessMgmt"/>
       <jca:binding.jca name="processPolicy">
+        <sy:operationSelector operationName="executeProcessLifecycleViaRest"/>
         <jca:inboundConnection>
           <jca:resourceAdapter name="hornetq-ra.rar"/>
           <jca:activationSpec>
             <jca:property name="destination" value="queue/bpmnProcessQueue"/>
             <jca:property name="destinationType" value="javax.jms.Queue"/>
+            <jca:property name="messageSelector" value="OPERATION = 'REST_API'"/>
           </jca:activationSpec>
         </jca:inboundConnection>
         <jca:inboundInteraction>
