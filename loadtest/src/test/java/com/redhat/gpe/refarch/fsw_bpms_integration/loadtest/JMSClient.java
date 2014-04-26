@@ -90,7 +90,7 @@ public final class JMSClient extends AbstractJavaSamplerClient {
         try {
             prep();
             send();
-            results.setResponseMessage("success");
+            results.setResponseMessage("runTest() *** success");
             results.setSuccessful(true);
             results.setResponseCodeOK();
         }catch(Throwable x){

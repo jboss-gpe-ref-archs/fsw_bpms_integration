@@ -2,6 +2,7 @@
 :toc2:
 
 :numbered!:
+:ref_arch_doc: link:doc/ref_arch.adoc[here]
 
 == PURPOSE:
 * Discuss use-cases for integration between Red Hat Fuse Service Works (FSW) and BPM Suite 6
@@ -18,4 +19,4 @@ _policyQuote_.  This _policyQuote_ scenario is referenced throughout the manual 
 architecture.
 
 == DETAILS:
-Complete documentation for this reference architecture can be found in the _docs_ directory of this project
+Complete documentation for this reference architecture can be found {ref_arch_doc}.
