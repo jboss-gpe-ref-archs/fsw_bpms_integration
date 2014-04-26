@@ -15,9 +15,10 @@ import org.apache.log4j.Logger;
 import com.redhat.gpe.refarch.fsw_bpms_integration.domain.Policy;
 import com.redhat.gpe.refarch.fsw_bpms_integration.domain.ProcessDetails;
 
-public class ProcessInstanceLifecycleCustomComposer extends RESTEasyMessageComposer {
+public class TaskLifecycleCustomComposer extends RESTEasyMessageComposer {
 	
     private static final String INTEGER_FLAG = "i";
+	private static final String MY_NEW_POLICY_NAME_AFTER_TASK_COMPLETION = "myNewPolicyNameAfterTaskCompletion";
     private static Logger log = Logger.getLogger("ProcessInstanceLifecycleCustomComposer");
 
     @Override
@@ -29,19 +30,14 @@ public class ProcessInstanceLifecycleCustomComposer extends RESTEasyMessageCompo
 
     @Override
     public RESTEasyBindingData decompose(Exchange exchange, RESTEasyBindingData target) throws Exception {
-        ProcessDetails pDetails = (ProcessDetails)exchange.getMessage().getContent();
-        String opName = exchange.getContract().getProviderOperation().getName();
-        log.debug("decompose() opName = "+opName+" : pDetails = "+pDetails);
-        
+    	String opName = exchange.getContract().getProviderOperation().getName();
         target = super.decompose(exchange, target);
        
-        if(ProcessInstanceLifecycleResource.START_PROCESS_REST.equals(opName)) {
+        if(TaskLifecycleResource.COMPLETE_TASK.equals(opName)) {
+        	ProcessDetails pDetails = (ProcessDetails)exchange.getMessage().getContent();
+        	log.debug("decompose() opName = "+opName+" : pDetails = "+pDetails);
         	Policy policyObj = getPolicy(pDetails);
-            target.setParameters(new Object[]{pDetails.getDeploymentId(), pDetails.getProcessId(), policyObj.getPolicyId()+INTEGER_FLAG, policyObj.getPolicyName()});
-        }else if(ProcessInstanceLifecycleResource.START_PROCESS_EXECUTOR.equals(opName)) {
-            target.setParameters(new Object[]{pDetails.getDeploymentId(), getCommandRequestPayload(pDetails)});
-        }else {
-            throw new RuntimeException("decompose() providerOperationName is invalid: "+opName);
+            target.setParameters(new Object[]{pDetails.getTaskId(), policyObj.getPolicyId()+INTEGER_FLAG, policyObj.getPolicyName()});
         }
         return target;
     }
@@ -52,6 +48,7 @@ public class ProcessInstanceLifecycleCustomComposer extends RESTEasyMessageCompo
         Unmarshaller jaxbUnMarshaller = jaxbContext.createUnmarshaller();
         StringReader sReader = new StringReader(policyString);
         Policy policyObj = (Policy)jaxbUnMarshaller.unmarshal(sReader);
+        policyObj.setPolicyName(MY_NEW_POLICY_NAME_AFTER_TASK_COMPLETION);
     	return policyObj;
     }
     

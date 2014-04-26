@@ -50,6 +50,7 @@
     <sca:reference name="TaskLifecycle" multiplicity="0..1" promote="ProcessMgmt/TaskLifecycle">
       <sca:interface.java interface="com.redhat.gpe.refarch.fsw_bpms_integration.serviceTier.TaskLifecycle"/>
       <resteasy:binding.rest name="taskLifecycle">
+        <resteasy:messageComposer class="com.redhat.gpe.refarch.fsw_bpms_integration.serviceTier.TaskLifecycleCustomComposer"/>
         <resteasy:interfaces>com.redhat.gpe.refarch.fsw_bpms_integration.serviceTier.TaskLifecycleResource</resteasy:interfaces>
         <resteasy:address>http://${hostname}:${port}/business-central/rest/task</resteasy:address>
         <resteasy:timeout>5000</resteasy:timeout>

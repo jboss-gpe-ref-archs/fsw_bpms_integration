@@ -10,7 +10,7 @@ import junit.framework.TestCase;
 public class JaxbTest extends TestCase{
 
     public void testJaxb() throws Exception {
-        Policy policyObj = new Policy(1);
+        Policy policyObj = new Policy(1, "MyPolicy");
         JAXBContext jaxbContext = JAXBContext.newInstance(Policy.class);
         Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
         jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);

@@ -6,25 +6,34 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Policy implements java.io.Serializable{
 
     private int policyId;
+    private String policyName;
 
     public Policy() {}
 
-    public Policy(int policyId){
+    public Policy(int policyId, String policyName){
         this.policyId = policyId;
+        this.policyName = policyName;
     }
 
     public String toString(){
         StringBuilder sBuilder = new StringBuilder();
         sBuilder.append("policyId = ");
         sBuilder.append(policyId);
+        sBuilder.append("policyName = ");
+        sBuilder.append(policyName);
         return sBuilder.toString();
     }
 
     public int getPolicyId() {
         return policyId;
     }
-
     public void setPolicyId(int x) {
         policyId = x;
+    }
+    public String getPolicyName() {
+        return policyName;
+    }
+    public void setPolicyName(String x) {
+        policyName = x;
     }
 }

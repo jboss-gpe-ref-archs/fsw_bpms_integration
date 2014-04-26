@@ -23,12 +23,6 @@ import javax.ws.rs.core.Response;
 import com.redhat.gpe.refarch.fsw_bpms_integration.domain.ProcessDetails;
 
 /**
- * TO-DO:
- *    1)  send policy object as payload of startProcess POST
- *    2)  specify role used to query for potential tasks
- *    3)  identify tasks that have already been claimed and iterate to next task in NodeList
- *    4)  demonstrate invocation of the following BPM Suite 6 task operation:  claimnextavailable 
- *    5)  signal process instance
  *
  */
 @Service(ProcessMgmt.class)
@@ -106,7 +100,8 @@ public class ProcessMgmtBean implements ProcessMgmt {
             
             // 5)  complete the previously started task
             log.info("executeProcessLifecycle() about to complete task with taskId = "+taskId);
-            taskLifecycle.completeTask(taskId);
+            pDetails.setTaskId(taskId);
+            taskLifecycle.completeTask(pDetails);
         }catch(Throwable x) {
             log.error("executeProcessLifecycle() 000001:  Throwable = "+x.getLocalizedMessage());
             x.printStackTrace();
@@ -123,7 +118,7 @@ public class ProcessMgmtBean implements ProcessMgmt {
     }
     
     private Node getNodeFromXPath(String httpResponseEntity, String xPath, int nodeListNumber) throws Exception {
-        log.info("getNodeFromXPath() xPath = "+xPath+" : entity = "+httpResponseEntity);
+        log.debug("getNodeFromXPath() xPath = "+xPath+" : entity = "+httpResponseEntity);
         
         // wouldn't be a bad idea to pool these compiled xpathExpressions along with DocumentBuilderFactory
         XPath xpath = XPathFactory.newInstance().newXPath();
@@ -143,7 +138,7 @@ public class ProcessMgmtBean implements ProcessMgmt {
     }
     
     private NodeList getNodeListFromXPath(String httpResponseEntity, String xPath) throws Exception {
-        log.info("getNodeListFromXPath() xPath = "+xPath+" : entity = "+httpResponseEntity);
+        log.debug("getNodeListFromXPath() xPath = "+xPath+" : entity = "+httpResponseEntity);
         
         // wouldn't be a bad idea to pool these compiled xpathExpressions along with DocumentBuilderFactory
         XPath xpath = XPathFactory.newInstance().newXPath();

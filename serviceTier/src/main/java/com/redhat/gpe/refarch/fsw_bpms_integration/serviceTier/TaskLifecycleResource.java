@@ -5,12 +5,15 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.POST;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
 @Path("/")
 public interface TaskLifecycleResource {
     
-    @GET
+    public static final String COMPLETE_TASK = "completeTask";
+
+	@GET
     @Path("/query?potentialOwner=")
     @Consumes("application/x-www-form-urlencoded")
     public String queryForPotentialTasks(@PathParam("groupId") String groupId) throws Exception;
@@ -25,6 +28,8 @@ public interface TaskLifecycleResource {
 
     @POST
     @Path("/{taskId}/complete")
-    public Response completeTask(@PathParam("taskId") String taskId) throws Exception;
+    public Response completeTask(@PathParam("taskId") String taskId,
+    						@QueryParam("map_policyId") String policyId, 
+    						@QueryParam("map_taskCompletePolicyName") String tName) throws Exception;
 
 }

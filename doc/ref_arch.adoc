@@ -22,12 +22,8 @@
 * https://bugzilla.redhat.com/show_bug.cgi?id=1091061
 
 === To-Do
-* send policy object as payload of startProcess POST
-* specify processId to start as per the message payload to this component
 * specify role used to query for potential tasks
-* identify tasks that have already been claimed and iterate to next task in NodeList
 * demonstrate invocation of the following BPM Suite 6 task operation:  claimnextavailable
 * error handling when substitution properties in URL of REST invocation are not valid
 ** currently rolls back outside of scope of ProcessMgmtBean
 ** causes multiple invocations of startProcess call)
-

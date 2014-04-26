@@ -42,6 +42,7 @@ public final class JMSClient extends AbstractJavaSamplerClient {
     private static final String OPERATION = "OPERATION";
     private static final String REST_API = "REST_API";
     private static final String EXECUTOR_API = "EXECUTOR_API";
+    private static final String POLICY_NAME = "myPolicy";
     
     private static String dName = "PolicyEvaluation";         // queue name to send message it
     private static String pDetailsJSON = null;
@@ -62,17 +63,17 @@ public final class JMSClient extends AbstractJavaSamplerClient {
     private static void createProcessDetailsJson() throws Exception {
         String deploymentId = System.getProperty(DEPLOYMENT_ID, "com.redhat.gpe.refarch.fsw_bpms_integration:processTier:1.0");
         String pId = System.getProperty(PROCESS_ID, "processTier.policyQuoteProcess");
-        boolean executeTaskLifecycle = Boolean.getBoolean(System.getProperty(EXECUTE_TASK_LIFECYCLE, "TRUE"));
+        boolean executeTaskLifecycle = Boolean.parseBoolean(System.getProperty(EXECUTE_TASK_LIFECYCLE, "true"));
         String policyJaxb = getPolicyJaxb();
         ProcessDetails pDetails = new ProcessDetails(deploymentId, pId, executeTaskLifecycle);
         pDetails.setPayload(policyJaxb);
         pDetailsJSON = jsonMapper.writeValueAsString(pDetails);
-        log.info("createProcessDetailsJson json = "+pDetailsJSON);
+        log.info("createProcessDetailsJson() json = "+pDetailsJSON);
     }
 
     // Policy Jaxb representation sent to processTier and used as process instance variable
     private static String getPolicyJaxb() throws JAXBException {
-        Policy policyObj = new Policy(random.nextInt(1000));
+        Policy policyObj = new Policy(random.nextInt(1000), POLICY_NAME);
         JAXBContext jaxbContext = JAXBContext.newInstance(Policy.class);
         Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
         jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);

@@ -7,6 +7,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
 import com.redhat.gpe.refarch.fsw_bpms_integration.domain.Policy;
@@ -23,7 +24,8 @@ public interface ProcessInstanceLifecycleResource {
     @Produces("application/x-www-form-urlencoded")
     public String startProcessRest(@PathParam("deploymentId") String deploymentId, 
     		                   @PathParam("processId") String processId, 
-    		                   @FormParam("policy") String map_payload) throws Exception;
+    		                   @QueryParam("map_policyId") String policyId, 
+    		                   @QueryParam("map_policyName") String policyName) throws Exception;
 
     @POST
     @Path("/execute")

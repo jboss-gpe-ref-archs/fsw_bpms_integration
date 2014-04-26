@@ -13,9 +13,9 @@
     <hornetq.user>fswAdmin</hornetq.user>
     <hornetq.password>jb0ssredhat!</hornetq.password>
     <queue.name>bpmnProcessQueue</queue.name>
-    <process.id>processTier.policyQuoteProcess</process.id>
+    <process.id>processTier.policyQuoteProcessMap</process.id>
     <deployment.id>com.redhat.gpe.refarch.fsw_bpms_integration:processTier:1.0</deployment.id>
-    <execute.task.lifecycle>false</execute.task.lifecycle>
+    <execute.task.lifecycle>true</execute.task.lifecycle>
 
     <version.jmeter>2.10</version.jmeter>
     <version.hornetq>2.2.19.Final</version.hornetq>

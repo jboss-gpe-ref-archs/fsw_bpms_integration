@@ -5,6 +5,7 @@ public class ProcessDetails {
     private String deploymentId;
     private String processId;
     private boolean executeTaskLifecycle;
+    private String taskId;
     private String payload;
 
     public ProcessDetails() {}
@@ -23,6 +24,8 @@ public class ProcessDetails {
         sBuilder.append(processId);
         sBuilder.append("\n\texecuteTaskLifecycle = ");
         sBuilder.append(executeTaskLifecycle);
+        sBuilder.append("\n\ttaskId= ");
+        sBuilder.append(taskId);
         sBuilder.append("\n\tpayload = ");
         sBuilder.append(payload);
         return sBuilder.toString();
@@ -51,5 +54,11 @@ public class ProcessDetails {
     }
     public void setPayload(String x) {
         payload = x;
+    }
+    public String getTaskId() {
+        return taskId;
+    }
+    public void setTaskId(String x) {
+        taskId = x;
     }
 }
