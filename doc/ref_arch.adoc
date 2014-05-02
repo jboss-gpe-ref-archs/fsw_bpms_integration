@@ -1,4 +1,53 @@
-=== instructions:
+:data-uri:
+:toc2:
+:rpms: link:https://github.com/jboss-gpe-ose/jboss_bpm_soa_rpmbuild[RPMs]
+:bpmcart: link:https://github.com/jboss-gpe-ose/openshift-origin-cartridge-bpms-full[Red Hat GPE's BPM Suite 6 cartridge]
+:fswcart: link:https://github.com/jboss-gpe-ose/openshift-origin-cartridge-fsw-full[Red Hat GPE's FSW cartridge]
+:bpmproduct: link:https://access.redhat.com/site/documentation/en-US/Red_Hat_JBoss_BPM_Suite/[Red Hat's BPM Suite 6 product]
+:fswproduct: link:https://access.redhat.com/site/documentation/en-US/Red_Hat_JBoss_Fuse_Service_Works/[Red Hat's FSW product]
+
+image::images/rhheader.png[width=900]
+
+:numbered!:
+[abstract]
+== Fuse Service Works / BPM Suite 6 Integration
+
+== Overview
+Many enterprise software deployments include a Business Process Management (BPM) solution and also adhere to principals of Service Oriented Architecture (SOA).
+The BPM solution maintains and manages the state of long-running business processes.
+And the course-grained, re-usable, contract-based, stateless services encapsulate and expose business logic that can be invoked using standards-based protocols.
+In an enterprise software deployment that includes both BPM and business services, a common pattern involves two-way communication between these components.
+
+This `xPaaS` reference architecture demonstrates a `process tier` and `service tier` interacting with each-other.
+Specifically, a SwitchYard SCA application drives the life-cycle of a BPMN2 process instance whose state is managed remotely by BPM Suite 6.
+To do so, the SwitchYard SCA application invokes the REST API of the BPM Suite 6 execution server using the stock RESTEasy composite binding implementation.
+During the course of process execution, 
+The `process tier` is implemented in a Red Hat Openshift `gear` provisioned with Red Hat JBoss BPM Suite 6.
+The `service tier` is implemented in a Red Hat Openshift `gear` provisioned with Red Hat JBoss Fuse Service Works 6.
+
+image::images/dep_arch.png[]
+
+== Pre-Requisites
+The remainder of this documentation provides instructions for installation, configuration and execution of this reference architecture.
+The following is a list of pre-requisites:
+
+. {osetools}
+. Openshift Enterprise 2.* environment that has been installed with {rpms} needed to support {cart}.  Contact the Red Hat GPE team for more details.
+. medium-sized Openshift Enterprise gear provisioned with {bpmcart} and mysql-5.
+. medium-sized Openshift Enterprise gear provisioned with {fswcart} and mysql-5.
+. ssh client
+. maven 3.0.5 (or greater)
+. git client
+. familiarity with {bpmproduct}
+. familiarity with {fswproduct}
+. proficiency with basic *nix command line
+. proficiency with vi
+
+As is evidenced by these pre-requisites, the assumed BPM Suite 6 runtime environment for this reference architecture documentation is an Openshift Enterprise gear.
+However, BPM Suite 6 and Fuse Service Works can be installed in non-PaaS local environments.
+Thus it could be possible to execute this reference architecture in a non-PaaS local environment as well.
+
+== Configuration and Execution
   1)  mvn clean install
   2)  local :   cp -r domain/conf/com $JBOSS_HOME/modules/system/layers/base
     

@@ -125,14 +125,4 @@ public final class JMSClient extends AbstractJavaSamplerClient {
                 connection.close();
         }
     }
-
-    
-    /* sample command-line execution:
-    *   mvn clean test exec:java -Dexec.mainClass="com.redhat.gpe.refarch.fsw_bpms_integration.serviceTier.JMSClient" -Dexec.classpathScope="test" -DHOST_URL=localhost -DPORT=5445 -DUSER=fswAdmin -DPASSWORD=jb0ssredhat!
-    */
-    public static void main(final String[] ignored) throws Exception {
-        JMSClient jmsClient = new JMSClient();
-        jmsClient.prep();
-        jmsClient.send();
-    }
 }
