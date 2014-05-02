@@ -13,17 +13,18 @@ image::images/rhheader.png[width=900]
 == Fuse Service Works / BPM Suite 6 Integration
 
 == Overview
-Many enterprise software deployments include a Business Process Management (BPM) solution and also adhere to principals of Service Oriented Architecture (SOA).
+Many enterprise software applications leverage a Business Process Management (BPM) tool.
 The BPM solution maintains and manages the state of long-running business processes.
-And the course-grained, re-usable, contract-based, stateless services encapsulate and expose business logic that can be invoked using standards-based protocols.
-In an enterprise software deployment that includes both BPM and business services, a common pattern involves two-way communication between these components.
+In an enterprise software application that leverages a BPM tool, it is highly recommended that business services continue to be implemented independent of the BPM tool and in adherence to SOA.
+In particular, these business services should be course-grained, re-usable, contract-based, stateless and be exposed by standards based protocols.
+During the lifecycle of a business process instance, nodes of that process instance should invoke the remote services that encapsulate the business logic.
+Correspondingly, these business services should drive the lifecylce of process instances by invoking APIs provided by the BPM tool.
 
-This `xPaaS` reference architecture demonstrates a `process tier` and `service tier` interacting with each-other.
+This _xPaaS_ reference architecture demonstrates a _process tier_ and _service tier_ interacting with each-other.
 Specifically, a SwitchYard SCA application drives the life-cycle of a BPMN2 process instance whose state is managed remotely by BPM Suite 6.
 To do so, the SwitchYard SCA application invokes the REST API of the BPM Suite 6 execution server using the stock RESTEasy composite binding implementation.
-During the course of process execution, 
-The `process tier` is implemented in a Red Hat Openshift `gear` provisioned with Red Hat JBoss BPM Suite 6.
-The `service tier` is implemented in a Red Hat Openshift `gear` provisioned with Red Hat JBoss Fuse Service Works 6.
+The _process tier_ is implemented in a Red Hat Openshift _gear_ provisioned with Red Hat JBoss BPM Suite 6.
+The _service tier_ is implemented in a Red Hat Openshift _gear_ provisioned with Red Hat JBoss Fuse Service Works 6.
 
 image::images/dep_arch.png[]
 
