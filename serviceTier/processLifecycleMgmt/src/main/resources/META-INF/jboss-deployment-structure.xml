@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jboss-deployment-structure xmlns="urn:jboss:deployment-structure:1.2">
+<deployment>
+  <dependencies>
+
+    <module name="com.redhat.gpe.refarch.fsw_bpms_integration.domain" export="true" meta-inf="import"/>
+    <module name="org.apache.commons.lang"/>
+
+  </dependencies>
+</deployment>
+</jboss-deployment-structure>
