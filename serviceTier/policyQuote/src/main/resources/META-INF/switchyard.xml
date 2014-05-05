@@ -8,7 +8,11 @@
       </sca:service>
     </sca:component>
     <sca:service name="PolicyQuoteMgmt" promote="PolicyQuoteMgmtBean/PolicyQuoteMgmt">
-      <sca:interface.java interface="com.redhat.gpe.refarch.fsw_bpms_integration.serviceTier.PolicyQuoteMgmt"/>
+      <resteasy:binding.rest name="policyQuoteMgmt">
+        <resteasy:messageComposer class="com.redhat.gpe.refarch.fsw_bpms_integration.serviceTier.PolicyMgmtComposer"/>
+        <resteasy:interfaces>com.redhat.gpe.refarch.fsw_bpms_integration.serviceTier.PolicyQuoteMgmtResource</resteasy:interfaces>
+        <resteasy:contextPath>policyQuoteMgmt</resteasy:contextPath>
+      </resteasy:binding.rest>
     </sca:service>
   </sca:composite>
   <sy:domain>

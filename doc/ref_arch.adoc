@@ -125,7 +125,7 @@ image::images/mod_service_task.png[]
 
 * Fill in the values for each _Assignment_ as follows:
 
-. `Url`   :   http://<your_fsw_server_address>/
+. `Url`   :   http://<your_fsw_server_address>/policyQuoteMgmt/policy
 . `ConnectTimeout`  :   5000
 . `Password`  :   jboss
 . `Username`  :   brms

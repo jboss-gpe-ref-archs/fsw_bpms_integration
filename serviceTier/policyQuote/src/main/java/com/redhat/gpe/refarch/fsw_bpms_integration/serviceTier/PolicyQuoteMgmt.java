@@ -1,6 +1,8 @@
 package com.redhat.gpe.refarch.fsw_bpms_integration.serviceTier;
 
+import com.redhat.gpe.refarch.fsw_bpms_integration.domain.Policy;
+
 public interface PolicyQuoteMgmt {
 
-    void setFinalQuotePrice(String pInstanceId, String price);
+    void postPolicy(Policy pOBj);
 }

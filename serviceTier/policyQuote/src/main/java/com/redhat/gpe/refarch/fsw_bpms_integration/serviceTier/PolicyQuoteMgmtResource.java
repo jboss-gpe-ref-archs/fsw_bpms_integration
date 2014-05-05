@@ -2,13 +2,13 @@ package com.redhat.gpe.refarch.fsw_bpms_integration.serviceTier;
 
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
+import javax.ws.rs.FormParam;
 
-@Path("/{pInstanceId}")
+@Path("/")
 public interface PolicyQuoteMgmtResource {
 	
 	@POST
-	@Path("{price}")
-	void setFinalQuotePrice(@PathParam("pInstanceId") String pInstanceId, @PathParam("price") String price) throws Exception;
+	@Path("policy")
+	public void postPolicy(@FormParam("payload") String payload) throws Exception;
 
 }
