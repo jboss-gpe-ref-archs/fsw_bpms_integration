@@ -133,9 +133,23 @@ image::images/mod_service_task.png[]
 . `ReadTimeout`    :   5000
 
 
+* Save the changes to the process definition.
+* Navigate to the _Project Editor_ and click the button at the top-right to `Build & Deploy`
+** A light-green pop-up should appear indicating: _Build Successful_
 
+The _org.acme.insurance:policyquote:1.0_ KIE project is now deployed as a maven artifact in your remote BPM Suite 6 environment and is registered with the embedded _Execution Server_.
+The lifecycle of the project's business processes can now be remotely driven through the REST API of the _Execution Server_.
 
-=== Deploy `processTier` KIE project in BPM Suite 6
+=== Define System Properties in FSW Openshift environment
+
+image::images/add_sys_props.png[]
+
+image::images/sys_props_added.png[]
+
+. bpms.exec.server.hostname :   http://<your_bpms_server_address>
+. bpms.exec.server.port :   80
+
+=== Deploy _Service Tier_ artifacts to FSW Openshift environment
 
 === Exception Handling
 * https://bugzilla.redhat.com/show_bug.cgi?id=1091061
