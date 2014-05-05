@@ -12,7 +12,7 @@
     <hornetq.port>5445</hornetq.port>
     <hornetq.user>fswAdmin</hornetq.user>
     <hornetq.password>jb0ssredhat!</hornetq.password>
-    <queue.name>bpmnProcessQueue</queue.name>
+    <queue.name>processMgmtQueue</queue.name>
     <process.id>processTier.policyQuoteProcessMap</process.id>
     <deployment.id>com.redhat.gpe.refarch.fsw_bpms_integration:processTier:1.0</deployment.id>
     <execute.task.lifecycle>true</execute.task.lifecycle>

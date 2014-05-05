@@ -8,7 +8,7 @@
         <jca:inboundConnection>
           <jca:resourceAdapter name="hornetq-ra.rar"/>
           <jca:activationSpec>
-            <jca:property name="destination" value="queue/bpmnProcessQueue"/>
+            <jca:property name="destination" value="queue/processMgmtQueue"/>
             <jca:property name="destinationType" value="javax.jms.Queue"/>
             <jca:property name="messageSelector" value="OPERATION = 'REST_API'"/>
           </jca:activationSpec>
