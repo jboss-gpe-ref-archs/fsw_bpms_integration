@@ -49,24 +49,93 @@ However, BPM Suite 6 and Fuse Service Works can be installed in non-PaaS local e
 Thus it could be possible to execute this reference architecture in a non-PaaS local environment as well.
 
 == Configuration and Execution
-  1)  mvn clean install
-  2)  local :   cp -r domain/conf/com $JBOSS_HOME/modules/system/layers/base
-    
-      remote:   ssh <ssh_url_to_your_openshift_environment> 'mkdir -p app-root/data/appModules'
-                scp -r domain/conf/com <ssh_url_to_your_openshift_environment>:~/app-root/data/appModules/
-  3)  local :   cp domain/target/domain-1.0.jar $JBOSS_HOME/modules/system/layers/base/com/redhat/gpe/refarch/fsw_bpms_integration/domain/main
-      remote:   scp domain/target/domain-1.0.jar    <ssh_url_to_your_openshift_environment>:~/app-root/data/appModules/com/redhat/gpe/refarch/fsw_bpms_integration/domain/main/
-  4)  add an explicit dependency on this static module
 
-        ....
-        <dependencies>
-            <module name="com.redhat.gpe.refarch.fsw_bpms_integration.domain" export="true"/>
-        </dependencies
-        ...
+=== Clone this reference architecture in local environment
+This reference architecture will be cloned both in your local computer as well as in your remote BPM Suite 6 Openshift environment.
+To clone this reference architecture in your local environment, execute the following:
 
-  5)  bounce the JBoss EAP/BPMS JVM :   ctl_app restart  (select option 1. bpms-6.0)
+-----
+git clone https://github.com/jboss-gpe-ref-archs/fsw_bpms_integration.git
+-----
 
-=== transaction boundaries
+Doing so will create a directory in your local computer called:  _fsw_bpms_integration_.
+For the purposes of the remainder of this reference architecture, this directory will be referred to as _$REF_ARCH_HOME_.
+
+
+=== Domain class installation
+In $REF_ARCH_HOME, there is a directory called `domain`.
+This directory contains a maven project for building and packaging the jar files that will contain the domain classes for this reference architecture.
+If you examine the domain classes, you will find that they are configured to enable serialization via Java Architecture for XML Binding (JAXB).
+
+The following steps are directions for building the jar file and installing the jar as a static module in your FSW and BPM Suite 6 servers running in OpenShift.
+The `business-central.war` application in BPM Suite 6 will also be configured to have a dependency on the static module, making the domain class available to use in your business processes.
+
+From your local cloned copy of this reference architecture execute the following:
+
+. create the jar for the domain classes
+.. `cd $REF_ARCH_HOME`
+.. `mvn clean install`
+. copy the directories and files required to create a static module on both FSW and BPM Suite 6 remote servers
+.. `scp -r domain/conf/com <your_openshift_url>:~/app-root/data/appModules/`
+.. `scp domain/target/domain-1.0.jar    <ssh_url_to_your_openshift_environment>:~/app-root/data/appModules/com/redhat/gpe/refarch/fsw_bpms_integration/domain/main/`
+. Add an explicit dependency for business-central.war on the static module for the domain module
+.. `ssh <your_openshift_url>`
+.. Open the following file using vi:  `~/bpms/standalone/deployments/business-central.war/WEB-INF/jboss-deployment-structure.xml`
+.. Add the following to the list of dependencies:
+
+-----
+<module name="com.redhat.gpe.refarch.fsw_bpms_integration.domain" export="true"/>
+-----
+
+[start=4]
+. Save the changes to the file
+. Restart your OpenShift BPM Suite 6 instance
+
+=== Clone this reference architecture in BPM Suite 6
+This reference architecture uses a simple business process that includes a human task node followed by a RESTful _Service Task_ .
+
+image::images/processTier_bpmn.png[]
+
+Use the following steps to clone this reference architecture in BPM Suite 6:
+
+. Create an *Organization and clone this project's git repository in your BPM Suite 6 server
+.. Select `Authoring` -> `Administration`
+.. Select `Organizational Units` -> `Manage Organizational Units`
+.. Under `Organizational Unit Manager`, select the `Add` button
+.. Enter a name of _gpe_ and an owner of _jboss_. Click `Ok`
+. Clone this fsw_bpms_integration repository in BPM Suite 6
+.. Select `Repositories` -> `Clone Repository` .  Populate the _Clone Repository_ box as follows and then click _Clone_ :
+
+image::images/clone_repo.png[]
+
+Enter _fswbpmsintegration_ as the value of the _repository name_.  The _Git URL_ is the URL to this git project in github:
+
+-----
+https://github.com/jboss-gpe-ref-archs/fsw_bpms_integration.git
+-----
+
+Once successfully cloned, BPM Suite 6 will pop-up a new dialog box with the message:  _The repository is cloned successfully_
+
+=== Modify parameters of RESTful Service Task
+
+* In the _policyQuoteProcessMap_ process definition, click the last node entitled: _POST Review Results_.
+* In the _Properties_ section of the BPM Designer, click the _Assignments_ property such that the _Editor for Data Assignments_ pop-up appears:
+
+image::images/mod_service_task.png[]
+
+* Fill in the values for each _Assignment_ as follows:
+
+. `Url`   :   http://<your_fsw_server_address>/
+. `ConnectTimeout`  :   5000
+. `Password`  :   jboss
+. `Username`  :   brms
+. `Method`    :   POST
+. `ReadTimeout`    :   5000
+
+
+
+
+=== Deploy `processTier` KIE project in BPM Suite 6
 
 === Exception Handling
 * https://bugzilla.redhat.com/show_bug.cgi?id=1091061
