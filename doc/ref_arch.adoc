@@ -5,7 +5,8 @@
 :fswcart: link:https://github.com/jboss-gpe-ose/openshift-origin-cartridge-fsw-full[Red Hat GPE's FSW cartridge]
 :bpmproduct: link:https://access.redhat.com/site/documentation/en-US/Red_Hat_JBoss_BPM_Suite/[Red Hat's BPM Suite 6 product]
 :fswproduct: link:https://access.redhat.com/site/documentation/en-US/Red_Hat_JBoss_Fuse_Service_Works/[Red Hat's FSW product]
-:osetools: link:https://access.redhat.com/site/documentation/en-US/OpenShift_Enterprise/2/html/Client_Tools_Installation_Guide/index.html[Openshift Enterprise Client Tools]
+:osetools: link:https://access.redhat.com/site/documentation/en-US/OpenShift_Enterprise/2/html/Client_Tools_Installation_Guide/index.html[Openshift Enterprise Client Tools]
+:remotejavaapi: link:https://access.redhat.com/site/documentation/en-US/Red_Hat_JBoss_BPM_Suite/6.0/html-single/Development_Guide/index.html#sect-Remote_Java_API[Remote Java API Client]
 
 image::images/rhheader.png[width=900]
 
@@ -14,12 +15,14 @@ image::images/rhheader.png[width=900]
 == Fuse Service Works / BPM Suite 6 Integration
 
 == Overview
+
+=== BPM and SOA
 Many enterprise software applications leverage a Business Process Management (BPM) tool.
 The BPM solution maintains and manages the state of long-running business processes.
 In an enterprise software application that leverages a BPM tool, it is highly recommended that business services continue to be implemented independent of the BPM tool and in adherence to SOA.
 In particular, these business services should be course-grained, re-usable, contract-based, stateless and be exposed by standards based protocols.
 During the lifecycle of a business process instance, nodes of that process instance should invoke the remote services that encapsulate the business logic.
-Correspondingly, these business services should drive the lifecylce of process instances by invoking APIs provided by the BPM tool.
+Correspondingly, these business services should drive the lifecycle of process instances by invoking APIs provided by the BPM tool.
 
 This _xPaaS_ reference architecture demonstrates a _process tier_ and _service tier_ interacting with each-other.
 Specifically, a SwitchYard SCA application drives the life-cycle of a BPMN2 process instance whose state is managed remotely by BPM Suite 6.
@@ -28,6 +31,31 @@ The _process tier_ is implemented in a Red Hat Openshift _gear_ provisioned with
 The _service tier_ is implemented in a Red Hat Openshift _gear_ provisioned with Red Hat JBoss Fuse Service Works 6.
 
 image::images/dep_arch.png[]
+
+=== Standard REST Transport
+Of potential interest to readers of this reference architecture are the SwitchYard SCA _Composite References_ that invoke the _Execution Server_ of BPM Suite 6.
+These composite references (called:  PInstnaceLifecycle and TaskLifecycle) leverage the stock RESTEasy bindings that come included in SwitchYard.
+An alternative approach to using the SwitchYard RESTEasy bindings is the {remotejavaapi} provided by BPM Suite 6.
+The use of the BPM Suite 6 Remote Java Client API was not used in this reference architecture for the following reasons:
+
+. avoid library version incompatibilities between Fuse Service Works and BPM Suite 6.
+. emphasize the ability to invoke the BPM Suite 6 Execution Server in using a language-agnostic, standards based API and transport
+
+=== Short and Long Running Process Instances
+Fuse Service Works includes a _BPM Component_ that allows for BPMN process instances to be executed within the scope of a SwitchYard application.
+Specifically, the BPM Component of FSW allows for starting and signalling of process instances from BPMN2 process definitions that are bundled in the SwitchYard application.
+The BPM Component allows allows for invoking a limited subset of Human Task APIs for those process definitions that include a Human Task node.
+
+In general, the use of the SwitchYard BPM Component tends to be useful when BPMN2 process definitions do not include a wait-state node.
+Without a wait-state node, database persistence can be disabled.
+Subsequently, execution of the process instance that is embedded in the SwitchYard application is very fast with a minimal resource foot-print.
+
+For long-running process instances, often times it is useful to manage those process instances by a headless, centrally deployed BPM Suite 6 environment.
+The Execution Server, process engine and Business Activity Monitoring components of BPM Suite 6 provide the full range of capabilities needed to manage long running processes.
+The focus of this reference architecture is on this latter scenario:  long-running BPMN processes managed by a centrally deployed BPM Suite 6 environment and invoked by remote clients (specifically a SwitchYard application with REST composite reference bindings).
+
+
+
 
 == Pre-Requisites
 The remainder of this documentation provides instructions for installation, configuration and execution of this reference architecture.
@@ -203,10 +231,15 @@ This section describes the procedure to create this business queue in your FSW e
 === FSW:  Deploy _processLifecycleMgmt_ SwitchYard application
 image::images/processMgmt-app.png[]
 
-The purpose of the _processLifecycleMgmt_ application is to demonstrate execution of the lifecycle of a remote process instance from SwitchYard.
-_processLifecycleMgmt_ is a SwitchYard application that consumes a message from a queue and executes through the entire life-cycle of a process instance.
-It utilizes the two system properties previously defined to invoke the Execution Server of the BPM Suite 6 enabled Openshift environment.
-The _processLifecycleMgmt_ SwitchYard application was built previously when this entire reference architecture was built using maven in your local environment.
+The purpose of the _processLifecycleMgmt_ application is to demonstrate a SwitchYard application as a client driving the lifecylce of a remote process instance.
+Two SCA _Composite References_ are used to drive the life-cycle of a process instance:
+
+. PInstanceLifecycle    : can invoke BPM Suite 6 Execution APIs to start and signal a process instance
+. TaskLifecylce         : can invoke BPM Suite 6 Execution APIs to query, claim, start and complete human tasks
+
+Import the serviceTier/processLifecycleMgmt project into JBoss Developer Studio (installed with the _Integration-Stack_ plugin) to view the details of these composite references.
+
+The _processLifecycleMgmt_ SwitchYard application was built previously when this as part of the original build of this reference architecture.
 Execute the following to deploy the _processLifecycleMgmt_ from your local environment to your FSW environment:
 
 .  Point your browser to the JBoss Management Console of your FSW enabled Openshift environment
@@ -265,8 +298,10 @@ Execute a smoke test of your deployed reference architecture via the following:
 .  mvn clean verify
 
 == To-Do
+* change such that org.acme.insurance domain model classes are added as maven dependencies to business-central.
 * specify role used to query for potential tasks
 * demonstrate invocation of the following BPM Suite 6 task operation:  claimnextavailable
+* implement ability to signal a process instance in the PInstanceLifecyle composite reference
 * error handling when substitution properties in URL of REST invocation are not valid
 ** currently rolls back outside of scope of ProcessMgmtBean
 ** causes multiple invocations of startProcess call)
