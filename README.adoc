@@ -18,4 +18,4 @@ With minimal changes, this reference architecture could also be applied to a non
 
 This reference architecture includes the following manual found {ref_arch_doc} .
 This reference architecture also includes both client and server-side source code to a scenario called
-_policyQuote_.  This _policyQuote_ scenario is referenced throughout the manual for this reference architecture.
+_policyQuote_.
