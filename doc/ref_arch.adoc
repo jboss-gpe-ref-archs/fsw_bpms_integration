@@ -181,6 +181,18 @@ image::images/sys_props_added.png[]
 
 The value of _bpms.exec.server.hostname_ should be replaced with the server address of your BPM Suite 6 enabled Openshift environment.
 
+=== FSW:  Create JMS Queue
+This reference architecture includes a SwitchYard application that consumes a message from a queue.
+The SwitchYard application uses data from the message to start and manage the lifecycle of remote BPM process instances.
+This section describes the procedure to create this business queue in your FSW enabled Openshift gear.
+
+. Open the JBoss EAP Management Conosle to your remote FSW enabled Openshift gear.
+. Navigate to:  Profile -> Subsystems -> Messaging -> Destinations -> Default -> View -> Queues/Topics -> Add
+. Populate the dialogue box as follows:
+.. Name : processMgmtQueue
+.. JNDI Names:  java:/queue/processMgmtQueue
+. Click the _Save_ button
+
 === FSW:  Deploy _processLifecycleMgmt_ SwitchYard application
 image::images/processMgmt-app.png[]
 
@@ -214,7 +226,36 @@ This time, however, select the following artifact to deploy:
 
 
 == Execution:
+Execution of this reference architecture begins with sending one or more messages to a business queue called _queue/processMgmtQueue_ .
+The JMS Client is located in the *$REF_ARCH_HOME/loadTest* directory of this reference architecture.
+The name of the class is *com.redhat.gpe.refarch.bpm_jms_exec_server.loadtest.JMSClient*.
+Note that this class also extends the JMeter AbstractJavaSamplerClient class.
+Use of JMeter with this reference architecture will be discussed in the next section of this documentation.
 
+=== Port-forward Hornetq port
+The HornetQ broker embedded in your remote FSW enabled Openshift environment listens by default on port 5445.
+This port is not open in an Openshift environment.
+Subsquently, port 5445 needs to be tunnelled using ssh from your local to your remote FSW environments.
+
+.Obtain the IP address for the OSE internal NIC
+----------
+ssh <ssh_url_to_your_fsw_openshift_environment> 'echo $OPENSHIFT_FSW_IP'
+----------
+
+.Port Forwarding command for HornetQ access
+----------
+ssh -N -L localhost:5445:<ipaddress from previous step>:5445 <ssh_url_to_your_fsw_openshift_environment>
+----------
+
+While the port forwarding process is running, the HornetQ broker can be accessed on the local computer at `localhost:5445`.
+Use `Ctrl+c` to kill port forwarding.
+
+=== Execute JMeter client
+By default, the configuration in $REF_ARCH_HOME/loadtest will direct JMeter to send one JMS message (from only one thread) to the JMS broker at localhost:5445.
+Execute a smoke test of your deployed reference architecture via the following:
+
+.  cd $REF_ARCH_HOME/loadtest
+.  mvn clean verify
 
 == To-Do
 * specify role used to query for potential tasks
