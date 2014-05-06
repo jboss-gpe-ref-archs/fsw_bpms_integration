@@ -12,3 +12,4 @@ target/
 *.nogit/
 *.html
 *.log
+*.attach*
