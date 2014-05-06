@@ -5,6 +5,7 @@
 :fswcart: link:https://github.com/jboss-gpe-ose/openshift-origin-cartridge-fsw-full[Red Hat GPE's FSW cartridge]
 :bpmproduct: link:https://access.redhat.com/site/documentation/en-US/Red_Hat_JBoss_BPM_Suite/[Red Hat's BPM Suite 6 product]
 :fswproduct: link:https://access.redhat.com/site/documentation/en-US/Red_Hat_JBoss_Fuse_Service_Works/[Red Hat's FSW product]
+:osetools: link:https://access.redhat.com/site/documentation/en-US/OpenShift_Enterprise/2/html/Client_Tools_Installation_Guide/index.html[Openshift Enterprise Client Tools]
 
 image::images/rhheader.png[width=900]
 
@@ -33,7 +34,9 @@ The remainder of this documentation provides instructions for installation, conf
 The following is a list of pre-requisites:
 
 . {osetools}
-. Openshift Enterprise 2.* environment that has been installed with {rpms} needed to support {cart}.  Contact the Red Hat GPE team for more details.
+. Openshift Enterprise 2.* environment that has been installed with {rpms} needed to support Red Hat GPE's BPM Suite 6 and FSW cartridges.
+Red Hat GPE's _Partner Demo System_ is one such environment.
+Contact the Red Hat GPE team for more details.
 . medium-sized Openshift Enterprise gear provisioned with {bpmcart} and mysql-5.
 . medium-sized Openshift Enterprise gear provisioned with {fswcart} and mysql-5.
 . ssh client
@@ -75,7 +78,11 @@ This directory contains the domain classes that will be referenced by other sub-
 Notice that the domain classes are annoted to enable serialization via Java Architecture for XML Binding (JAXB).
 
 In the previous step, the domain model library was built.
-These next steps involves installing the jar as a static module in both your FSW and BPM Suite 6 servers running in OpenShift.
+The next requirement is to install the domain model library as a static module in both your FSW and BPM Suite 6 servers running in OpenShift.
+The intent of deploying the domain model library as a static shared jboss module is to add the domain model libraries to the classpath of BPM Suite 6 Business-Central web application.
+In general, there are other approaches to adding libraries to the classpath of web applications that the user of this reference architecture could additionally explore.
+
+Execute the following steps for both your remote BPM Suite 6 and FSW OpenShit gears:
 
 . `cd $REF_ARCH_HOME`
 . `scp -r domain/conf/com <your_openshift_url>:~/app-root/data/appModules/`
