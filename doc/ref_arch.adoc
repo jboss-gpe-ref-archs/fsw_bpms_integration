@@ -21,8 +21,8 @@ Many enterprise software applications leverage a Business Process Management (BP
 The BPM solution maintains and manages the state of long-running business processes.
 In an enterprise software application that leverages a BPM tool, it is highly recommended that business services continue to be implemented independent of the BPM tool and in adherence to SOA.
 In particular, these business services should be course-grained, re-usable, contract-based, stateless and be exposed by standards based protocols.
-During the lifecycle of a business process instance, nodes of that process instance should invoke the remote services that encapsulate the business logic.
-Correspondingly, these business services should drive the lifecycle of process instances by invoking APIs provided by the BPM tool.
+During the life-cycle of a business process instance, nodes of that process instance should invoke the remote services that encapsulate the business logic.
+Correspondingly, these business services should drive the life-cycle of process instances by invoking APIs provided by the BPM tool.
 
 This _xPaaS_ reference architecture demonstrates a _process tier_ and _service tier_ interacting with each-other.
 Specifically, a SwitchYard SCA application drives the life-cycle of a BPMN2 process instance whose state is managed remotely by BPM Suite 6.
@@ -43,7 +43,7 @@ The use of the BPM Suite 6 Remote Java Client API was not used in this reference
 
 === Short and Long Running Process Instances
 Fuse Service Works includes a _BPM Component_ that allows for BPMN process instances to be executed within the scope of a SwitchYard application.
-Specifically, the BPM Component of FSW allows for starting and signalling of process instances from BPMN2 process definitions that are bundled in the SwitchYard application.
+Specifically, the BPM Component of FSW allows for starting and signaling of process instances from BPMN2 process definitions that are bundled in the SwitchYard application.
 The BPM Component allows allows for invoking a limited subset of Human Task APIs for those process definitions that include a Human Task node.
 
 In general, the use of the SwitchYard BPM Component tends to be useful when BPMN2 process definitions do not include a wait-state node.
@@ -75,7 +75,7 @@ Contact the Red Hat GPE team for more details.
 . proficiency with basic *nix command line
 . proficiency with vi
 
-As is evidenced by these pre-requisites, the assumed BPM Suite 6 runtime environment for this reference architecture documentation is an Openshift Enterprise gear.
+As is evidenced by these pre-requisites, the assumed BPM Suite 6 run-time environment for this reference architecture documentation is an Openshift Enterprise gear.
 However, BPM Suite 6 and Fuse Service Works can be installed in non-PaaS local environments.
 Thus it could be possible to execute this reference architecture in a non-PaaS local environment as well.
 
@@ -103,14 +103,14 @@ To build the various sub-projects, execute the following:
 === local: Domain model library deployment to Openshift Environments
 In $REF_ARCH_HOME, there is a directory called `domain`.
 This directory contains the domain classes that will be referenced by other sub-projects of this reference architecture.
-Notice that the domain classes are annoted to enable serialization via Java Architecture for XML Binding (JAXB).
+Notice that the domain classes are annotated to enable serialization via Java Architecture for XML Binding (JAXB).
 
 In the previous step, the domain model library was built.
 The next requirement is to install the domain model library as a static module in both your FSW and BPM Suite 6 servers running in OpenShift.
-The intent of deploying the domain model library as a static shared jboss module is to add the domain model libraries to the classpath of BPM Suite 6 Business-Central web application.
-In general, there are other approaches to adding libraries to the classpath of web applications that the user of this reference architecture could additionally explore.
+The intent of deploying the domain model library as a static shared JBoss module is to add the domain model libraries to the class-path of BPM Suite 6 Business-Central web application.
+In general, there are other approaches to adding libraries to the class-path of web applications that the user of this reference architecture could additionally explore.
 
-Execute the following steps for both your remote BPM Suite 6 and FSW OpenShit gears:
+Execute the following steps for both your remote BPM Suite 6 and FSW OpenShift gears:
 
 . `cd $REF_ARCH_HOME`
 . `scp -r domain/conf/com <your_openshift_url>:~/app-root/data/appModules/`
@@ -119,7 +119,7 @@ Execute the following steps for both your remote BPM Suite 6 and FSW OpenShit ge
 == Configuration and Deployment:  BPM Suite 6 
 
 === BPM Suite 6:  Define explicit dependency
-In the previous step, the jaxb annotated domain classes were deployed to both the FSW and BPM Suite 6 enabled Openshift gears.
+In the previous step, the JAXB annotated domain classes were deployed to both the FSW and BPM Suite 6 enabled Openshift gears.
 This step involves adding an explicit dependency to the BPM Suite 6 _Business-Central_ web application that references this static module.
 
 . ssh <your_bpms_openshift_url>
@@ -135,8 +135,8 @@ This step involves adding an explicit dependency to the BPM Suite 6 _Business-Ce
 . Restart your OpenShift BPM Suite 6 instance
 
 === BPM Suite 6:  Clone this reference architecture
-This reference architecture includes a business process called _policyQuoteProcessMap_ that includes a human task node followed by a RESTful _Service Task_ .
-It is this process whose lifecycle will be managed remotely via the Execution Server of BPM Suite 6.
+This reference architecture includes a business process called _policyQuoteProcessMap_ that includes a human task node followed by a Restful _Service Task_ .
+It is this process whose life-cycle will be managed remotely via the Execution Server of BPM Suite 6.
 
 image::images/processTier_bpmn.png[]
 
@@ -145,7 +145,7 @@ Use the following steps to clone this reference architecture in BPM Suite 6:
 . Log into the Business-Central web application of BPM Suite 6 and navigate to:  Authoring -> Administration.
 . Select `Organizational Units` -> `Manage Organizational Units`
 . Under `Organizational Unit Manager`, select the `Add` button
-. Enter a name of _gpe_ and an owner of _jboss_. Click `Ok`
+. Enter a name of _gpe_ and an owner of _jboss_. Click `OK`
 . Clone this fsw_bpms_integration repository in BPM Suite 6
 .. Select `Repositories` -> `Clone Repository` .  
 .. Populate the _Clone Repository_ box as follows and then click _Clone_ :
@@ -193,7 +193,7 @@ image::images/mod_service_task.png[]
 ** A light-green pop-up should appear indicating: _Build Successful_
 
 The _org.acme.insurance:policyquote:1.0_ KIE project is now deployed as a maven artifact in your remote BPM Suite 6 environment and is registered with the embedded _Execution Server_.
-The lifecycle of the project's business processes can now be remotely driven through the REST API of the _Execution Server_.
+The life-cycle of the project's business processes can now be remotely driven through the REST API of the _Execution Server_.
 The next requirement to execute this reference architecture is to configure services in your remote FSW enabled Openshift environment.
 
 
@@ -218,10 +218,10 @@ The value of _bpms.exec.server.hostname_ should be replaced with the server addr
 
 === FSW:  Create JMS Queue
 This reference architecture includes a SwitchYard application that consumes a message from a queue.
-The SwitchYard application uses data from the message to start and manage the lifecycle of remote BPM process instances.
+The SwitchYard application uses data from the message to start and manage the life-cycle of remote BPM process instances.
 This section describes the procedure to create this business queue in your FSW enabled Openshift gear.
 
-. Open the JBoss EAP Management Conosle to your remote FSW enabled Openshift gear.
+. Open the JBoss EAP Management Console to your remote FSW enabled Openshift gear.
 . Navigate to:  Profile -> Subsystems -> Messaging -> Destinations -> Default -> View -> Queues/Topics -> Add
 . Populate the dialogue box as follows:
 .. Name : processMgmtQueue
@@ -231,7 +231,7 @@ This section describes the procedure to create this business queue in your FSW e
 === FSW:  Deploy _processLifecycleMgmt_ SwitchYard application
 image::images/processMgmt-app.png[]
 
-The purpose of the _processLifecycleMgmt_ application is to demonstrate a SwitchYard application as a client driving the lifecylce of a remote process instance.
+The purpose of the _processLifecycleMgmt_ application is to demonstrate a SwitchYard application as a client driving the lifecycle of a remote process instance.
 Two SCA _Composite References_ are used to drive the life-cycle of a process instance:
 
 . PInstanceLifecycle    : can invoke BPM Suite 6 Execution APIs to start and signal a process instance
@@ -275,7 +275,7 @@ Use of JMeter with this reference architecture will be discussed in the next sec
 === Port-forward Hornetq port
 The HornetQ broker embedded in your remote FSW enabled Openshift environment listens by default on port 5445.
 This port is not open in an Openshift environment.
-Subsquently, port 5445 needs to be tunnelled using ssh from your local to your remote FSW environments.
+Subsequently, port 5445 needs to be tunneled using ssh from your local to your remote FSW environments.
 
 .Obtain the IP address for the OSE internal NIC
 ----------
