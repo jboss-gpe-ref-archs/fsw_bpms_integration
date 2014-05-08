@@ -100,21 +100,18 @@ To build the various sub-projects, execute the following:
 . cd $REF_ARCH_HOME
 . mvn clean install
 
-=== local: Domain model library deployment to Openshift Environments
+=== local: Domain model library deployment to FSW enabled Openshift gear
 In $REF_ARCH_HOME, there is a directory called `domain`.
 This directory contains the domain classes that will be referenced by other sub-projects of this reference architecture.
 Notice that the domain classes are annotated to enable serialization via Java Architecture for XML Binding (JAXB).
 
-In the previous step, the domain model library was built.
-The next requirement is to install the domain model library as a static module in both your FSW and BPM Suite 6 servers running in OpenShift.
-The intent of deploying the domain model library as a static shared JBoss module is to add the domain model libraries to the class-path of BPM Suite 6 Business-Central web application.
-In general, there are other approaches to adding libraries to the class-path of web applications that the user of this reference architecture could additionally explore.
-
-Execute the following steps for both your remote BPM Suite 6 and FSW OpenShift gears:
+In the previous step, the domain model library was built in your local environment.
+The next requirement is to install the domain model library as a static module in your FSW enabled OpenShift gear.
+The intent of deploying the domain model library as a static shared JBoss module is to make it available on the classpath of all of your SwitchYard applications.
 
 . `cd $REF_ARCH_HOME`
-. `scp -r domain/conf/com <your_openshift_url>:~/app-root/data/appModules/`
-. `scp domain/target/domain-1.0.jar    <ssh_url_to_your_openshift_environment>:~/app-root/data/appModules/com/redhat/gpe/refarch/fsw_bpms_integration/domain/main/`
+. `scp -r domain/conf/com <your_fsw_openshift_url>:~/app-root/data/appModules/`
+. `scp domain/target/domain-1.0.jar    <ssh_url_to_your_fsw_openshift_environment>:~/app-root/data/appModules/com/redhat/gpe/refarch/fsw_bpms_integration/domain/main/`
 
 == Configuration and Deployment:  BPM Suite 6 
 
@@ -160,6 +157,24 @@ https://github.com/jboss-gpe-ref-archs/fsw_bpms_integration.git
 -----
 
 Once successfully cloned, BPM Suite 6 will pop-up a new dialog box with the message:  _The repository is cloned successfully_
+
+=== BPM Suite 6:  Add domain-model jar to classpath of _processTier_ project
+Previously, this reference architecture's domain model was deployed to your FSW enabled Openshift gear as a shared static module.
+This same approach could have been used to make available the domain model classes to the business-central web application of BPM Suite 6.
+An alternative approach however specific to BPM Suite 6 is the ability to manually upload libraries to it's _Artifact Repository_ and then define dependencies in the KIE project to those newly  uploaded libraries.
+
+. In your browser, navigate to :   Authoring -> Project Authoring .  Several exceptions related to the inability to find domain model classes should appear in the _Problems_ window.  This is to be expected at this time.
+. navigate to :  Authoring -> Artifact Repository -> Upload
+. In the _Artifact upload_ pop-up, select _Choose File_ and navigate to $REF_ARCH_HOME/domain/target/domain-1.0.jar in your local environment.
+. Click Upload
+
+image::images/uploaded_domain.png[]
+
+[start=5]
+. navigate to :  Authoring -> Project Authoring -> Tools -> Project Editor -> Dependencies:  Dependencies list
+. click:  _Add from repository_ and click _Select_ on the newly uploaded _domain-1.0.jar_ library.
+. click _Save_ and notice that upon doing so, the previous class not found related problems are resolved.
+
 
 === BPM Suite 6:  Modify parameters of RESTful Service Task
 The _policyQuoteProcessMap_ process includes as its last node a RESTful Service Task.
