@@ -7,6 +7,7 @@
 :fswproduct: link:https://access.redhat.com/site/documentation/en-US/Red_Hat_JBoss_Fuse_Service_Works/[Red Hat's FSW product]
 :osetools: link:https://access.redhat.com/site/documentation/en-US/OpenShift_Enterprise/2/html/Client_Tools_Installation_Guide/index.html[Openshift Enterprise Client Tools]
 :remotejavaapi: link:https://access.redhat.com/site/documentation/en-US/Red_Hat_JBoss_BPM_Suite/6.0/html-single/Development_Guide/index.html#sect-Remote_Java_API[Remote Java API Client]
+:executionserver: link:https://access.redhat.com/site/documentation/en-US/Red_Hat_JBoss_BPM_Suite/6.0/html-single/Development_Guide/index.html#chap-REST_API[Exection Server]
 
 image::images/rhheader.png[width=900]
 
@@ -36,10 +37,27 @@ image::images/dep_arch.png[]
 Of potential interest to readers of this reference architecture are the SwitchYard SCA _Composite References_ that invoke the _Execution Server_ of BPM Suite 6.
 These composite references (called:  PInstnaceLifecycle and TaskLifecycle) leverage the stock RESTEasy bindings that come included in SwitchYard.
 An alternative approach to using the SwitchYard RESTEasy bindings is the {remotejavaapi} provided by BPM Suite 6.
-The use of the BPM Suite 6 Remote Java Client API was not used in this reference architecture for the following reasons:
+The use of the BPM Suite 6 Remote Java Client API is not used in this reference architecture for the following reasons:
 
-. avoid library version incompatibilities between Fuse Service Works and BPM Suite 6.
+. avoidance of library version incompatibilities between Fuse Service Works and BPM Suite 6.
 . emphasize the ability to invoke the BPM Suite 6 Execution Server in using a language-agnostic, standards based API and transport
+
+BPM Suite 6 provides an {executionserver} to interact remotely with the following run-time functionality:
+
+.  BPM Suite 6 Artifact Repository
+.  Deployment Unit management
+.  Process, Human Task and Rules engines (also known as:  Runtime REST API)
+
+The scope of this reference architecture is limited to interaction with the Process and Human Task engines only.
+
+The _Runtime REST API_ allows for various styles of invocation and content types:
+
+. _Runtime operations_ : conventional REST API that accepts a payload of either _application/xml_ or _application/json_ content-type and whose responses are of type _application/xml_
+. _Execute operations_ : generic XML/HTTP API that leverages a BPM Suite 6 Execution Server _CommandObject_ type
+
+On advantage of the _Execute operations_ approach is that it is the only option for sending multiple commands in a single invocation.
+The current version of this reference architecture is focused on use of the _Runtime operations_ approach only.
+A future version of this reference architecture will also demonstrate use of the _Execute operations_.
 
 === Short and Long Running Process Instances
 Fuse Service Works includes a _BPM Component_ that allows for BPMN process instances to be executed within the scope of a SwitchYard application.
