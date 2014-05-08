@@ -7,13 +7,6 @@
   <version>1.0</version>
   <packaging>kjar</packaging>
   <name>processTier</name>
-  <dependencies>
-    <dependency>
-      <groupId>com.redhat.gpe.refarch.fsw_bpms_integration</groupId>
-      <artifactId>domain</artifactId>
-      <version>1.0</version>
-    </dependency>
-  </dependencies>
   <repositories>
     <repository>
       <id>guvnor-m2-repo</id>
