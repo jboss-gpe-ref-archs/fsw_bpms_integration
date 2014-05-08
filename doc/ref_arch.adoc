@@ -173,11 +173,16 @@ An alternative approach however specific to BPM Suite 6 is the ability to manual
 image::images/uploaded_domain.png[]
 
 [start=5]
-. navigate to :  Authoring -> Project Authoring -> Tools -> Project Editor -> Dependencies:  Dependencies list
-. click:  _Add from repository_ and followed by _Select_ on the newly uploaded _domain-1.0.jar_ library.
-. click _Save_ and notice that upon doing so, the previous class not found related problems are resolved.
+. navigate to:  Authoring -> Project Authoring -> Tools -> Project Editor -> Dependencies:  Dependencies list.
+. click:  _Add from repository_ followed by _Select_ on the newly uploaded _domain-1.0.jar_ library.
+. click _Save_ .
 
 image::images/add_domain_dep.png[]
+
+
+Notice that upon saving the _processTier_ project, the previous class related problems are now resolved.
+
+
 
 
 === BPM Suite 6:  Modify parameters of RESTful Service Task
