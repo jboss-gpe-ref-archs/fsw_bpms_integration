@@ -115,22 +115,6 @@ The intent of deploying the domain model library as a static shared JBoss module
 
 == Configuration and Deployment:  BPM Suite 6 
 
-=== BPM Suite 6:  Define explicit dependency
-In the previous step, the JAXB annotated domain classes were deployed to both the FSW and BPM Suite 6 enabled Openshift gears.
-This step involves adding an explicit dependency to the BPM Suite 6 _Business-Central_ web application that references this static module.
-
-. ssh <your_bpms_openshift_url>
-. Edit the following file:  `~/bpms/standalone/deployments/business-central.war/WEB-INF/jboss-deployment-structure.xml`
-.. Add the following to the list of dependencies:
-
------
-<module name="com.redhat.gpe.refarch.fsw_bpms_integration.domain" export="true"/>
------
-
-[start=4]
-. Save the changes to the file
-. Restart your OpenShift BPM Suite 6 instance
-
 === BPM Suite 6:  Clone this reference architecture
 This reference architecture includes a business process called _policyQuoteProcessMap_ that includes a human task node followed by a Restful _Service Task_ .
 It is this process whose life-cycle will be managed remotely via the Execution Server of BPM Suite 6.
