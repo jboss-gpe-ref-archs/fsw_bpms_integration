@@ -34,15 +34,18 @@ The _service tier_ is implemented in a Red Hat Openshift _gear_ provisioned with
 image::images/dep_arch.png[]
 
 === Standard REST Transport
+
+==== SwitchYard Application Client
 Of potential interest to readers of this reference architecture are the SwitchYard SCA _Composite References_ that invoke the _Execution Server_ of BPM Suite 6.
-These composite references (called:  PInstnaceLifecycle and TaskLifecycle) leverage the stock RESTEasy bindings that come included in SwitchYard.
+These composite references (called:  PInstanceLifecycle and TaskLifecycle) leverage the stock RESTEasy bindings that come included in SwitchYard.
 An alternative approach to using the SwitchYard RESTEasy bindings is the {remotejavaapi} provided by BPM Suite 6.
 The use of the BPM Suite 6 Remote Java Client API is not used in this reference architecture for the following reasons:
 
 . avoidance of library version incompatibilities between Fuse Service Works and BPM Suite 6.
-. emphasize the ability to invoke the BPM Suite 6 Execution Server in using a language-agnostic, standards based API and transport
+. emphasis on the ability to invoke the BPM Suite 6 Execution Server in using a language-agnostic, standards based API and transport
 
-BPM Suite 6 provides an {executionserver} to interact remotely with the following run-time functionality:
+==== BPM Suite 6 Execution Server
+BPM Suite 6 provides an {executionserver} to allow for remote interaction with the following run-time functionality:
 
 .  BPM Suite 6 Artifact Repository
 .  Deployment Unit management
