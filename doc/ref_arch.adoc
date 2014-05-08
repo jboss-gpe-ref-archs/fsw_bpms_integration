@@ -156,8 +156,10 @@ image::images/uploaded_domain.png[]
 
 [start=5]
 . navigate to :  Authoring -> Project Authoring -> Tools -> Project Editor -> Dependencies:  Dependencies list
-. click:  _Add from repository_ and click _Select_ on the newly uploaded _domain-1.0.jar_ library.
+. click:  _Add from repository_ and followed by _Select_ on the newly uploaded _domain-1.0.jar_ library.
 . click _Save_ and notice that upon doing so, the previous class not found related problems are resolved.
+
+image::images/add_domain_dep.png[]
 
 
 === BPM Suite 6:  Modify parameters of RESTful Service Task
