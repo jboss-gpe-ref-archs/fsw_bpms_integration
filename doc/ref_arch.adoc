@@ -173,7 +173,7 @@ Once successfully cloned, BPM Suite 6 will pop-up a new dialog box with the mess
 === BPM Suite 6:  Add domain-model jar to classpath of _processTier_ project
 Previously, this reference architecture's domain model was deployed to your FSW enabled Openshift gear as a shared static module.
 This same approach could have been used to make available the domain model classes to the business-central web application of BPM Suite 6.
-An alternative approach however specific to BPM Suite 6 is the ability to manually upload libraries to it's _Artifact Repository_ and then define dependencies in the KIE project to those newly  uploaded libraries.
+BPM Suite 6 however provides the ability to manually upload libraries to it's _Artifact Repository_ and then define dependencies in the KIE project to those newly  uploaded libraries.
 
 . In your browser, navigate to :   Authoring -> Project Authoring .  Several exceptions related to the inability to find domain model classes should appear in the _Problems_ window.  This is to be expected at this time.
 . navigate to :  Authoring -> Artifact Repository -> Upload
