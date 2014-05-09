@@ -50,29 +50,36 @@ BPM Suite 6 provides an {executionserver} to allow for remote interaction with t
 
 .  BPM Suite 6 Artifact Repository
 .  Deployment Unit management
-.  Process, Human Task and Rules engines (also known as:  Runtime REST API)
+.  Process, Human Task and Rules engines (this functionality is also known as:  Runtime REST API)
 
-The scope of this reference architecture is limited to interaction with the Process and Human Task engines only.
+The scope of this reference architecture is limited to interaction with the Process and Human Task engines only via the _Runtime REST API.
 
 The _Runtime REST API_ provided by the BPM Suite 6 Execution Server allows for a couple of styles of invocation and content types:
 
-. _Runtime operations_ : conventional REST API that accepts a payload of whose content-type is either _application/xml_ or _application/json_. Responses back to the HTTP client are of type:  _application/xml_
-. _Execute operations_ : XML over HTTP style API that requires a proprietary payload called the: _CommandObject_ .  
+. _Runtime operations_ : conventional REST API that accepts a payload whose content-type is either _application/xml_ or _application/json_. Responses back to the HTTP client are of type:  _application/xml_
+. _Execute operations_ : XML over HTTP style API that requires a Execution Server specific payload called the: _CommandObject_ .  
 
-On advantage of the _Execute operations_ approach is that it is the only option for sending multiple commands in a single invocation.
+One advantage of the _Execute operations_ approach is that it is the only option for sending multiple commands in a single invocation.
 The current version of this reference architecture is focused on use of the _Runtime operations_ approach only.
 A future version of this reference architecture will also demonstrate use of the _Execute operations_ approach.
 
-=== Short and Long Running Process Instances
+=== Appropriate use of the FSW _BPM Component_
 Fuse Service Works includes a _BPM Component_ that allows for BPMN process instances to be executed within the scope of a SwitchYard application.
-Specifically, the BPM Component of FSW allows for starting and signaling of process instances from BPMN2 process definitions that are bundled in the SwitchYard application.
-The BPM Component allows allows for invoking a limited subset of Human Task APIs for those process definitions that include a Human Task node.
+Specifically, the BPM Component of FSW allows for starting and signaling of process instances from BPMN2 process definitions that are bundled in those SwitchYard applications.
+The FSW BPM Component however is not intended to be a BPM product.
+A few considerations regarding its use are as follows:
+. The FSW BPM Component allows for invoking only a limited subset of Human Task APIs (for those process definitions that include a Human Task node).
+. Does not include Business Activity Monitoring tooling
+. Does not include any of the web tooling found in the Business-Central web application of BPM Suite 6
+. Its use still requires a subscription to the BPM Suite 6 product
 
-In general, the use of the SwitchYard BPM Component tends to be useful when BPMN2 process definitions do not include a wait-state node.
+In general, the FSW BPM Component tends to be useful when BPMN2 process definitions that tend to be short-lived and do not include a wait-state node.
 Without a wait-state node, database persistence can be disabled.
 Subsequently, execution of the process instance that is embedded in the SwitchYard application is very fast with a minimal resource foot-print.
+The process instance begins and completes within the the scope of a request to its SwitchYard application.
+Tooling used to create the BPMN2 process definition is typically via the jbpm plugin (bundled as part of the  Integration Stack suite of plugins) for JBoss Developer Studio.
 
-For long-running process instances, often times it is useful to manage those process instances by a headless, centrally deployed BPM Suite 6 environment.
+For long-running process instances, often times it is useful to manage those process instances in centrally deployed, highly available BPM Suite 6 environment.
 The Execution Server, process engine and Business Activity Monitoring components of BPM Suite 6 provide the full range of capabilities needed to manage long running processes.
 The focus of this reference architecture is on this latter scenario:  long-running BPMN processes managed by a centrally deployed BPM Suite 6 environment and invoked by remote clients (specifically a SwitchYard application with REST composite reference bindings).
 
@@ -94,12 +101,11 @@ Contact the Red Hat GPE team for more details.
 . git client
 . familiarity with {bpmproduct}
 . familiarity with {fswproduct}
-. proficiency with basic *nix command line
-. proficiency with vi
+. proficiency with the _bash_ shell 
 
-As is evidenced by these pre-requisites, the assumed BPM Suite 6 run-time environment for this reference architecture documentation is an Openshift Enterprise gear.
+As is evidenced by these pre-requisites, the assumed BPM Suite 6 run-time environment for this reference architecture is an Openshift Enterprise gear.
 However, BPM Suite 6 and Fuse Service Works can be installed in non-PaaS local environments.
-Thus it could be possible to execute this reference architecture in a non-PaaS local environment as well.
+Thus, with some adjustments, it could be possible to execute this reference architecture in a non-PaaS local environment as well.
 
 == Configuration and Deployment : Local Environment
 
