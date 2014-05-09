@@ -68,6 +68,7 @@ Fuse Service Works includes a _BPM Component_ that allows for BPMN process insta
 Specifically, the BPM Component of FSW allows for starting and signaling of process instances from BPMN2 process definitions that are bundled in those SwitchYard applications.
 The FSW BPM Component however is not intended to be a BPM product.
 A few considerations regarding its use are as follows:
+
 . The FSW BPM Component allows for invoking only a limited subset of Human Task APIs (for those process definitions that include a Human Task node).
 . Does not include Business Activity Monitoring tooling
 . Does not include any of the web tooling found in the Business-Central web application of BPM Suite 6
