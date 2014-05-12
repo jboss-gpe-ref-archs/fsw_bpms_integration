@@ -1,7 +1,7 @@
 :data-uri:
 :toc2:
 :rpms: link:https://github.com/jboss-gpe-ose/jboss_bpm_soa_rpmbuild[RPMs]
-:bpmcart: link:https://github.com/jboss-gpe-ose/openshift-origin-cartridge-bpms-full[Red Hat GPE's BPM Suite 6 cartridge]
+:bpmcart: link:https://github.com/jboss-gpe-ose/openshift-origin-cartridge-bpms-full/blob/master/doc/cart_doc.adoc[Red Hat GPE's BPM Suite 6 cartridge]
 :fswcart: link:https://github.com/jboss-gpe-ose/openshift-origin-cartridge-fsw-full[Red Hat GPE's FSW cartridge]
 :bpmproduct: link:https://access.redhat.com/site/documentation/en-US/Red_Hat_JBoss_BPM_Suite/[Red Hat's BPM Suite 6 product]
 :fswproduct: link:https://access.redhat.com/site/documentation/en-US/Red_Hat_JBoss_Fuse_Service_Works/[Red Hat's FSW product]
@@ -144,6 +144,8 @@ The intent of deploying the domain model library as a static shared JBoss module
 == Configuration and Deployment:  BPM Suite 6 
 
 === BPM Suite 6:  Clone this reference architecture
+This next section of the reference architecture assumes that you have an Openshift gear provisioned with BPM Suite 6 using {bpmcart}.
+
 This reference architecture includes a business process called _policyQuoteProcessMap_ that includes a human task node followed by a Restful _Service Task_ .
 It is this process whose life-cycle will be managed remotely via the Execution Server of BPM Suite 6.
 
@@ -232,6 +234,7 @@ The next requirement to execute this reference architecture is to configure serv
 
 
 == Configuration and Deployment:  Fuse Service Works
+This next section of the reference architecture assumes that you have an Openshift gear provisioned with Fuse Service Works using {fswcart}.
 
 === FSW:  Define System Properties
 This reference architecture includes SwitchYard applications that define composite reference bindings that invoke the _Execution Server_ of a remote BPM Suite 6 environment.
