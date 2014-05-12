@@ -68,6 +68,7 @@ Fuse Service Works includes a _BPM Component_ that allows for BPMN process insta
 Specifically, the BPM Component of FSW allows for starting and signaling of process instances from BPMN2 process definitions that are bundled in those SwitchYard applications.
 The FSW BPM Component however is not intended to be a BPM product.
 A few considerations regarding its use are as follows:
+
 . The FSW BPM Component allows for invoking only a limited subset of Human Task APIs (for those process definitions that include a Human Task node).
 . Does not include Business Activity Monitoring tooling
 . Does not include any of the web tooling found in the Business-Central web application of BPM Suite 6
@@ -76,7 +77,7 @@ A few considerations regarding its use are as follows:
 In general, the FSW BPM Component tends to be useful when BPMN2 process definitions that tend to be short-lived and do not include a wait-state node.
 Without a wait-state node, database persistence can be disabled.
 Subsequently, execution of the process instance that is embedded in the SwitchYard application is very fast with a minimal resource foot-print.
-The process instance begins and completes within the the scope of a request to its SwitchYard application.
+The process instance begins and completes within the same scope of the request that invoked the SwitchYard application.
 Tooling used to create the BPMN2 process definition is typically via the jbpm plugin (bundled as part of the  Integration Stack suite of plugins) for JBoss Developer Studio.
 
 For long-running process instances, often times it is useful to manage those process instances in centrally deployed, highly available BPM Suite 6 environment.
@@ -175,7 +176,7 @@ Once successfully cloned, BPM Suite 6 will pop-up a new dialog box with the mess
 === BPM Suite 6:  Add domain-model jar to classpath of _processTier_ project
 Previously, this reference architecture's domain model was deployed to your FSW enabled Openshift gear as a shared static module.
 This same approach could have been used to make available the domain model classes to the business-central web application of BPM Suite 6.
-An alternative approach however specific to BPM Suite 6 is the ability to manually upload libraries to it's _Artifact Repository_ and then define dependencies in the KIE project to those newly  uploaded libraries.
+BPM Suite 6 however provides the ability to manually upload libraries to it's _Artifact Repository_ and then define dependencies in the KIE project to those newly  uploaded libraries.
 
 . In your browser, navigate to :   Authoring -> Project Authoring .  Several exceptions related to the inability to find domain model classes should appear in the _Problems_ window.  This is to be expected at this time.
 . navigate to :  Authoring -> Artifact Repository -> Upload
