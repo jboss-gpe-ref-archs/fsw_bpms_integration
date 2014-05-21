@@ -80,7 +80,7 @@ Subsequently, execution of the process instance that is embedded in the SwitchYa
 The process instance begins and completes within the same scope of the request that invoked the SwitchYard application.
 Tooling used to create the BPMN2 process definition is typically via the jbpm plugin (bundled as part of the  Integration Stack suite of plugins) for JBoss Developer Studio.
 
-For long-running process instances, often times it is useful to manage those process instances in centrally deployed, highly available BPM Suite 6 environment.
+For long-running process instances, often times it is useful to manage those process instances in a centrally deployed, highly available BPM Suite 6 environment.
 The Execution Server, process engine and Business Activity Monitoring components of BPM Suite 6 provide the full range of capabilities needed to manage long running processes.
 The focus of this reference architecture is on this latter scenario:  long-running BPMN processes managed by a centrally deployed BPM Suite 6 environment and invoked by remote clients (specifically a SwitchYard application with REST composite reference bindings).
 
