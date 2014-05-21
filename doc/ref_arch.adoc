@@ -89,6 +89,17 @@ The focus of this reference architecture is on this latter scenario:  long-runni
 
 image::images/dep_arch.png[width=760]
 
+This reference architecture consists of various run-time components:
+
+==== OpenShift Enterprise 2.* FSW App
+to-do
+
+==== OpenShift Enterprise 2.* BPM Suite 6 App
+to-do
+
+==== Local Environment
+to-do
+
 
 == Pre-Requisites
 The remainder of this documentation provides instructions for installation, configuration and execution of this reference architecture.
