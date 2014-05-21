@@ -228,12 +228,12 @@ image::images/mod_service_task.png[]
 
 * Fill in the values for each _Assignment_ as follows:
 
-. `Url`   :   http://<your_fsw_server_address>/policyQuoteMgmt/policy
-. `ConnectTimeout`  :   5000
-. `Password`  :   jboss
-. `Username`  :   brms
-. `Method`    :   POST
-. `ReadTimeout`    :   5000
+. `Url`           is equal to   http://<your_fsw_server_address>/policyQuoteMgmt/policy
+. `Password`      is equal to   brms
+. `Username`      is equal to   jboss 
+. `Method`        is equal to   POST
+. `policyString`  is mapped to  Content
+. `ContentType`   is equal to   application/json
 
 
 * Save the changes to the process definition.
