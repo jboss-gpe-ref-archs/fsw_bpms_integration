@@ -31,7 +31,7 @@ To do so, the SwitchYard SCA application invokes the REST API of the BPM Suite 6
 The _process tier_ is implemented in a Red Hat Openshift _gear_ provisioned with Red Hat JBoss BPM Suite 6.
 The _service tier_ is implemented in a Red Hat Openshift _gear_ provisioned with Red Hat JBoss Fuse Service Works 6.
 
-image::images/dep_arch.png[]
+image::images/service_interation.png[]
 
 === Standard REST Transport
 
@@ -85,6 +85,9 @@ The Execution Server, process engine and Business Activity Monitoring components
 The focus of this reference architecture is on this latter scenario:  long-running BPMN processes managed by a centrally deployed BPM Suite 6 environment and invoked by remote clients (specifically a SwitchYard application with REST composite reference bindings).
 
 
+=== Deployment Architecture
+
+image:: images/dep_arch.png[width=760]
 
 
 == Pre-Requisites
