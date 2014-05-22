@@ -92,8 +92,7 @@ image::images/dep_arch.png[width=760]
 This reference architecture consists of various components:
 
 ==== OpenShift Enterprise 2.* FSW App
-For the purposes of this reference architecture, the Fuse Service Works product will execute in an OpenShift Enterprise 2 _application_.
-The FSW application will include the following :
+Your Fuse Service Works environment will consist of the following :
 
 . *mysql database* : leveraged by FSW for internal needs only.
 . *hornetq broker* : manages a queue called 'processMgmtQueue'.  
@@ -104,6 +103,7 @@ Contains the REST composite reference bindings that drives the life-cycle of a p
 Invoked as the final step of a remote business process.
 
 ==== OpenShift Enterprise 2.* BPM Suite 6 App
+Your BPM Suite 6 environment will consist of the following :
 
 . *Execution Server* : BPM Suite 6 component that provides both a REST and JMS API to the process and rules engines.
 For the purposes of this reference architecture, only the REST API will be invoked.
@@ -118,6 +118,7 @@ The domain model classes of this reference architecture will be made available t
 
 
 ==== Local Environment
+Your local environment will consist of the following :
 
 . *JBoss Developer Studio* : Eclipse based IDE containing the _Integration Stack_ suite of plugins.
 Used to develop SwitchYard applications to include the two apps used in this reference architecture:  _processMgmtTier_ and _policyQuote_.
