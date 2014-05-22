@@ -98,10 +98,10 @@ Your Fuse Service Works environment will consist of the following :
 . *hornetq broker* : manages a queue called 'processMgmtQueue'.  
 To initiate the reference architecture, a JMeter client pushes a message to this queue.
 Associated with this queue is a messageSelector of:  OPERATION = 'REST_API'.
-A message sent to this queue with a String property that matches this selector will get routed to the _processMgmt_ bean component of the _processMgmtTier_ SwitchYard application.
-. *processMgmtTier SwitchYard application* : primary focal point of this reference architecture.
+A message sent to this queue with a String property that matches this selector will get routed to the _processMgmt_ bean component of the _processLifecycleMgmt_ SwitchYard application.
+. *processLifecycleMgmt* SwitchYard app : primary focal point of this reference architecture.
 Contains the _ProcessMgmt_ component service and REST composite reference bindings that drive the life-cycle of a process instance and human task managed by remote BPM Suite 6 engines.
-. *policyQuote SwitchYard application* : simple RESTful service that executes some simple business logic.
+. *policyQuote* SwitchYard app : simple RESTful service that executes some simple business logic.
 Invoked as the final step of a remote business process.
 
 ==== OpenShift Enterprise 2.* BPM Suite 6 App
@@ -128,14 +128,14 @@ The domain model classes of this reference architecture will be made available t
 Your local environment will consist of the following :
 
 . *JBoss Developer Studio* : Eclipse based IDE containing the _Integration Stack_ suite of plugins.
-Used to develop SwitchYard applications to include the two apps used in this reference architecture:  _processMgmtTier_ and _policyQuote_.
+Used to develop SwitchYard applications to include the two apps used in this reference architecture:  _processLifecycleMgmt_ and _policyQuote_.
 . *JMeter* : load-harness tool used to initiate execution of this reference architecture.
 
 === Message Flow
 
 The previous section of this documenation introduced the various components that make up this reference architecture.
 With that in mind, the following is a sequence diagram that depicts the message flow between these components.
-Notice the significant involvement of the _ProcessMgmtTier_ SwitchYard application to invoke the remote Process and Human Task engines.
+Notice the significant involvement of the _ProcessLifecycleMgmt_ SwitchYard application to invoke the remote Process and Human Task engines.
 
 image::images/sequence_diagram.png[width=760]
 
@@ -287,6 +287,7 @@ The next requirement of this reference architecture is to configure services in 
 
 
 == Configuration and Deployment:  Fuse Service Works
+
 This next section of the reference architecture assumes that you have an Openshift gear provisioned with Fuse Service Works using {fswcart}.
 
 === FSW:  Define System Properties
@@ -321,14 +322,22 @@ This section describes the procedure to create this business queue in your FSW e
 === FSW:  Deploy _processLifecycleMgmt_ SwitchYard application
 image::images/processMgmt-app.png[]
 
+==== FSW: Understand _processLifecycleMgmt_ SY app
 The purpose of the _processLifecycleMgmt_ application is to demonstrate a SwitchYard application as a client driving the lifecycle of a remote process instance.
-Two SCA _Composite References_ are used to drive the life-cycle of a process instance:
 
-. PInstanceLifecycle    : can invoke BPM Suite 6 Execution APIs to start and signal a process instance
-. TaskLifecylce         : can invoke BPM Suite 6 Execution APIs to query, claim, start and complete human tasks
+Import the serviceTier/processLifecycleMgmt project into JBoss Developer Studio (make sure the _Integration-Stack_ suite of plugins are installed).
+Take the time at this point to study the _processLifecycleMgmt_ SwitchYard application in JBoss Developer Studio.
+Pay particular attention to:
 
-Import the serviceTier/processLifecycleMgmt project into JBoss Developer Studio (installed with the _Integration-Stack_ plugin) to view the details of these composite references.
+* switchyard.xml : Two SCA _Composite References_ are used to drive the life-cycle of a process instance:
+** PInstanceLifecycle    : invokes BPM Suite 6 Execution APIs to start and signal a process instance.
+Notice the value of the _<resteasy:address>_ property references the URL of the remote BPM Suite 6 _runtime_ API.
+** TaskLifecylce         : invokes BPM Suite 6 Execution APIs to query, claim, start and complete human tasks
+Notice the value of the _<resteasy:address>_ property references the URL of the remote BPM Suite 6 _task_ API.
 
+
+
+==== FSW: Deploy _processLifecycleMgmt_ SY app
 The _processLifecycleMgmt_ SwitchYard application was built previously as part of the original build of this reference architecture.
 Execute the following to deploy the _processLifecycleMgmt_ from your local environment to your FSW environment:
 
@@ -409,10 +418,16 @@ prep results() policyString = { policyId : 149, policyName :myNewPolicyNameAfter
 sendResults.onExit() policyQuoteProcessMap process completed!
 ----------
 
-As is apparent from the server.log, a policyQuoteProcessMap process instance (along with its human task) where driven to completion. Congratulations!
+As is apparent from the server.log, a policyQuoteProcessMap process instance (along with its human task) were driven to completion. Congratulations!
+
+== Conclusion
+This is an advanced reference architecture that utilizes multiple Red Hat middle-ware products in a cloud environment and then deep-dives into the integration between them.
+By completing this reference architecture, you now have solid experience with OpenShift Enterprise, Fuse Service Works and BPM Suite 6.
+
+Most importantly, you also now have appreciation for the strengths of each product and a good understanding of how best to integrate between them.
+
 
 == To-Do
-* troubleshoot:  readTimeoutException in SY rest calls the first time a pInstance is invoked due to kiebase instantiation
 * troubleshoot:  json content not being sent as payload of REST call in SendResults REST service task
 * change such that org.acme.insurance domain model classes are added as maven dependencies to business-central.
 * specify role used to query for potential tasks

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="ASCII"?>
-<pi:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:al="http://eclipse.org/graphiti/mm/algorithms" xmlns:pi="http://eclipse.org/graphiti/mm/pictograms" visible="true" gridUnit="10" diagramTypeId="org.switchyard.tools.ui.editor.diagram" name="switchyard.xml" snapToGrid="true" pictogramLinks="//@link //@children.0/@link //@children.0/@children.0/@link //@children.0/@children.1/@link //@children.0/@children.1/@anchors.0/@link //@children.0/@children.1/@anchors.1/@link //@children.0/@children.2/@link //@children.0/@children.2/@anchors.0/@link //@children.0/@children.2/@anchors.1/@link //@children.0/@children.0/@children.0/@link //@children.0/@children.0/@children.0/@anchors.0/@link //@children.0/@children.0/@children.0/@anchors.1/@link //@children.0/@children.0/@children.1/@link //@children.0/@children.0/@children.1/@anchors.0/@link //@children.0/@children.0/@children.1/@anchors.1/@link //@children.0/@children.3/@link //@children.0/@children.3/@anchors.0/@link //@children.0/@children.3/@anchors.1/@link //@connections.1/@link //@children.0/@children.0/@children.2/@link //@children.0/@children.0/@children.2/@anchors.0/@link //@children.0/@children.0/@children.2/@anchors.1/@link //@connections.2/@link" version="0.10.0">
+<pi:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:al="http://eclipse.org/graphiti/mm/algorithms" xmlns:pi="http://eclipse.org/graphiti/mm/pictograms" visible="true" gridUnit="10" diagramTypeId="org.switchyard.tools.ui.editor.diagram" name="switchyard.xml" snapToGrid="true" pictogramLinks="//@link //@children.0/@link //@children.0/@children.0/@link //@children.0/@children.1/@link //@children.0/@children.1/@anchors.0/@link //@children.0/@children.1/@anchors.1/@link //@children.0/@children.2/@link //@children.0/@children.2/@anchors.0/@link //@children.0/@children.2/@anchors.1/@link //@children.0/@children.0/@children.0/@link //@children.0/@children.0/@children.0/@anchors.0/@link //@children.0/@children.0/@children.0/@anchors.1/@link //@children.0/@children.0/@children.1/@link //@children.0/@children.0/@children.1/@anchors.0/@link //@children.0/@children.0/@children.1/@anchors.1/@link //@children.0/@children.3/@link //@children.0/@children.3/@anchors.0/@link //@children.0/@children.3/@anchors.1/@link //@children.0/@children.0/@children.2/@link //@children.0/@children.0/@children.2/@anchors.0/@link //@children.0/@children.0/@children.2/@anchors.1/@link //@connections.1/@link //@connections.2/@link" version="0.10.0">
   <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.1" foreground="//@colors.0" lineWidth="1" transparency="0.0" width="1000" height="1000"/>
   <link>
+    <businessObjects href="../../../../../src/main/resources/META-INF/switchyard.xml#/"/>
     <businessObjects href="../../../../../src/main/resources/META-INF/switchyard.xml#/"/>
     <businessObjects href="../../../../../src/main/resources/META-INF/switchyard.xml#/"/>
     <businessObjects href="../../../../../src/main/resources/META-INF/switchyard.xml#/"/>
@@ -15,7 +16,7 @@
     <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="622" height="582" x="-1" y="-1">
       <graphicsAlgorithmChildren xsi:type="al:RoundedRectangle" lineWidth="2" transparency="0.6" width="562" height="522" x="30" y="30" style="//@styles.0" cornerHeight="12" cornerWidth="12">
         <properties key="sca-type" value="composite"/>
-        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.3" lineWidth="1" filled="false" transparency="0.0" width="470" height="16" x="15" y="15" font="//@fonts.1" value="processMgmtTier"/>
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.3" lineWidth="1" filled="false" transparency="0.0" width="470" height="16" x="15" y="15" font="//@fonts.1" value="processLifecycleMgmt"/>
       </graphicsAlgorithmChildren>
     </graphicsAlgorithm>
     <link>
@@ -54,7 +55,7 @@
         <link>
           <businessObjects href="../../../../../src/main/resources/META-INF/switchyard.xml#ComponentReference:ProcessMgmt:TaskLifecycle"/>
         </link>
-        <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.1" useAnchorLocationAsConnectionEndpoint="true" relativeWidth="1.0" relativeHeight="0.5">
+        <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.2" useAnchorLocationAsConnectionEndpoint="true" relativeWidth="1.0" relativeHeight="0.5">
           <graphicsAlgorithm xsi:type="al:Ellipse" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="10" height="10" x="-10" y="-5"/>
           <link>
             <businessObjects href="../../../../../src/main/resources/META-INF/switchyard.xml#ComponentReference:ProcessMgmt:TaskLifecycle"/>
@@ -71,7 +72,7 @@
         <link>
           <businessObjects href="../../../../../src/main/resources/META-INF/switchyard.xml#ComponentReference:ProcessMgmt:PInstanceLifecycle"/>
         </link>
-        <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.2" useAnchorLocationAsConnectionEndpoint="true" relativeWidth="1.0" relativeHeight="0.5">
+        <anchors xsi:type="pi:BoxRelativeAnchor" visible="true" active="true" outgoingConnections="//@connections.1" useAnchorLocationAsConnectionEndpoint="true" relativeWidth="1.0" relativeHeight="0.5">
           <graphicsAlgorithm xsi:type="al:Ellipse" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="10" height="10" x="-10" y="-5"/>
           <link>
             <businessObjects href="../../../../../src/main/resources/META-INF/switchyard.xml#ComponentReference:ProcessMgmt:PInstanceLifecycle"/>
@@ -130,7 +131,7 @@
       <link>
         <businessObjects href="../../../../../src/main/resources/META-INF/switchyard.xml#//@switchyard/@composite/@reference.0"/>
       </link>
-      <anchors xsi:type="pi:FixPointAnchor" visible="true" active="true" incomingConnections="//@connections.2" useAnchorLocationAsConnectionEndpoint="true">
+      <anchors xsi:type="pi:FixPointAnchor" visible="true" active="true" incomingConnections="//@connections.1" useAnchorLocationAsConnectionEndpoint="true">
         <graphicsAlgorithm xsi:type="al:Ellipse" lineWidth="1" lineVisible="false" transparency="0.9" width="12" height="12" y="-6"/>
         <link>
           <businessObjects href="../../../../../src/main/resources/META-INF/switchyard.xml#//@switchyard/@composite/@reference.0"/>
@@ -160,7 +161,7 @@
       <link>
         <businessObjects href="../../../../../src/main/resources/META-INF/switchyard.xml#//@switchyard/@composite/@reference.1"/>
       </link>
-      <anchors xsi:type="pi:FixPointAnchor" visible="true" active="true" incomingConnections="//@connections.1" useAnchorLocationAsConnectionEndpoint="true">
+      <anchors xsi:type="pi:FixPointAnchor" visible="true" active="true" incomingConnections="//@connections.2" useAnchorLocationAsConnectionEndpoint="true">
         <graphicsAlgorithm xsi:type="al:Ellipse" lineWidth="1" lineVisible="false" transparency="0.9" width="12" height="12" y="-6"/>
         <link>
           <businessObjects href="../../../../../src/main/resources/META-INF/switchyard.xml#//@switchyard/@composite/@reference.1"/>
@@ -304,19 +305,19 @@
       <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="16" height="16"/>
     </connectionDecorators>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.0/@children.1/@anchors.0" end="//@children.0/@children.3/@anchors.0">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.0/@children.2/@anchors.0" end="//@children.0/@children.2/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.8" lineWidth="3" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="../../../../../src/main/resources/META-INF/switchyard.xml#//@switchyard/@composite/@reference.1"/>
+      <businessObjects href="../../../../../src/main/resources/META-INF/switchyard.xml#//@switchyard/@composite/@reference.0"/>
     </link>
     <connectionDecorators visible="true" active="true" locationRelative="true" location="0.5">
       <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="16" height="16"/>
     </connectionDecorators>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.0/@children.2/@anchors.0" end="//@children.0/@children.2/@anchors.0">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.0/@children.1/@anchors.0" end="//@children.0/@children.3/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.8" lineWidth="3" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="../../../../../src/main/resources/META-INF/switchyard.xml#//@switchyard/@composite/@reference.0"/>
+      <businessObjects href="../../../../../src/main/resources/META-INF/switchyard.xml#//@switchyard/@composite/@reference.1"/>
     </link>
     <connectionDecorators visible="true" active="true" locationRelative="true" location="0.5">
       <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="16" height="16"/>
