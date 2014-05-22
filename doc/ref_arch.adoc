@@ -74,7 +74,7 @@ A few considerations regarding its use are as follows:
 . Does not include any of the web tooling found in the Business-Central web application of BPM Suite 6
 . Its use still requires a subscription to the BPM Suite 6 product
 
-In general, the FSW BPM Component tends to be useful when BPMN2 process definitions that tend to be short-lived and do not include a wait-state node.
+In general, the FSW BPM Component tends to be useful with BPMN2 process definitions that tend to be short-lived and do not include a wait-state node.
 Without a wait-state node, database persistence can be disabled.
 Subsequently, execution of the process instance that is embedded in the SwitchYard application is very fast with a minimal resource foot-print.
 The process instance begins and completes within the same scope of the request that invoked the SwitchYard application.
@@ -107,6 +107,9 @@ Your BPM Suite 6 environment will consist of the following :
 
 . *Execution Server* : BPM Suite 6 component that provides both a REST and JMS API to the process and rules engines.
 For the purposes of this reference architecture, only the REST API will be invoked.
+In addition to providing an API, the Execution Server also includes two critical BPM components:
+.. Process Engine:  manages life-cycle and wait-states of BPMN2 process definitions.
+.. Human Task Engine:  manages life-cycle of human task nodes as per the WS-HumanTask specification.
 . *BPM Console* : User interface to manually manage all functionality related to BPM Suite 6.
 In this reference architecture, the BPM Console will be used to create and organization unit, clone this repository and deploy a _KIE_ project.
 . *com.redhat.gpe.ref_arch.fsw_bpms_integration:processTier:1.0* : BPM Suite 6 _KIE_ project.
@@ -125,6 +128,14 @@ Your local environment will consist of the following :
 . *JBoss Developer Studio* : Eclipse based IDE containing the _Integration Stack_ suite of plugins.
 Used to develop SwitchYard applications to include the two apps used in this reference architecture:  _processMgmtTier_ and _policyQuote_.
 . *JMeter* : load-harness tool used to initiate execution of this reference architecture.
+
+=== Message Flow
+
+The previous section of this documenation introduced the various components that make up this reference architecture.
+With that in mind, the following is a sequence diagram that depicts the message flow between these components.
+Notice the significant involvement of the _ProcessMgmtTier_ SwitchYard application to invoke the remote Process and Human Task engines.
+
+image::images/sequence_diagram.png[width=760]
 
 == Pre-Requisites
 The remainder of this documentation provides instructions for installation, configuration and execution of this reference architecture.

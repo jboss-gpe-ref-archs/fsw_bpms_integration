@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<scenario xmlns="http://www.savara.org/scenario" name="ref_arch">
+    <role id="0787e871-6eea-48a8-966f-461a69ca19f1" name="JMeter"/>
+    <role id="c96008d7-9212-45ec-a9ef-b881509b2b82" name="FSW: ProcessMgmtQueue  "/>
+    <role id="4a15d7f1-5fdc-422a-92f3-ddc643961cd8" name="FSW: ProcessMgmtTier "/>
+    <role id="dbbec254-014b-4817-87f5-a1626411677b" name="FSW:  PolicyMgmt"/>
+    <role id="fb42ad08-619e-49ba-80d0-1142b7f66ba7" name="BPM: Process Engine"/>
+    <role id="9569eaa2-377e-41cb-9ca4-5af9b8fa1e24" name="BPM: HumanTask Engine "/>
+    <event xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="SendEvent" operationName="REST_API" role="0787e871-6eea-48a8-966f-461a69ca19f1" id="83c0918b-c90b-46e3-a970-8edf6d2b26ba" errorExpected="true"/>
+    <event xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ReceiveEvent" operationName="REST_API" role="c96008d7-9212-45ec-a9ef-b881509b2b82" id="3d0f5ade-5acf-4a35-9d02-3ae6167d3647" errorExpected="true"/>
+    <event xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="SendEvent" operationName="executeProcessLifecycle" role="c96008d7-9212-45ec-a9ef-b881509b2b82" id="4c8d74ca-c042-4c1f-bd4e-aaf41e8eab9c"/>
+    <event xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ReceiveEvent" operationName="executeProcessLifecycle" role="4a15d7f1-5fdc-422a-92f3-ddc643961cd8" id="33b92aab-9422-45bb-aabe-f8953f840e2c"/>
+    <event xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="SendEvent" operationName="startProcess" role="4a15d7f1-5fdc-422a-92f3-ddc643961cd8" id="9a7f72b7-24b8-4c5c-a1af-7f2569af815b"/>
+    <event xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ReceiveEvent" operationName="startProcess" role="fb42ad08-619e-49ba-80d0-1142b7f66ba7" id="5f35ff6e-2a0c-4e8e-a118-256f13b44452"/>
+    <event xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="SendEvent" operationName="queryPotentialTasks" role="4a15d7f1-5fdc-422a-92f3-ddc643961cd8" id="94f13848-40b9-4be7-8c9f-f584acaa949c"/>
+    <event xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ReceiveEvent" operationName="queryPotentialTasks" role="9569eaa2-377e-41cb-9ca4-5af9b8fa1e24" id="b447af6e-7773-41f7-ab3a-4f92ca3a21a0"/>
+    <event xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="SendEvent" operationName="claimTask" role="4a15d7f1-5fdc-422a-92f3-ddc643961cd8" id="044a4634-d46a-45c2-8ecb-15e4a6b1cca2"/>
+    <event xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ReceiveEvent" operationName="claimTask" role="9569eaa2-377e-41cb-9ca4-5af9b8fa1e24" id="e423f089-6936-4668-9cc9-d2f1bc9cefc9"/>
+    <event xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="SendEvent" operationName="startTask" role="4a15d7f1-5fdc-422a-92f3-ddc643961cd8" id="b95bcb7b-9765-4efb-9ed2-c84db6594b59"/>
+    <event xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ReceiveEvent" operationName="startTask" role="9569eaa2-377e-41cb-9ca4-5af9b8fa1e24" id="f60e2fe8-06f8-4206-87d1-6a551883abeb"/>
+    <event xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="SendEvent" operationName="CompleteTask" role="4a15d7f1-5fdc-422a-92f3-ddc643961cd8" id="08fbf3d6-099f-4e70-ad9f-b1342f5aefc6"/>
+    <event xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ReceiveEvent" operationName="CompleteTask" role="9569eaa2-377e-41cb-9ca4-5af9b8fa1e24" id="0c2548ff-a997-49ce-90f3-5789fb28f935"/>
+    <event xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="SendEvent" operationName="policyPolicyObj" role="9569eaa2-377e-41cb-9ca4-5af9b8fa1e24" id="d626af88-a6ce-4c20-acf1-ae43026b1bd4"/>
+    <event xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ReceiveEvent" operationName="policyPolicyObj" role="dbbec254-014b-4817-87f5-a1626411677b" id="6008611a-cb1c-40ad-b261-1ebcc9f0e23c"/>
+    <link source="83c0918b-c90b-46e3-a970-8edf6d2b26ba" target="3d0f5ade-5acf-4a35-9d02-3ae6167d3647"/>
+    <link source="4c8d74ca-c042-4c1f-bd4e-aaf41e8eab9c" target="33b92aab-9422-45bb-aabe-f8953f840e2c"/>
+    <link source="9a7f72b7-24b8-4c5c-a1af-7f2569af815b" target="5f35ff6e-2a0c-4e8e-a118-256f13b44452"/>
+    <link source="94f13848-40b9-4be7-8c9f-f584acaa949c" target="b447af6e-7773-41f7-ab3a-4f92ca3a21a0"/>
+    <link source="044a4634-d46a-45c2-8ecb-15e4a6b1cca2" target="e423f089-6936-4668-9cc9-d2f1bc9cefc9"/>
+    <link source="b95bcb7b-9765-4efb-9ed2-c84db6594b59" target="f60e2fe8-06f8-4206-87d1-6a551883abeb"/>
+    <link source="08fbf3d6-099f-4e70-ad9f-b1342f5aefc6" target="0c2548ff-a997-49ce-90f3-5789fb28f935"/>
+    <link source="d626af88-a6ce-4c20-acf1-ae43026b1bd4" target="6008611a-cb1c-40ad-b261-1ebcc9f0e23c"/>
+</scenario>
