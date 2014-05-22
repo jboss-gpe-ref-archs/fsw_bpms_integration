@@ -331,9 +331,16 @@ Pay particular attention to:
 
 * switchyard.xml : Two SCA _Composite References_ are used to drive the life-cycle of a process instance:
 ** PInstanceLifecycle    : invokes BPM Suite 6 Execution APIs to start and signal a process instance.
-Notice the value of the _<resteasy:address>_ property references the URL of the remote BPM Suite 6 _runtime_ API.
+Notice that the value of the _<resteasy:address>_ property references the URL of the remote BPM Suite 6 _runtime_ API.
 ** TaskLifecylce         : invokes BPM Suite 6 Execution APIs to query, claim, start and complete human tasks
-Notice the value of the _<resteasy:address>_ property references the URL of the remote BPM Suite 6 _task_ API.
+Notice that the value of the _<resteasy:address>_ property references the URL of the remote BPM Suite 6 _task_ API.
+* ProcessMgmtBean.java :
+** Study the _executeProcessLifecycleViaRest_ function to better understand when and how this bean implementation invokes the RESTful composite references to drive the life-cycle of a process instance and its human task.
+** Study the how the payload of both the request and response is processed.
+* ProcessInstanceLifecycleResource:
+** This class uses standard JAX-RS annotations to declare to the RESTeasy client invoker the path to the remote process instance related resources.
+* TaskLifecycleResource:
+** This class uses standard JAX-RS annotations to declare to the RESTeasy client invoker the path to the remote human task related resources.
 
 
 
