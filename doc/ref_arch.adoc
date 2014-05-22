@@ -110,7 +110,9 @@ For the purposes of this reference architecture, only the REST API will be invok
 . *BPM Console* : User interface to manually manage all functionality related to BPM Suite 6.
 In this reference architecture, the BPM Console will be used to create and organization unit, clone this repository and deploy a _KIE_ project.
 . *com.redhat.gpe.ref_arch.fsw_bpms_integration:processTier:1.0* : BPM Suite 6 _KIE_ project.
-Contains a process definition with a human task node and a RESTful ServiceTask node that invokes a remote SOA service to trigger execution of business logic.
+Contains a process definition with:
+..  human task node 
+.. RESTful ServiceTask node:  invokes a remote SOA service to trigger execution of business logic.
 . *mysql database* : leveraged by BPM Suite 6 to persist process _wait-state_, human-task and business activity monitoring data.
 . *Artifact Repository* : BPM Suite 6 repository where external libraries can be added to the classpath of a _KIE_ project.
 The domain model classes of this reference architecture will be made available to the _KIE_ project by uploading to the BPM Suite 6 artifact repository.
