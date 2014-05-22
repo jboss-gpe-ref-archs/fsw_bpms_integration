@@ -2,12 +2,12 @@
 <scenario xmlns="http://www.savara.org/scenario" name="ref_arch">
     <role id="0787e871-6eea-48a8-966f-461a69ca19f1" name="JMeter"/>
     <role id="c96008d7-9212-45ec-a9ef-b881509b2b82" name="FSW: ProcessMgmtQueue  "/>
-    <role id="4a15d7f1-5fdc-422a-92f3-ddc643961cd8" name="FSW: ProcessMgmtTier "/>
+    <role id="4a15d7f1-5fdc-422a-92f3-ddc643961cd8" name="FSW: ProcessLifecycleMgmt"/>
     <role id="dbbec254-014b-4817-87f5-a1626411677b" name="FSW:  PolicyMgmt"/>
     <role id="fb42ad08-619e-49ba-80d0-1142b7f66ba7" name="BPM: Process Engine"/>
     <role id="9569eaa2-377e-41cb-9ca4-5af9b8fa1e24" name="BPM: HumanTask Engine "/>
-    <event xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="SendEvent" operationName="REST_API" role="0787e871-6eea-48a8-966f-461a69ca19f1" id="83c0918b-c90b-46e3-a970-8edf6d2b26ba" errorExpected="true"/>
-    <event xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ReceiveEvent" operationName="REST_API" role="c96008d7-9212-45ec-a9ef-b881509b2b82" id="3d0f5ade-5acf-4a35-9d02-3ae6167d3647" errorExpected="true"/>
+    <event xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="SendEvent" operationName="OPERATION = REST_API" role="0787e871-6eea-48a8-966f-461a69ca19f1" id="83c0918b-c90b-46e3-a970-8edf6d2b26ba" errorExpected="true"/>
+    <event xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ReceiveEvent" operationName="OPERATION = REST_API" role="c96008d7-9212-45ec-a9ef-b881509b2b82" id="3d0f5ade-5acf-4a35-9d02-3ae6167d3647" errorExpected="true"/>
     <event xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="SendEvent" operationName="executeProcessLifecycle" role="c96008d7-9212-45ec-a9ef-b881509b2b82" id="4c8d74ca-c042-4c1f-bd4e-aaf41e8eab9c"/>
     <event xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ReceiveEvent" operationName="executeProcessLifecycle" role="4a15d7f1-5fdc-422a-92f3-ddc643961cd8" id="33b92aab-9422-45bb-aabe-f8953f840e2c"/>
     <event xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="SendEvent" operationName="startProcess" role="4a15d7f1-5fdc-422a-92f3-ddc643961cd8" id="9a7f72b7-24b8-4c5c-a1af-7f2569af815b"/>
