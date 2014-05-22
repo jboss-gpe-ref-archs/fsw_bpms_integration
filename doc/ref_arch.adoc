@@ -97,8 +97,10 @@ Your Fuse Service Works environment will consist of the following :
 . *mysql database* : leveraged by FSW for internal needs only.
 . *hornetq broker* : manages a queue called 'processMgmtQueue'.  
 To initiate the reference architecture, a JMeter client pushes a message to this queue.
-. *processMgmtTier SwitchYard application* : focal point of this reference architecture.
-Contains the REST composite reference bindings that drives the life-cycle of a process instance and human task managed by a remote BPM Suite 6 process engine.
+Associated with this queue is a messageSelector of:  OPERATION = 'REST_API'.
+A message sent to this queue with a String property that matches this selector will get routed to the _processMgmt_ bean component of the _processMgmtTier_ SwitchYard application.
+. *processMgmtTier SwitchYard application* : primary focal point of this reference architecture.
+Contains the _ProcessMgmt_ component service and REST composite reference bindings that drive the life-cycle of a process instance and human task managed by remote BPM Suite 6 engines.
 . *policyQuote SwitchYard application* : simple RESTful service that executes some simple business logic.
 Invoked as the final step of a remote business process.
 
