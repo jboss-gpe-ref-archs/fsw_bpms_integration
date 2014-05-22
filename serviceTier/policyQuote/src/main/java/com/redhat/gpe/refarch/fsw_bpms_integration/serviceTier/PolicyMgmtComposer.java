@@ -24,7 +24,7 @@ public class PolicyMgmtComposer extends RESTEasyMessageComposer{
             pObj = jsonMapper.readValue(content, Policy.class);
         }catch(Exception x){
             log.error("compose() content = "+message.getContent()+" : exception = "+x.getLocalizedMessage());
-            log.error("compose() Root cause is that 'policyString' pInstanceVariable is not getting mapped correctly to 'Content' taskVariable in Send Results' node of  policyQuoteProcessMap");
+            log.error("compose() Root cause is that 'policyString' pInstanceVariable is not getting mapped correctly to 'Content' taskVariable in Send Results' node of  policyQuoteProcessMap bpmn2 process definition");
             log.error("compose() will just create a bogus Policy for now and troubleshoot later");
             pObj = new Policy(1, "bogusPolicy");
             

@@ -302,6 +302,11 @@ image::images/add_deployment.png[]
 
 .  Once deployed, the artifact needs to be enabled.  Select the newly deployed processInstanceMgmt artifact and click the _enable_ button.
 
+The statement in your Fuse Service Works server.log should be similar to the following:
+
+--------
+JBAS018559: Deployed "processInstanceMgmt-1.1.1-p5-redhat-1.jar" (runtime-name : "processInstanceMgmt-1.1.1-p5-redhat-1.jar")
+--------
 
 === FSW:  Deploy _policyMgmt_ SwitchYard application
 image::images/policyMgmt-app.png[]
@@ -311,6 +316,13 @@ To deploy the _policyMgmt_ application, follow the exact procedure used to deplo
 This time, however, select the following artifact to deploy:
 
 * $REF_ARCH_HOME/serviceTier/policyQuote/target/policyQuote-1.1.1-p5-redhat-1.jar
+
+The last couple of statements in your Fuse Service Works server.log should be similar to the following:
+
+--------
+Published RESTEasy context /policyQuoteMgmt
+Deployed "policyQuote-1.1.1-p5-redhat-1.jar" (runtime-name : "policyQuote-1.1.1-p5-redhat-1.jar")
+--------
 
 
 === Exception Handling
@@ -339,8 +351,10 @@ ssh <ssh_url_to_your_fsw_openshift_environment> 'echo $OPENSHIFT_FSW_IP'
 ssh -N -L localhost:5445:<ipaddress from previous step>:5445 <ssh_url_to_your_fsw_openshift_environment>
 ----------
 
-While the port forwarding process is running, the HornetQ broker can be accessed on the local computer at `localhost:5445`.
-Use `Ctrl+c` to kill port forwarding.
+Executing the above command does not provide a response back.
+Instead, your terminal window used to execute this command will hang.
+While port forwarding process running, the remote HornetQ broker can be accessed on the local computer at `localhost:5445`.
+Once you've completed the reference architecture, use `Ctrl+c` in the same terminal window to kill port forwarding.
 
 === Execute JMeter client
 By default, the configuration in $REF_ARCH_HOME/loadtest will direct JMeter to send one JMS message (from only one thread) to the JMS broker at localhost:5445.
@@ -349,7 +363,19 @@ Execute a smoke test of your deployed reference architecture via the following:
 .  cd $REF_ARCH_HOME/loadtest
 .  mvn clean verify
 
+If all goes well, you should expect statements similar to the following in your server.log of your remote BPM Suite 6 enabled OpenShift environment:
+
+----------
+printIn() policyId = 149 : policyName = myPolicy
+prep results() policyString = { policyId : 149, policyName :myNewPolicyNameAfterTaskCompletion}
+sendResults.onExit() policyQuoteProcessMap process completed!
+----------
+
+As is apparent from the server.log, a policyQuoteProcessMap process instance (along with its human task) where driven to completion. Congratulations!
+
 == To-Do
+* troubleshoot:  readTimeoutException in SY rest calls the first time a pInstance is invoked due to kiebase instantiation
+* troubleshoot:  json content not being sent as payload of REST call in SendResults REST service task
 * change such that org.acme.insurance domain model classes are added as maven dependencies to business-central.
 * specify role used to query for potential tasks
 * demonstrate invocation of the following BPM Suite 6 task operation:  claimnextavailable

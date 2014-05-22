@@ -1,6 +1,7 @@
 package com.redhat.gpe.refarch.fsw_bpms_integration.serviceTier;
 
 import java.io.ByteArrayInputStream;
+import java.util.Set;
 
 import javax.inject.Inject;
 import javax.xml.parsers.DocumentBuilder;
@@ -11,6 +12,7 @@ import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathFactory;
 
 import org.switchyard.Context;
+import org.switchyard.Property;
 import org.switchyard.component.bean.Reference;
 import org.switchyard.component.bean.Service;
 import org.w3c.dom.Document;
@@ -32,6 +34,7 @@ public class ProcessMgmtBean implements ProcessMgmt {
     private static final String BPMS_EXEC_SERVER_PORT = "bpms.exec.server.port";
     private static final String BPMS_EXEC_SERVER_USER_ID = "bpms.exec.server.userId";
     private static final String BPMS_EXEC_SERVER_PASSWORD = "bpms.exec.server.passwd";
+    private static final String REQUEST_TIMEOUT_MILLIS = "request.timeout.millis";
     private static final String START_PROCESS_ID_PATH = "/process-instance/id";
     private static final String TASK_ID_LIST_PATH = "/task-summary-list/task-summary/id";
     private static final String ID = "id";
@@ -56,10 +59,13 @@ public class ProcessMgmtBean implements ProcessMgmt {
         sBuilder.append(System.getProperty(BPMS_EXEC_SERVER_USER_ID));
         sBuilder.append("\n\tbpms.exec.server.passwd=");
         sBuilder.append(System.getProperty(BPMS_EXEC_SERVER_PASSWORD));
+        sBuilder.append("\n\trequest.timeout.millis=");
+        sBuilder.append(System.getProperty(REQUEST_TIMEOUT_MILLIS));
         log.info(sBuilder.toString());
     }
 
     public void executeProcessLifecycleViaRest(ProcessDetails pDetails) {
+    	
         log.info("executeProcessLifecycle() pDetails = "+pDetails);
       
         try {
@@ -148,5 +154,14 @@ public class ProcessMgmtBean implements ProcessMgmt {
         Document httpEntityDoc = dBuilder.parse(new ByteArrayInputStream(httpResponseEntity.getBytes()));
         
         return (NodeList)xpathExpression.evaluate(httpEntityDoc, XPathConstants.NODESET);
+    }
+    
+    private void logContextVariables() {
+    	Set<Property> propsSet = context.getProperties();
+    	StringBuilder sBuilder = new StringBuilder();
+    	for(Property prop : propsSet){
+    		sBuilder.append("\n\tpropName="+prop.getName()+"\tvalue="+prop.getValue());
+    	}
+    	log.info("logContextVariables() context props = "+sBuilder.toString());
     }
 }
