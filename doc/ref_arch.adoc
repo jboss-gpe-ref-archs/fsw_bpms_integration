@@ -89,17 +89,39 @@ The focus of this reference architecture is on this latter scenario:  long-runni
 
 image::images/dep_arch.png[width=760]
 
-This reference architecture consists of various run-time components:
+This reference architecture consists of various components:
 
 ==== OpenShift Enterprise 2.* FSW App
-to-do
+For the purposes of this reference architecture, the Fuse Service Works product will execute in an OpenShift Enterprise 2 _application_.
+The FSW application will include the following :
+
+. *mysql database* : leveraged by FSW for internal needs only.
+. *hornetq broker* : manages a queue called 'processMgmtQueue'.  
+To initiate the reference architecture, a JMeter client pushes a message to this queue.
+. *processMgmtTier SwitchYard application* : focal point of this reference architecture.
+Contains the REST composite reference bindings that drives the life-cycle of a process instance and human task managed by a remote BPM Suite 6 process engine.
+. *policyQuote SwitchYard application* : simple RESTful service that executes some simple business logic.
+Invoked as the final step of a remote business process.
 
 ==== OpenShift Enterprise 2.* BPM Suite 6 App
-to-do
+
+. *Execution Server* : BPM Suite 6 component that provides both a REST and JMS API to the process and rules engines.
+For the purposes of this reference architecture, only the REST API will be invoked.
+. *BPM Console* : User interface to manually manage all functionality related to BPM Suite 6.
+In this reference architecture, the BPM Console will be used to create and organization unit, clone this repository and deploy a _KIE_ project.
+. *com.redhat.gpe.ref_arch.fsw_bpms_integration:processTier:1.0* : BPM Suite 6 _KIE_ project.
+Contains a process definition with a human task node and a RESTful ServiceTask node that invokes a remote SOA service to trigger execution of business logic.
+. *mysql database* : leveraged by BPM Suite 6 to persist process _wait-state_, human-task and business activity monitoring data.
+. *Artifact Repository* : BPM Suite 6 repository where external libraries can be added to the classpath of a _KIE_ project.
+The domain model classes of this reference architecture will be made available to the _KIE_ project by uploading to the BPM Suite 6 artifact repository.
+. *GIT Repository* : version control system used by BPM Suite 6 to manage design-time artifacts such as rules and process definitions.
+
 
 ==== Local Environment
-to-do
 
+. *JBoss Developer Studio* : Eclipse based IDE containing the _Integration Stack_ suite of plugins.
+Used to develop SwitchYard applications to include the two apps used in this reference architecture:  _processMgmtTier_ and _policyQuote_.
+. *JMeter* : load-harness tool used to initiate execution of this reference architecture.
 
 == Pre-Requisites
 The remainder of this documentation provides instructions for installation, configuration and execution of this reference architecture.
