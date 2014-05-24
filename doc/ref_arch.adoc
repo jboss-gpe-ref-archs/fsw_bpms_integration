@@ -28,6 +28,7 @@ Correspondingly, these business services should drive the life-cycle of process 
 This _xPaaS_ reference architecture demonstrates a _process tier_ and _service tier_ interacting with each-other.
 Specifically, a SwitchYard SCA application drives the life-cycle of a BPMN2 process instance whose state is managed remotely by BPM Suite 6.
 To do so, the SwitchYard SCA application invokes the REST API of the BPM Suite 6 execution server using the stock RESTEasy composite binding implementation.
+
 The _process tier_ is implemented in a Red Hat Openshift _gear_ provisioned with Red Hat JBoss BPM Suite 6.
 The _service tier_ is implemented in a Red Hat Openshift _gear_ provisioned with Red Hat JBoss Fuse Service Works 6.
 
