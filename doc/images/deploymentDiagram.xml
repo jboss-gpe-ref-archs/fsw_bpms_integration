@@ -1,0 +1,198 @@
+<?xml version = '1.0' encoding = 'UTF-8' ?>
+<XMI xmi.version = '1.2' xmlns:UML = 'org.omg.xmi.namespace.UML' timestamp = 'Tue Jun 10 14:14:10 MDT 2014'>
+  <XMI.header>    <XMI.documentation>
+      <XMI.exporter>ArgoUML (using Netbeans XMI Writer version 1.0)</XMI.exporter>
+      <XMI.exporterVersion>0.34(6) revised on $Date: 2010-01-11 22:20:14 +0100 (Mon, 11 Jan 2010) $ </XMI.exporterVersion>
+    </XMI.documentation>
+    <XMI.metamodel xmi.name="UML" xmi.version="1.4"/></XMI.header>
+  <XMI.content>
+    <UML:Model xmi.id = '10-0-0-6-3d86038f:146873486f5:-7ffe:0000000000000A5D'
+      name = 'fsw_bpms_integration' isSpecification = 'false' isRoot = 'false'
+      isLeaf = 'false' isAbstract = 'false'>
+      <UML:Namespace.ownedElement>
+        <UML:Node xmi.id = '10-0-0-6-3d86038f:146873486f5:-7ffe:0000000000000A5E'
+          name = 'OpenShiftGear:FSW6' isSpecification = 'false' isRoot = 'false' isLeaf = 'false'
+          isAbstract = 'false'>
+          <UML:Namespace.ownedElement>
+            <UML:Component xmi.id = '10-0-0-6-3d86038f:146873486f5:-7ffe:0000000000000A60'
+              name = 'HornetQ' isSpecification = 'false' isRoot = 'false' isLeaf = 'false'
+              isAbstract = 'false'>
+              <UML:Component.deploymentLocation>
+                <UML:Node xmi.idref = '10-0-0-6-3d86038f:146873486f5:-7ffe:0000000000000A5E'/>
+              </UML:Component.deploymentLocation>
+            </UML:Component>
+            <UML:Component xmi.id = '10-0-0-6-3d86038f:146873486f5:-7ffe:0000000000000A62'
+              name = 'SYService:invokedService' isSpecification = 'false' isRoot = 'false'
+              isLeaf = 'false' isAbstract = 'false'>
+              <UML:Component.deploymentLocation>
+                <UML:Node xmi.idref = '10-0-0-6-3d86038f:146873486f5:-7ffe:0000000000000A5E'/>
+              </UML:Component.deploymentLocation>
+            </UML:Component>
+            <UML:Component xmi.id = '10-0-0-6-3d86038f:146873486f5:-7ffe:0000000000000A74'
+              name = 'MySQL' isSpecification = 'false' isRoot = 'false' isLeaf = 'false'
+              isAbstract = 'false'>
+              <UML:Component.deploymentLocation>
+                <UML:Node xmi.idref = '10-0-0-6-3d86038f:146873486f5:-7ffe:0000000000000A5E'/>
+              </UML:Component.deploymentLocation>
+            </UML:Component>
+          </UML:Namespace.ownedElement>
+          <UML:Node.deployedComponent>
+            <UML:Component xmi.idref = '10-0-0-6-3d86038f:146873486f5:-7ffe:0000000000000A60'/>
+            <UML:Component xmi.idref = '10-0-0-6-3d86038f:146873486f5:-7ffe:0000000000000A62'/>
+            <UML:Component xmi.idref = '10-0-0-6-3d86038f:146873486f5:-7ffe:0000000000000A74'/>
+          </UML:Node.deployedComponent>
+        </UML:Node>
+        <UML:Node xmi.id = '10-0-0-6-3d86038f:146873486f5:-7ffe:0000000000000A5F'
+          name = 'OpenShiftGear:BPMS6' isSpecification = 'false' isRoot = 'false'
+          isLeaf = 'false' isAbstract = 'false'>
+          <UML:Namespace.ownedElement>
+            <UML:Component xmi.id = '10-0-0-6-3d86038f:146873486f5:-7ffe:0000000000000A67'
+              name = 'BusinessCentral' isSpecification = 'false' isRoot = 'false' isLeaf = 'false'
+              isAbstract = 'false'>
+              <UML:Namespace.ownedElement>
+                <UML:Component xmi.id = '10-0-0-6-3d86038f:146873486f5:-7ffe:0000000000000A6C'
+                  name = 'ExecutionServer' isSpecification = 'false' isRoot = 'false' isLeaf = 'false'
+                  isAbstract = 'false'>
+                  <UML:Component.deploymentLocation>
+                    <UML:Node xmi.idref = '10-0-0-6-3d86038f:146873486f5:-7ffe:0000000000000A5F'/>
+                  </UML:Component.deploymentLocation>
+                </UML:Component>
+              </UML:Namespace.ownedElement>
+            </UML:Component>
+            <UML:Node xmi.id = '10-0-0-6-3d86038f:146873486f5:-7ffe:0000000000000A6E'
+              name = 'BusinessCentral' isSpecification = 'false' isRoot = 'false' isLeaf = 'false'
+              isAbstract = 'false'>
+              <UML:Namespace.ownedElement>
+                <UML:Component xmi.id = '10-0-0-6-3d86038f:146873486f5:-7ffe:0000000000000A6F'
+                  name = 'ExecutionServer' isSpecification = 'false' isRoot = 'false' isLeaf = 'false'
+                  isAbstract = 'false'>
+                  <UML:Namespace.ownedElement>
+                    <UML:Component xmi.id = '10-0-0-6-3d86038f:146873486f5:-7ffe:0000000000000A71'
+                      name = 'DeploymentUnit' isSpecification = 'false' isRoot = 'false' isLeaf = 'false'
+                      isAbstract = 'false'>
+                      <UML:ModelElement.clientDependency>
+                        <UML:Dependency xmi.idref = '10-0-0-6-3d86038f:146873486f5:-7ffe:0000000000000A72'/>
+                      </UML:ModelElement.clientDependency>
+                      <UML:Component.deploymentLocation>
+                        <UML:Node xmi.idref = '10-0-0-6-3d86038f:146873486f5:-7ffe:0000000000000A5F'/>
+                      </UML:Component.deploymentLocation>
+                    </UML:Component>
+                  </UML:Namespace.ownedElement>
+                  <UML:Component.deploymentLocation>
+                    <UML:Node xmi.idref = '10-0-0-6-3d86038f:146873486f5:-7ffe:0000000000000A6E'/>
+                    <UML:Node xmi.idref = '10-0-0-6-3d86038f:146873486f5:-7ffe:0000000000000A5F'/>
+                  </UML:Component.deploymentLocation>
+                </UML:Component>
+              </UML:Namespace.ownedElement>
+              <UML:Node.deployedComponent>
+                <UML:Component xmi.idref = '10-0-0-6-3d86038f:146873486f5:-7ffe:0000000000000A6F'/>
+              </UML:Node.deployedComponent>
+            </UML:Node>
+            <UML:Component xmi.id = '10-0-0-6-3d86038f:146873486f5:-7ffe:0000000000000A75'
+              name = 'MySQL' isSpecification = 'false' isRoot = 'false' isLeaf = 'false'
+              isAbstract = 'false'>
+              <UML:Component.deploymentLocation>
+                <UML:Node xmi.idref = '10-0-0-6-3d86038f:146873486f5:-7ffe:0000000000000A5F'/>
+              </UML:Component.deploymentLocation>
+            </UML:Component>
+          </UML:Namespace.ownedElement>
+          <UML:Node.deployedComponent>
+            <UML:Component xmi.idref = '10-0-0-6-3d86038f:146873486f5:-7ffe:0000000000000A6C'/>
+            <UML:Component xmi.idref = '10-0-0-6-3d86038f:146873486f5:-7ffe:0000000000000A71'/>
+            <UML:Component xmi.idref = '10-0-0-6-3d86038f:146873486f5:-7ffe:0000000000000A6F'/>
+            <UML:Component xmi.idref = '10-0-0-6-3d86038f:146873486f5:-7ffe:0000000000000A75'/>
+          </UML:Node.deployedComponent>
+        </UML:Node>
+        <UML:Dependency xmi.id = '10-0-0-6-3d86038f:146873486f5:-7ffe:0000000000000A64'
+          name = 'REST' isSpecification = 'false'>
+          <UML:Dependency.client>
+            <UML:Component xmi.idref = '10-0-0-6-3d86038f:146873486f5:-7ffe:0000000000000A63'/>
+          </UML:Dependency.client>
+          <UML:Dependency.supplier>
+            <UML:Component xmi.idref = '10-0-0-6-3d86038f:146873486f5:-7ffe:0000000000000A62'/>
+          </UML:Dependency.supplier>
+        </UML:Dependency>
+        <UML:Component xmi.id = '10-0-0-6-3d86038f:146873486f5:-7ffe:0000000000000A61'
+          name = 'SYService:ProcessLifeCycleMgmt' isSpecification = 'false' isRoot = 'false'
+          isLeaf = 'false' isAbstract = 'false'>
+          <UML:ModelElement.clientDependency>
+            <UML:Dependency xmi.idref = '10-0-0-6-3d86038f:146873486f5:-7ffe:0000000000000A6B'/>
+            <UML:Dependency xmi.idref = '10-0-0-6-3d86038f:146873486f5:-7ffe:0000000000000A70'/>
+          </UML:ModelElement.clientDependency>
+        </UML:Component>
+        <UML:Component xmi.id = '10-0-0-6-3d86038f:146873486f5:-7ffe:0000000000000A65'
+          name = 'client' isSpecification = 'false' isRoot = 'false' isLeaf = 'false'
+          isAbstract = 'false'>
+          <UML:ModelElement.clientDependency>
+            <UML:Dependency xmi.idref = '10-0-0-6-3d86038f:146873486f5:-7ffe:0000000000000A66'/>
+          </UML:ModelElement.clientDependency>
+        </UML:Component>
+        <UML:Dependency xmi.id = '10-0-0-6-3d86038f:146873486f5:-7ffe:0000000000000A66'
+          isSpecification = 'false'>
+          <UML:Dependency.client>
+            <UML:Component xmi.idref = '10-0-0-6-3d86038f:146873486f5:-7ffe:0000000000000A65'/>
+          </UML:Dependency.client>
+          <UML:Dependency.supplier>
+            <UML:Component xmi.idref = '10-0-0-6-3d86038f:146873486f5:-7ffe:0000000000000A60'/>
+          </UML:Dependency.supplier>
+        </UML:Dependency>
+        <UML:Component xmi.id = '10-0-0-6-3d86038f:146873486f5:-7ffe:0000000000000A69'
+          isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
+          <UML:ModelElement.clientDependency>
+            <UML:Dependency xmi.idref = '10-0-0-6-3d86038f:146873486f5:-7ffe:0000000000000A6A'/>
+          </UML:ModelElement.clientDependency>
+        </UML:Component>
+        <UML:Dependency xmi.id = '10-0-0-6-3d86038f:146873486f5:-7ffe:0000000000000A6A'
+          isSpecification = 'false'>
+          <UML:Dependency.client>
+            <UML:Component xmi.idref = '10-0-0-6-3d86038f:146873486f5:-7ffe:0000000000000A69'/>
+          </UML:Dependency.client>
+          <UML:Dependency.supplier>
+            <UML:Component xmi.idref = '10-0-0-6-3d86038f:146873486f5:-7ffe:0000000000000A67'/>
+          </UML:Dependency.supplier>
+        </UML:Dependency>
+        <UML:Dependency xmi.id = '10-0-0-6-3d86038f:146873486f5:-7ffe:0000000000000A6B'
+          name = 'REST' isSpecification = 'false'>
+          <UML:Dependency.client>
+            <UML:Component xmi.idref = '10-0-0-6-3d86038f:146873486f5:-7ffe:0000000000000A61'/>
+          </UML:Dependency.client>
+          <UML:Dependency.supplier>
+            <UML:Component xmi.idref = '10-0-0-6-3d86038f:146873486f5:-7ffe:0000000000000A67'/>
+          </UML:Dependency.supplier>
+        </UML:Dependency>
+        <UML:Component xmi.id = '10-0-0-6-3d86038f:146873486f5:-7ffe:0000000000000A68'
+          name = 'BusinessCentral' isSpecification = 'false' isRoot = 'false' isLeaf = 'false'
+          isAbstract = 'false'/>
+        <UML:Component xmi.id = '10-0-0-6-3d86038f:146873486f5:-7ffe:0000000000000A6D'
+          isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'/>
+        <UML:Component xmi.id = '10-0-0-6-3d86038f:146873486f5:-7ffe:0000000000000A63'
+          name = 'deploymentUnit' isSpecification = 'false' isRoot = 'false' isLeaf = 'false'
+          isAbstract = 'false'>
+          <UML:ModelElement.clientDependency>
+            <UML:Dependency xmi.idref = '10-0-0-6-3d86038f:146873486f5:-7ffe:0000000000000A64'/>
+          </UML:ModelElement.clientDependency>
+        </UML:Component>
+        <UML:Dependency xmi.id = '10-0-0-6-3d86038f:146873486f5:-7ffe:0000000000000A70'
+          name = 'REST' isSpecification = 'false'>
+          <UML:Dependency.client>
+            <UML:Component xmi.idref = '10-0-0-6-3d86038f:146873486f5:-7ffe:0000000000000A61'/>
+          </UML:Dependency.client>
+          <UML:Dependency.supplier>
+            <UML:Component xmi.idref = '10-0-0-6-3d86038f:146873486f5:-7ffe:0000000000000A6F'/>
+          </UML:Dependency.supplier>
+        </UML:Dependency>
+        <UML:Dependency xmi.id = '10-0-0-6-3d86038f:146873486f5:-7ffe:0000000000000A72'
+          name = 'REST' isSpecification = 'false'>
+          <UML:Dependency.client>
+            <UML:Component xmi.idref = '10-0-0-6-3d86038f:146873486f5:-7ffe:0000000000000A71'/>
+          </UML:Dependency.client>
+          <UML:Dependency.supplier>
+            <UML:Component xmi.idref = '10-0-0-6-3d86038f:146873486f5:-7ffe:0000000000000A62'/>
+          </UML:Dependency.supplier>
+        </UML:Dependency>
+        <UML:Node xmi.id = '10-0-0-6-3d86038f:146873486f5:-7ffe:0000000000000A73'
+          isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'/>
+      </UML:Namespace.ownedElement>
+    </UML:Model>
+  </XMI.content>
+</XMI>
