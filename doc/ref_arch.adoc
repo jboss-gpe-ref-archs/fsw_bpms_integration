@@ -88,7 +88,7 @@ The focus of this reference architecture is on this latter scenario:  long-runni
 
 === Deployment Architecture
 
-image::images/dep_arch.png[width=760]
+image::images/DeploymentDiagram.png[width=760]
 
 This reference architecture consists of various components:
 
