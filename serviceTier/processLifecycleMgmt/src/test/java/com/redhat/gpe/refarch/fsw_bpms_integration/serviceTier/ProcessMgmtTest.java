@@ -59,16 +59,16 @@ public class ProcessMgmtTest {
 
     private static void testDocAndXPath() throws Exception {
         
-    	DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-    	DocumentBuilder dBuilder = factory.newDocumentBuilder();
-    	Document httpEntityDoc = dBuilder.parse((new InputSource(new StringReader(TEST_START_PROCESS_RESPONSE))));
-    	String nodeValue = httpEntityDoc.getElementsByTagName("id").item(0).getTextContent();
-    	System.out.println("firstNode = "+nodeValue);
-    	
-    	XPath xpath = XPathFactory.newInstance().newXPath();
-    	XPathExpression startProcessXPath = xpath.compile("/process-instance/id");
-    	Node pInstanceId = (Node)startProcessXPath.evaluate(httpEntityDoc.getDocumentElement(), XPathConstants.NODE);
-    	
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder dBuilder = factory.newDocumentBuilder();
+        Document httpEntityDoc = dBuilder.parse((new InputSource(new StringReader(TEST_START_PROCESS_RESPONSE))));
+        String nodeValue = httpEntityDoc.getElementsByTagName("id").item(0).getTextContent();
+        System.out.println("firstNode = "+nodeValue);
+        
+        XPath xpath = XPathFactory.newInstance().newXPath();
+        XPathExpression startProcessXPath = xpath.compile("/process-instance/id");
+        Node pInstanceId = (Node)startProcessXPath.evaluate(httpEntityDoc.getDocumentElement(), XPathConstants.NODE);
+        
         System.out.println("testXPath() pInstanceId = "+pInstanceId.getTextContent());
     }
 }

@@ -1,11 +1,17 @@
 package com.redhat.gpe.refarch.fsw_bpms_integration.domain;
 
+/*
+    pojo that encapsulates a variety of data used to drive the life-cycle of remote business processes.
+ */
 public class ProcessDetails {
 
     private String deploymentId;
     private String processId;
     private boolean executeTaskLifecycle;
     private String taskId;
+
+    // this is the payload data used when a process instance is started.
+    // this payload will map to a process variable in the process instance
     private String payload;
 
     public ProcessDetails() {}

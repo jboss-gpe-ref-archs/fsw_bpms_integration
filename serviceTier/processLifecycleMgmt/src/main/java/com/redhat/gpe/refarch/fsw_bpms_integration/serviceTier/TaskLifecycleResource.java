@@ -13,7 +13,7 @@ public interface TaskLifecycleResource {
     
     public static final String COMPLETE_TASK = "completeTask";
 
-	@GET
+    @GET
     @Path("/query?potentialOwner=")
     @Consumes("application/x-www-form-urlencoded")
     public String queryForPotentialTasks(@PathParam("groupId") String groupId) throws Exception;
@@ -29,7 +29,7 @@ public interface TaskLifecycleResource {
     @POST
     @Path("/{taskId}/complete")
     public Response completeTask(@PathParam("taskId") String taskId,
-    						@QueryParam("map_policyId") String policyId, 
-    						@QueryParam("map_taskCompletePolicyName") String tName) throws Exception;
+                            @QueryParam("map_policyId") String policyId, 
+                            @QueryParam("map_taskCompletePolicyName") String tName) throws Exception;
 
 }

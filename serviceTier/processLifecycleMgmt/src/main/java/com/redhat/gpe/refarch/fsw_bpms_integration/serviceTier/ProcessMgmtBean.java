@@ -65,7 +65,7 @@ public class ProcessMgmtBean implements ProcessMgmt {
     }
 
     public void executeProcessLifecycleViaRest(ProcessDetails pDetails) {
-    	
+        
         log.info("executeProcessLifecycle() pDetails = "+pDetails);
       
         try {
@@ -76,7 +76,7 @@ public class ProcessMgmtBean implements ProcessMgmt {
             
             //1.5)  break out of this function now if been instructed to NOT execute task lifecycle on this process
             if(!pDetails.getExecuteTaskLifecycle())
-            	return;
+                return;
             
             // 2)  Query for tasks
             httpEntity =  taskLifecycle.queryForPotentialTasks("reviewer");
@@ -157,11 +157,11 @@ public class ProcessMgmtBean implements ProcessMgmt {
     }
     
     private void logContextVariables() {
-    	Set<Property> propsSet = context.getProperties();
-    	StringBuilder sBuilder = new StringBuilder();
-    	for(Property prop : propsSet){
-    		sBuilder.append("\n\tpropName="+prop.getName()+"\tvalue="+prop.getValue());
-    	}
-    	log.info("logContextVariables() context props = "+sBuilder.toString());
+        Set<Property> propsSet = context.getProperties();
+        StringBuilder sBuilder = new StringBuilder();
+        for(Property prop : propsSet){
+            sBuilder.append("\n\tpropName="+prop.getName()+"\tvalue="+prop.getValue());
+        }
+        log.info("logContextVariables() context props = "+sBuilder.toString());
     }
 }

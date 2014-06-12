@@ -5,8 +5,8 @@ import javax.jms.JMSException;
 import javax.jms.Queue;
 
 public interface IJMSClientProvider {
-	
-	Connection getConnection() throws JMSException;
-	Queue getQueue(String name) throws JMSException;
-	
+    
+    Connection getConnection() throws JMSException;
+    Queue getQueue(String name) throws JMSException;
+    
 }

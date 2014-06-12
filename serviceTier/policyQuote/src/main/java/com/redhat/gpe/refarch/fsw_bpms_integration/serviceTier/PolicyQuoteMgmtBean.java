@@ -7,7 +7,7 @@ import com.redhat.gpe.refarch.fsw_bpms_integration.domain.Policy;
 
 @Service(PolicyQuoteMgmt.class)
 public class PolicyQuoteMgmtBean implements PolicyQuoteMgmt {
-	
+    
     private static Logger log = Logger.getLogger("PolicyQuoteMgmtBean");
 
     public void postPolicy(Policy pObj) {

@@ -6,9 +6,9 @@ import javax.ws.rs.FormParam;
 
 @Path("/")
 public interface PolicyQuoteMgmtResource {
-	
-	@POST
-	@Path("policy")
-	public void postPolicy(@FormParam("payload") String payload) throws Exception;
+    
+    @POST
+    @Path("policy")
+    public void postPolicy(@FormParam("payload") String payload) throws Exception;
 
 }

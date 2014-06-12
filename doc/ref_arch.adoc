@@ -443,4 +443,4 @@ Most importantly, you also now have appreciation for the strengths of each produ
 * implement ability to signal a process instance in the PInstanceLifecyle composite reference
 * error handling when substitution properties in URL of REST invocation are not valid
 ** currently rolls back outside of scope of ProcessMgmtBean
-** causes multiple invocations of startProcess call)
+** https://bugzilla.redhat.com/show_bug.cgi?id=1091061
