@@ -436,6 +436,8 @@ Most importantly, you also now have appreciation for the strengths of each produ
 
 
 == To-Do
+* invoke _withvar_ resources exposed by the BPM exec server
+** this BZ needs to be addressed first:  https://bugzilla.redhat.com/show_bug.cgi?id=1108738
 * troubleshoot:  json content not being sent as payload of REST call in SendResults REST service task
 * change such that org.acme.insurance domain model classes are added as maven dependencies to business-central.
 * specify role used to query for potential tasks
