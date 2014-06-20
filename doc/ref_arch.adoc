@@ -8,6 +8,7 @@
 :osetools: link:https://access.redhat.com/site/documentation/en-US/OpenShift_Enterprise/2/html/Client_Tools_Installation_Guide/index.html[Openshift Enterprise Client Tools]
 :remotejavaapi: link:https://access.redhat.com/site/documentation/en-US/Red_Hat_JBoss_BPM_Suite/6.0/html-single/Development_Guide/index.html#sect-Remote_Java_API[Remote Java API Client]
 :executionserver: link:https://access.redhat.com/site/documentation/en-US/Red_Hat_JBoss_BPM_Suite/6.0/html-single/Development_Guide/index.html#chap-REST_API[Exection Server]
+:classloaderincompatibilities: link:https://bugzilla.redhat.com/show_bug.cgi?id=1051739[classload incompatibilities]
 
 image::images/rhheader.png[width=900]
 
@@ -43,7 +44,7 @@ The RESTEasy bindings are used to invoke the _Execution Server_ of BPM Suite 6.
 An alternative approach to using the SwitchYard RESTEasy bindings is the {remotejavaapi} provided by BPM Suite 6.
 The _Remote Java Client API_ is not used in the SwitchYard application of this reference architecture for the following reasons:
 
-. avoidance of library version incompatibilities between Fuse Service Works and BPM Suite 6.
+. avoidance of {classloaderincompatibilities} between Fuse Service Works and BPM Suite 6.
 . emphasis on the ability to invoke the BPM Suite 6 Execution Server in a language-agnostic, standards based manner
 
 ==== BPM Suite 6 Execution Server
