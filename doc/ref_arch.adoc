@@ -16,6 +16,8 @@ image::images/rhheader.png[width=900]
 [abstract]
 == Fuse Service Works / BPM Suite 6 Integration
 
+:numbered:
+
 == Overview
 
 === BPM and SOA
@@ -140,6 +142,16 @@ With that in mind, the following is a sequence diagram that depicts the message 
 Notice the significant involvement of the _ProcessLifecycleMgmt_ SwitchYard application to invoke the remote Process and Human Task engines.
 
 image::images/sequence_diagram.png[width=760]
+
+=== Red Hat Support
+This reference architecture involves the integration between two Red Hat products:
+
+. Red Hat JBoss Fuse Service Works
+. Red Hat BPM Suite 6
+
+A solution that leverages these products will require subscriptions to both products.
+Red Hat will support the out-of-the-box components and features of each product.
+The integration between these two products as proposed in this reference architecture, however, is custom and not supported via a Red Hat subscription.
 
 == Pre-Requisites
 The remainder of this documentation provides instructions for installation, configuration and execution of this reference architecture.
