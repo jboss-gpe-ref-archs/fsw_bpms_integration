@@ -2,7 +2,7 @@
 :toc2:
 
 :numbered!:
-:ref_arch_doc: link:doc/ref_arch.adoc[here]
+:ref_arch_doc: link:doc/ref_arch.adoc[manual]
 
 image::doc/images/rhheader.png[width=900]
 
@@ -16,6 +16,7 @@ The focus of this reference architecture is on the integration of FSW and BPM Su
 For the purposes of this reference architecture, the target run-time environments are OpenShift gears enabled with FSW and BPM Suite 6.  
 With minimal changes, this reference architecture could also be applied to a non-PaaS environment.
 
-This reference architecture includes the following manual found {ref_arch_doc} .
-This reference architecture also includes both client and server-side source code to a scenario called
+This reference architecture includes the following :
+. A reference architecture {ref_arch_doc} .
+. Client and server-side source code to a scenario called
 _policyQuote_.
