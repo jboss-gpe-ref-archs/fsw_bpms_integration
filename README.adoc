@@ -17,6 +17,6 @@ For the purposes of this reference architecture, the target run-time environment
 With minimal changes, this reference architecture could also be applied to a non-PaaS environment.
 
 This reference architecture includes the following :
-. A reference architecture {ref_arch_doc} .
-. Client and server-side source code to a scenario called
-_policyQuote_.
+
+. A {ref_arch_doc} .
+. Client and server-side source code to a scenario called _policyQuote_.
