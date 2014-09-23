@@ -174,20 +174,18 @@ Doing so will ensure that you are proficient with the tooling and workflow neede
 . Familiarity with {fswproduct}
 
 == Configuration and Deployment : Local Environment
-This reference architecture will be cloned both in your local computer as well as in your remote BPM Suite 6 Openshift environment.
 
 === local: Ensure installation of `IntegrationStack` plugins
-The `IntegrationStack` suite of JBoss Developer Studio plugins is a requirement for this reference architecture.
+The `IntegrationStack` suite of plugins for JBoss Developer Studio is a requirement for this reference architecture.
 If you have not already done so, ensure that this suite of plugins is installed as per the {installintegrationstack} section of the FSW installation guide.
 
 === local: Ensure proper config of settings.xml
 A portion of this reference architecture includes a SwitchYard application that will be imported into your JBDS via maven.
-At this time make sure that your maven settings.xml is configured to reference the supported on-line or off-line Fuse Service Works maven repository.
+At this time, make sure that your maven `settings.xml` is configured to reference the supported on-line or off-line Fuse Service Works maven repository.
 This procedure is discussed in the {mvnrepos} section of the Fuse Service Works Installation Guide.
 
 === local: Clone this reference architecture
-
-
+This reference architecture will be cloned both in your local computer as well as in your remote BPM Suite 6 Openshift environment.
 To clone this reference architecture in your local environment, execute the following:
 
 . Open the `Git` perspective of JBDS.
@@ -212,14 +210,14 @@ Optional:  On the pop-up screen entitled `Local Destination`, change the default
 Doing so will clone this `fsw_bpms_integration` project to your local disk
 
 . In JBDS, switch to the `Project Explorer` panel and navigate to:  `File -> Import -> Maven -> Existing Maven Projects`
-. In the `Root Directory` field of the `Maven Projects` pop-up, navigate to the location on disk where the `fsw_bpms_integration` project was just clone to.
+. In the `Root Directory` field of the `Maven Projects` pop-up, navigate to the location on disk where the `fsw_bpms_integration` project was just cloned to.
 +
 image::images/import_mvn_project.png[]
 
+. Click `next` through the various pop-up panels and finally `Finish`.
 . Your `Project Explorer` panel should now include the following mavenized projects
 +
 image::images/maven_projects.png[]
-
 
 === local: Build the Reference Architecture
 This reference architecture includes various sub-projects that need to be built locally.
