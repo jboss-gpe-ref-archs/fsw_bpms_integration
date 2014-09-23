@@ -173,6 +173,64 @@ Doing so will ensure that you are proficient with the tooling and workflow neede
 . Familiarity with {bpmproduct}
 . Familiarity with {fswproduct}
 
+== Provision OpenShift Applications
+Partner Demo System allows for the creation and hosting of JBoss Fuse Service Works and JBoss BPM Suite 6 runtimes in a cloud environment.
+Specifically, this cloud environment is powered by Red Hat's OpenShift Enterprise Platform-as-a-Service (PaaS) environment.
+You can access this online lab environment 24/7.
+Using this lab environment enables you to focus on developing services and business logic using JBoss Fuse Service Works instead of installation and configuration details.
+
+=== Provision Fuse Service Works application
+
+. In your local JBDS, right-click on the previously created connection to `broker00.ose.opentlc.com`.
+. Select: `New -> Application` .
++
+Since you have already created a domain from the previous introductory lab, the workflow for creation of a new application will be slightly different than what you are used to.
+In particular, the OSE plugin will not prompt you for the creation of a new domain. 
+
+. The following `New or existing OpenShift Application` pop-up should appear: 
++
+image::images/new_OSE_app_fsw.png[width=500]
+
+.. In the `Name` text box, enter: `fswapp` 
+.. From the `Type` drop-down, select: JBoss Fuse Service Works 6.0 (rhgpe-fsw-6.0)
+.. From the `Gear profile` drop-down, select: pds_medium
+.. From the `Embeddable Cartridges` section, select: `MySQL 5.1` or `MySQL 5.5`
+
+. Click `Next`
+. A new dialogue appears entitled `Set up Project for new OpenShift Aplication`.
++
+Check the check box for `Disable automatic maven build when pushing to OpenShift`.
+Afterwards, Click `Next`.
+
+. A new dialogue appears entitled `Import an existing OpenShift application`.
++
+Even though it will not be used, you will be forced to clone the remote git enabled project associated with your new OpenShift application.
+Uncheck "Use default clone location" and select a location on your local filesystem where the git enabled project should be cloned to.
++
+image::images/git_clone_OSE.png[width=500]
+
+. Click `Finish`
+. The OSE plugin of JBDS will spin for a couple of minutes as the remote FSW 6 enabled OpenShift application is created.
+. Eventually, the OSE plugin will prompt with a variety of pop-up related details regarding your new application.
+Click through all of them except when you come to the dialogue box entitled `Publish fswapp?`.
+For this dialogue box, click `No`
++
+image::images/publishfswlab.png[]
+
+=== FSW App Verification
+
+. Using the Remote System Explorer, open an SSH terminal in JBDS and tail the server.log of your remote FSW Suite 6 enabled OSE application.
+. Log messages similar to the following should appear:
++
+image::images/tail_log_OSE_fsw.png[width=700]
+
+. Also, in the `Project Explorer` panel of JBDS, the `fswlab` maven project should be listed.
+
+Congratulations!  You have successfully provisioned your FSW 6 enabled application.
+
+
+=== Provision BPM Suite 6 application
+
 == Configuration and Deployment : Local Environment
 
 === local: Ensure installation of `IntegrationStack` plugins
@@ -223,8 +281,11 @@ image::images/maven_projects.png[]
 This reference architecture includes various sub-projects that need to be built locally.
 To build the various sub-projects, execute the following:
 
-. cd $REF_ARCH_HOME
-. mvn clean install
+. In the `Project Explorer` panel of JBDS, right-click on the `parent` project
+. Navigate to: `Run As -> Maven Install`
+. In the `Console` panel, a `BUILD SUCCESS` log message should appear.
++
+image::images/maven_build_success.png[]
 
 === local: Domain model library deployment to FSW enabled Openshift gear
 In $REF_ARCH_HOME, there is a directory called `domain`.
