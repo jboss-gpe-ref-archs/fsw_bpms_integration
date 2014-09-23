@@ -9,6 +9,9 @@
 :remotejavaapi: link:https://access.redhat.com/site/documentation/en-US/Red_Hat_JBoss_BPM_Suite/6.0/html-single/Development_Guide/index.html#sect-Remote_Java_API[Remote Java API Client]
 :executionserver: link:https://access.redhat.com/site/documentation/en-US/Red_Hat_JBoss_BPM_Suite/6.0/html-single/Development_Guide/index.html#chap-REST_API[Exection Server]
 :classloaderincompatibilities: link:https://bugzilla.redhat.com/show_bug.cgi?id=1051739[classload incompatibilities]
+:mwlaboverviewsetup: link:http://people.redhat.com/jbride/labsCommon/setup.html[`Middleware Lab Overview and Set-up`]
+:mvnrepos: link:https://access.redhat.com/documentation/en-US/Red_Hat_JBoss_Fuse_Service_Works/6/html-single/Installation_Guide/index.html#chap-Maven_Repositories[`Maven Repositories`]
+:installintegrationstack: link:https://access.redhat.com/documentation/en-US/Red_Hat_JBoss_Fuse_Service_Works/6/html-single/Installation_Guide/index.html#Install_JBoss_Developer_Studio_Integration_Stack[`Install Integration Stack`]
 
 image::images/rhheader.png[width=900]
 
@@ -142,38 +145,68 @@ Notice the significant involvement of the _ProcessLifecycleMgmt_ SwitchYard appl
 image::images/sequence_diagram.png[width=760]
 
 == Pre-Requisites
-The remainder of this documentation provides instructions for installation, configuration and execution of this reference architecture.
+The remainder of this documentation provides instructions for installation, configuration and execution of this reference architecture in Red Hat's Partner Demo System.
 The following is a list of pre-requisites:
 
-. {osetools}
-. Openshift Enterprise 2.* environment that has been installed with {rpms} needed to support Red Hat GPE's BPM Suite 6 and FSW cartridges.
-Red Hat GPE's _Partner Demo System_ is one such environment.
-Contact the Red Hat GPE team for more details.
-. medium-sized Openshift Enterprise gear provisioned with {bpmcart} and mysql-5.
-. medium-sized Openshift Enterprise gear provisioned with {fswcart} and mysql-5.
-. ssh client
-. maven 3.0.5 (or greater)
-. git client
-. familiarity with {bpmproduct}
-. familiarity with {fswproduct}
-. proficiency with the _bash_ shell 
+. OPENTLC-SSO credentials
++
+`OPENTLC-SSO` user credentials are used to log into the Red Hat Partner Demo System (PDS).
+If you do not currently have a `OPENTLC-SSO` userId, please email: `OPEN-program@redhat.com`.
 
-As is evidenced by these pre-requisites, the assumed BPM Suite 6 run-time environment for this reference architecture is an Openshift Enterprise gear.
-However, BPM Suite 6 and Fuse Service Works can be installed in non-PaaS local environments.
-Thus, with some adjustments, it could be possible to execute this reference architecture in a non-PaaS local environment as well.
+. Familiarity with Partner Demo System
++
+If you are not already familiar with Red Hat's `Partner Demo System`, please execute what is detailed in the {mwlaboverviewsetup} guide.
+Doing so will ensure that you are proficient with the tooling and workflow needed to complete this reference architecture in an OpenShift Platform as a Service environment.
+
+. Familiarity with {bpmproduct}
+. Familiarity with {fswproduct}
 
 == Configuration and Deployment : Local Environment
+This reference architecture will be cloned both in your local computer as well as in your remote BPM Suite 6 Openshift environment.
+
+=== local: Ensure installation of `IntegrationStack` plugins
+The `IntegrationStack` suite of JBoss Developer Studio plugins is a requirement for this reference architecture.
+If you have not already done so, ensure that this suite of plugins is installed as per the {installintegrationstack} section of the FSW installation guide.
+
+=== local: Ensure proper config of settings.xml
+A portion of this reference architecture includes a SwitchYard application that will be imported into your JBDS via maven.
+At this time make sure that your maven settings.xml is configured to reference the supported on-line or off-line Fuse Service Works maven repository.
+This procedure is discussed in the {mvnrepos} section of the Fuse Service Works Installation Guide.
 
 === local: Clone this reference architecture
-This reference architecture will be cloned both in your local computer as well as in your remote BPM Suite 6 Openshift environment.
+
+
 To clone this reference architecture in your local environment, execute the following:
 
+. Open the `Git` perspective of JBDS.
+. In the `Git Repositories` panel, click the link that allows you to `Clone a Git Repository and add the clone to this view`
+. A pop-up should appear with a name of `Source Git Repository`
+. In the `URI` field, enter the following:
++
 -----
-git clone https://github.com/jboss-gpe-ref-archs/fsw_bpms_integration.git
+https://github.com/jboss-gpe-ref-archs/fsw_bpms_integration.git
 -----
 
-Doing so will create a directory in your local computer called:  _fsw_bpms_integration_.
-For the purposes of this reference architecture, this directory will be referred to as _$REF_ARCH_HOME_.
+. Click `Next`
++
+image::images/clone_repo_to_local.png[]
+
+. Continue to click `Next` through the various screens
++
+Optional:  On the pop-up screen entitled `Local Destination`, change the default value of the `Directory` field to your preferred location on disk.
+
+. On the last screen of the pop-up, click `Finish`
++
+Doing so will clone this `fsw_bpms_integration` project to your local disk
+
+. In JBDS, switch to the `Project Explorer` panel and navigate to:  `File -> Import -> Maven -> Existing Maven Projects`
+. In the `Root Directory` field of the `Maven Projects` pop-up, navigate to the location on disk where the `fsw_bpms_integration` project was just clone to.
++
+image::images/import_mvn_project.png[]
+
+. Your `Project Explorer` panel should now include the following mavenized projects
++
+image::images/maven_projects.png[]
 
 
 === local: Build the Reference Architecture
