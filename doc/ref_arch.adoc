@@ -231,6 +231,54 @@ Congratulations!  You have successfully provisioned your FSW 6 enabled applicati
 
 === Provision BPM Suite 6 application
 
+. In your local JBDS, right-click on the previously created connection to `broker00.ose.opentlc.com`.
+. Select: `New -> Application` .
++
+Since you have already created a domain from the previous introductory lab, the workflow for creation of a new application will be slightly different than what you are used to.
+In particular, the OSE plugin will not prompt you for the creation of a new domain.
+
+. The following `New or existing OpenShift Application` pop-up should appear:
++
+image::images/newapppopup.png[]
+
+.. In the `Name` text box, enter: `bpmsapp`
+.. From the `Type` drop-down, select: JBoss BPMS 6.0 (rhgpe-bpms-6.0)
+.. From the `Gear profile` drop-down, select: bpms_medium
+.. From the `Embeddable Cartridges` section, select: `MySQL 5.1`
+
+. Click `Next`
+. A new dialogue appears entitled `Set up Project for new OpenShift Aplication`.
++
+Check the check box for `Disable automatic maven build when pushing to OpenShift`.
+Afterwards, Click `Next`.
+
+. A new dialogue appears entitled `Import an existing OpenShift application`.
++
+Even though it will not be used, you will be forced to clone the remote git enabled project associated with your new OpenShift application.
+Select a location on your local filesystem where the git enabled project should be cloned to.
++
+image::images/gitclonelocation.png[]
+
+. Click `Finish`
+. The OSE plugin of JBDS will spin for a couple of minutes as the remote BPM Suite 6 enabled OpenShift application is created.
+. Eventually, the OSE plugin will prompt with a variety of pop-up related details regarding your new application.
++
+Click through all of them except when you come to the dialogue box entitled `Publish bpmsapp?`.
+For this dialogue box, click `No`
++
+image::images/publishbpmslab.png[]
+
+=== BPM Suite 6 App Verification
+
+. Via JBDS, tail the server.log of your remote BPM Suite 6 enabled OSE application.
+. Log messages similar to the following should appear:
++
+image::images/newbpmlogfile.png[]
+
+. Also, in the `Project Explorer` panel of JBDS, the `bpmsapp` maven project should be listed.
+
+Congradulations!  You have successfully provisioned your BPM Suite 6 enabled lab environment.
+
 == Configuration and Deployment : Local Environment
 
 === local: Ensure installation of `IntegrationStack` plugins
