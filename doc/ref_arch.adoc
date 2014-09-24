@@ -9,9 +9,9 @@
 :remotejavaapi: link:https://access.redhat.com/site/documentation/en-US/Red_Hat_JBoss_BPM_Suite/6.0/html-single/Development_Guide/index.html#sect-Remote_Java_API[Remote Java API Client]
 :executionserver: link:https://access.redhat.com/site/documentation/en-US/Red_Hat_JBoss_BPM_Suite/6.0/html-single/Development_Guide/index.html#chap-REST_API[Exection Server]
 :classloaderincompatibilities: link:https://bugzilla.redhat.com/show_bug.cgi?id=1051739[classload incompatibilities]
-:mwlaboverviewsetup: link:http://people.redhat.com/jbride/labsCommon/setup.html[`Middleware Lab Overview and Set-up`]
-:mvnrepos: link:https://access.redhat.com/documentation/en-US/Red_Hat_JBoss_Fuse_Service_Works/6/html-single/Installation_Guide/index.html#chap-Maven_Repositories[`Maven Repositories`]
-:installintegrationstack: link:https://access.redhat.com/documentation/en-US/Red_Hat_JBoss_Fuse_Service_Works/6/html-single/Installation_Guide/index.html#Install_JBoss_Developer_Studio_Integration_Stack[`Install Integration Stack`]
+:mwlaboverviewsetup: link:http://people.redhat.com/jbride/labsCommon/setup.html[Middleware Lab Overview and Set-up]
+:mvnrepos: link:https://access.redhat.com/documentation/en-US/Red_Hat_JBoss_Fuse_Service_Works/6/html-single/Installation_Guide/index.html#chap-Maven_Repositories[Maven Repositories]
+:installintegrationstack: link:https://access.redhat.com/documentation/en-US/Red_Hat_JBoss_Fuse_Service_Works/6/html-single/Installation_Guide/index.html#Install_JBoss_Developer_Studio_Integration_Stack[Install Integration Stack]
 
 image::images/rhheader.png[width=900]
 
@@ -239,11 +239,11 @@ In particular, the OSE plugin will not prompt you for the creation of a new doma
 
 . The following `New or existing OpenShift Application` pop-up should appear:
 +
-image::images/newapppopup.png[]
+image::images/new_OSE_app_bpm.png[]
 
 .. In the `Name` text box, enter: `bpmsapp`
 .. From the `Type` drop-down, select: JBoss BPMS 6.0 (rhgpe-bpms-6.0)
-.. From the `Gear profile` drop-down, select: bpms_medium
+.. From the `Gear profile` drop-down, select: pds_medium
 .. From the `Embeddable Cartridges` section, select: `MySQL 5.1`
 
 . Click `Next`
@@ -257,7 +257,7 @@ Afterwards, Click `Next`.
 Even though it will not be used, you will be forced to clone the remote git enabled project associated with your new OpenShift application.
 Select a location on your local filesystem where the git enabled project should be cloned to.
 +
-image::images/gitclonelocation.png[]
+image::images/gitclonelocation_bpm.png[]
 
 . Click `Finish`
 . The OSE plugin of JBDS will spin for a couple of minutes as the remote BPM Suite 6 enabled OpenShift application is created.
@@ -285,9 +285,9 @@ Congradulations!  You have successfully provisioned your BPM Suite 6 enabled lab
 The `IntegrationStack` suite of plugins for JBoss Developer Studio is a requirement for this reference architecture.
 If you have not already done so, ensure that this suite of plugins is installed as per the {installintegrationstack} section of the FSW installation guide.
 
-=== local: Ensure proper config of settings.xml
+=== local: Ensure proper Maven configuration
 A portion of this reference architecture includes a SwitchYard application that will be imported into your JBDS via maven.
-At this time, make sure that your maven `settings.xml` is configured to reference the supported on-line or off-line Fuse Service Works maven repository.
+Make sure that your default maven `settings.xml` is configured to reference the supported on-line or off-line Fuse Service Works maven repository.
 This procedure is discussed in the {mvnrepos} section of the Fuse Service Works Installation Guide.
 
 === local: Clone this reference architecture
@@ -311,7 +311,7 @@ image::images/clone_repo_to_local.png[]
 +
 Optional:  On the pop-up screen entitled `Local Destination`, change the default value of the `Directory` field to your preferred location on disk.
 
-. On the last screen of the pop-up, click `Finish`
+. On the last screen of the `Clone Git Repository` pop-up, click `Finish`
 +
 Doing so will clone this `fsw_bpms_integration` project to your local disk
 
@@ -336,7 +336,7 @@ To build the various sub-projects, execute the following:
 image::images/maven_build_success.png[]
 
 === local: Domain model library deployment to FSW enabled Openshift gear
-In $REF_ARCH_HOME, there is a directory called `domain`.
+Notice that in the `Project Explorer` panel of JBDS, there is a project called `domain`.
 This directory contains the domain classes that will be referenced by other sub-projects of this reference architecture.
 Notice that the domain classes are annotated to enable serialization via Java Architecture for XML Binding (JAXB).
 
@@ -344,15 +344,29 @@ In the previous step, the domain model library was built in your local environme
 The next requirement is to install the domain model library as a static module in your FSW enabled OpenShift gear.
 The intent of deploying the domain model library as a static shared JBoss module is to make it available on the classpath of all of your SwitchYard applications.
 
-. `cd $REF_ARCH_HOME`
-. `scp -r domain/conf/com <your_fsw_openshift_url>:~/app-root/data/appModules/`
-. `scp domain/target/domain-1.0.jar    <ssh_url_to_your_fsw_openshift_environment>:~/app-root/data/appModules/com/redhat/gpe/refarch/fsw_bpms_integration/domain/main/`
+. In the `Project Explorer`, right-click on `domain -> conf -> com` and select `Copy`
++
+image::images/copycom.png[]
+
+. Switch to the `Remote System Explorer` perspective of JBDS, and navigate to `fswapp-<your domain.apps.ose.opentlc.com -> Sftp Files -> My Home -> app-root -> data - appModules`
+. Right-click and select `Paste`
+. The end-state is the previously copied `com` directory dropped into the `~/app-root/data/appModules` directory of the remote `fswapp` application.
++
+image::images/pastecom.png[]
+
+. Return to the `Project Explorer` panel of the `JBoss` perspective and navigate to `domain -> target -> domain-1.0.jar`.
+. Right-click and select `copy`
++
+image::images/copydomainjar.png[]
+
+. Switch to the `Remote System Explorer` perspect of JBDS, and naviate to `fswapp-<your domain.apps.ose.opentlc.com -> Sftp Files -> My Home -> app-root -> data -> appModules -> com -> redhat -> gpe -> refarch -> fsw_bpms_integration -> domain -> main`
+. Right-click and select `Paste`
++
+image::images/pastedomainjar.png[]
 
 == Configuration and Deployment:  BPM Suite 6 
 
 === BPM Suite 6:  Clone this reference architecture
-This next section of the reference architecture assumes that you have an Openshift gear provisioned with BPM Suite 6 using {bpmcart}.
-
 This reference architecture includes a business process called _policyQuoteProcessMap_ that includes a human task node followed by a Restful _Service Task_ .
 It is this process whose life-cycle will be managed remotely via the Execution Server of BPM Suite 6.
 
@@ -360,23 +374,24 @@ image::images/processTier_bpmn.png[]
 
 Use the following steps to clone this reference architecture in BPM Suite 6:
 
-. Log into the Business-Central web application of BPM Suite 6 and navigate to:  Authoring -> Administration.
+. Open your browser and log into the `BPM Console` of BPM Suite 6 
++
+The userId to use is:  `jboss`  and the password to use is:  `brms`
+
+. Navigate to:  Authoring -> Administration.
 . Select `Organizational Units` -> `Manage Organizational Units`
 . Under `Organizational Unit Manager`, select the `Add` button
 . Enter a name of _gpe_ and an owner of _jboss_. Click `OK`
 . Clone this fsw_bpms_integration repository in BPM Suite 6
 .. Select `Repositories` -> `Clone Repository` .  
-.. Populate the _Clone Repository_ box as follows and then click _Clone_ :
-
+.. Populate the _Clone Repository_ box as follows:
++
 image::images/clone_repo.png[]
-
-Enter _fswbpmsintegration_ as the value of the _repository name_.  
-The value of _Git URL_ is the URL to this reference architecture in github:
-
------
-https://github.com/jboss-gpe-ref-archs/fsw_bpms_integration.git
------
-
+... `Repository Name` :  _fswbpmsintegration_
+... `Organizational Unit` : _gpe_
+... `Git URL` :     _https://github.com/jboss-gpe-ref-archs/fsw_bpms_integration.git_
+.. Click `Clone`
++
 Once successfully cloned, BPM Suite 6 will pop-up a new dialog box with the message:  _The repository is cloned successfully_
 
 === BPM Suite 6:  Add domain-model jar to classpath of _processTier_ project
