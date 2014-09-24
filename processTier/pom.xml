@@ -7,18 +7,11 @@
   <version>1.0</version>
   <packaging>kjar</packaging>
   <name>processTier</name>
-  <dependencies>
-    <dependency>
-      <groupId>com.redhat.gpe.refarch.fsw_bpms_integration</groupId>
-      <artifactId>domain</artifactId>
-      <version>1.0</version>
-    </dependency>
-  </dependencies>
   <repositories>
     <repository>
       <id>guvnor-m2-repo</id>
       <name>Guvnor M2 Repo</name>
-      <url>http://$OPENSHIFT_BPMS_IP:8080/business-central/maven2/</url>
+      <url>http://${env.OPENSHIFT_BPMS_IP}:8080/business-central/maven2/</url>
     </repository>
   </repositories>
   <build>

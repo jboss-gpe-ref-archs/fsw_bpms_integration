@@ -309,7 +309,8 @@ image::images/clone_repo_to_local.png[]
 
 . Continue to click `Next` through the various screens
 +
-Optional:  On the pop-up screen entitled `Local Destination`, change the default value of the `Directory` field to your preferred location on disk.
+On the pop-up screen entitled `Local Destination`, change the default value of the `Directory` field to your preferred location on disk.
+For the purposes of the remainder of these instructions, this directory on your local filesystem will be referred to as:  $REF_ARCH_HOME
 
 . On the last screen of the `Clone Git Repository` pop-up, click `Finish`
 +
@@ -359,12 +360,24 @@ image::images/pastecom.png[]
 +
 image::images/copydomainjar.png[]
 
-. Switch to the `Remote System Explorer` perspect of JBDS, and naviate to `fswapp-<your domain.apps.ose.opentlc.com -> Sftp Files -> My Home -> app-root -> data -> appModules -> com -> redhat -> gpe -> refarch -> fsw_bpms_integration -> domain -> main`
+. Switch to the `Remote System Explorer` perspective of JBDS, and naviate to `fswapp-<your domain>.apps.ose.opentlc.com -> Sftp Files -> My Home -> app-root -> data -> appModules -> com -> redhat -> gpe -> refarch -> fsw_bpms_integration -> domain -> main`
 . Right-click and select `Paste`
 +
 image::images/pastedomainjar.png[]
 
 == Configuration and Deployment:  BPM Suite 6 
+
+=== BPM Suite 6:  Add domain-model jar to classpath of _processTier_ project
+Previously, this reference architecture's domain model was deployed to your FSW enabled Openshift gear as a shared static module.
+This domain model library is also needs to be placed on the classpath of the BPM Suite 6 runtime.
+
+. If you haven't already done so, right-click on the `domain/target/domain-1.0.jar` in `Project Explorer` and select `Copy`.
+. In the `Remote System Explorer` perspective of JBDS, navigate to `bpmsapp-<your domain>.apps.ose.opentlc.com -> Sftp Files -> My Home -> bpms -> standalone -> deployments -> business-central.war -> WEB-INF -> lib`
+. Right-click and select `Paste`
++
+image::images/pastedomainjarintobizcentral.png[]
+
+. In the `OpenShift Explorer` plugin of JBDS, restart the `bpmsapp` application
 
 === BPM Suite 6:  Clone this reference architecture
 This reference architecture includes a business process called _policyQuoteProcessMap_ that includes a human task node followed by a Restful _Service Task_ .
@@ -392,32 +405,7 @@ image::images/clone_repo.png[]
 ... `Git URL` :     _https://github.com/jboss-gpe-ref-archs/fsw_bpms_integration.git_
 .. Click `Clone`
 +
-Once successfully cloned, BPM Suite 6 will pop-up a new dialog box with the message:  _The repository is cloned successfully_
-
-=== BPM Suite 6:  Add domain-model jar to classpath of _processTier_ project
-Previously, this reference architecture's domain model was deployed to your FSW enabled Openshift gear as a shared static module.
-This same approach could have been used to make available the domain model classes to the business-central web application of BPM Suite 6.
-BPM Suite 6 however provides the ability to manually upload libraries to it's _Artifact Repository_ and then define dependencies in the KIE project to those newly  uploaded libraries.
-
-. In your browser, navigate to :   Authoring -> Project Authoring .  Several exceptions related to the inability to find domain model classes should appear in the _Problems_ window.  This is to be expected at this time.
-. navigate to :  Authoring -> Artifact Repository -> Upload
-. In the _Artifact upload_ pop-up, select _Choose File_ and navigate to $REF_ARCH_HOME/domain/target/domain-1.0.jar in your local environment.
-. Click Upload
-
-image::images/uploaded_domain.png[]
-
-[start=5]
-. navigate to:  Authoring -> Project Authoring -> Tools -> Project Editor -> Dependencies:  Dependencies list.
-. click:  _Add from repository_ followed by _Select_ on the newly uploaded _domain-1.0.jar_ library.
-. click _Save_ .
-
-image::images/add_domain_dep.png[]
-
-
-Notice that upon saving the _processTier_ project, the previous class related problems are now resolved.
-
-
-
+BPM Suite 6 will clone the `fsw_bpms_integration` repository and once completed, it will display a new dialog box with the message:  _The repository is cloned successfully_
 
 === BPM Suite 6:  Modify parameters of RESTful Service Task
 The _policyQuoteProcessMap_ process includes as its last node a RESTful Service Task.
@@ -464,7 +452,8 @@ This reference architecture includes SwitchYard applications that define composi
 In your FSW enabled environment, Java system properties will be added that indicate the network address of the BPM Suite 6 Execution Server.
 
 * Point your browser to the JBoss Management Console of your FSW enabled Openshift environment.
-* Navigate as follows:  _Profile -> General Configuration -> System Properties -> Add
+* Navigate as follows:  `Profile -> General Configuration -> System Properties -> Add`
++
 image::images/add_sys_props.png[]
 
 * Add two additional System Properties as follows:
@@ -472,6 +461,9 @@ image::images/add_sys_props.png[]
 image::images/sys_props_added.png[]
 
 . bpms.exec.server.hostname :   <your_bpms_server_address>
++
+NOTE:  only specify the DNS address of your BPM server.
+Do not include a protocol prefix such as:  http
 . bpms.exec.server.port :   80
 
 The value of _bpms.exec.server.hostname_ should be replaced with the server address of your BPM Suite 6 enabled Openshift environment.
@@ -519,14 +511,13 @@ Execute the following to deploy the _processLifecycleMgmt_ from your local envir
 
 .  Point your browser to the JBoss Management Console of your FSW enabled Openshift environment
 .  Navigate as follows:  _Runtime -> Manage Deployments -> Add -> Choose File
-.  Select the $REF_ARCH_HOME/serviceTier/processLifecycleMgmt/target/processInstanceMgmt-1.1.1-p5-redhat-1.jar  artifact.
-
+.  Select the $REF_ARCH_HOME/serviceTier/processLifecycleMgmt/target/processInstanceMgmt-1.1.1-p5-redhat-1.jar artifact.
++
 image::images/add_deployment.png[]
 
 .  Once deployed, the artifact needs to be enabled.  Select the newly deployed processInstanceMgmt artifact and click the _enable_ button.
-
-The statement in your Fuse Service Works server.log should be similar to the following:
-
+. Tail your Fuse Service Works `server.log` and notice a statement similar to the following:
++
 --------
 JBAS018559: Deployed "processInstanceMgmt-1.1.1-p5-redhat-1.jar" (runtime-name : "processInstanceMgmt-1.1.1-p5-redhat-1.jar")
 --------
@@ -538,7 +529,9 @@ The purpose of the _policyMgmt_ application is to expose a RESTful service that 
 To deploy the _policyMgmt_ application, follow the exact procedure used to deploy the _processLifecycleMgmt_ application.
 This time, however, select the following artifact to deploy:
 
-* $REF_ARCH_HOME/serviceTier/policyQuote/target/policyQuote-1.1.1-p5-redhat-1.jar
+-----
+$REF_ARCH_HOME/serviceTier/policyQuote/target/policyQuote-1.1.1-p5-redhat-1.jar
+-----
 
 The last couple of statements in your Fuse Service Works server.log should be similar to the following:
 
@@ -564,27 +557,37 @@ The HornetQ broker embedded in your remote FSW enabled Openshift environment lis
 This port is not open in an Openshift environment.
 Subsequently, port 5445 needs to be tunneled using ssh from your local to your remote FSW environments.
 
-.Obtain the IP address for the OSE internal NIC
-----------
-ssh <ssh_url_to_your_fsw_openshift_environment> 'echo $OPENSHIFT_FSW_IP'
-----------
+. Switch to the `OpenShift Explorer` panel of the `JBoss` perspective of JBDS and right-click on the `fswapp`.
+. Select `Port Forwarding` and click the `Start All` button.
+. Notice that the status of all port-forwarded ports (most importently 5445) should be `Started`
++
+image::images/portforwarding.png[]
 
-.Port Forwarding command for HornetQ access
-----------
-ssh -N -L localhost:5445:<ipaddress from previous step>:5445 <ssh_url_to_your_fsw_openshift_environment>
-----------
-
-Executing the above command does not provide a response back.
-Instead, your terminal window used to execute this command will hang.
 While port forwarding process running, the remote HornetQ broker can be accessed on the local computer at `localhost:5445`.
-Once you've completed the reference architecture, use `Ctrl+c` in the same terminal window to kill port forwarding.
 
 === Execute JMeter client
 By default, the configuration in $REF_ARCH_HOME/loadtest will direct JMeter to send one JMS message (from only one thread) to the JMS broker at localhost:5445.
 Execute a smoke test of your deployed reference architecture via the following:
 
-.  cd $REF_ARCH_HOME/loadtest
-.  mvn clean verify
+. Import the $REF_ARCH_HOME/loadtest maven project into JBDS
++ 
+The `fsw_bpms_integration/loadtest` maven project was not previously included in the original import earlier in this reference architecture.
+
+.. Switch to the `Project Explorer` panel of the JBDS and select `File -> Import -> Maven -> Existing Maven Projects`
+.. Click `Next` and browse to the location on disk of `REF_ARCH_HOME/loadtest`
+.. Click `Finish`
++
+image::images/importloadtest.png[]
+
+. In the `Project Explorer` panel, right-click on the new `loadtest` project and select:  `Run As -> Maven build`
++
+image::images/loadtestselectrunas.png[]
+
+. In the `Edit configuration and launch` pop-up enter the following in the `Goals` field:  `clean verify`
++
+image::images/executeloadtest.png[]
+
+. Click `Apply` and `Run`
 
 If all goes well, you should expect statements similar to the following in your server.log of your remote BPM Suite 6 enabled OpenShift environment:
 
