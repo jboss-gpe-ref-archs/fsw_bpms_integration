@@ -175,9 +175,10 @@ Doing so will ensure that you are proficient with the tooling and workflow neede
 
 == Provision OpenShift Applications
 Partner Demo System allows for the creation and hosting of JBoss Fuse Service Works and JBoss BPM Suite 6 runtimes in a cloud environment.
-Specifically, this cloud environment is powered by Red Hat's OpenShift Enterprise Platform-as-a-Service (PaaS) environment.
+
+This cloud environment is powered by Red Hat's OpenShift Enterprise Platform-as-a-Service (PaaS) environment.
 You can access this online lab environment 24/7.
-Using this lab environment enables you to focus on developing services and business logic using JBoss Fuse Service Works instead of installation and configuration details.
+Using this lab environment enables you to focus on developing services and business logic using JBoss middleware instead of installation and configuration details.
 
 === Provision Fuse Service Works application
 
@@ -287,7 +288,7 @@ image::images/newbpmlogfile.png[]
 
 Congradulations!  You have successfully provisioned your BPM Suite 6 enabled lab environment.
 
-== Configuration and Deployment : Local Environment
+== Configuration and Deployment
 
 === local: Ensure installation of `IntegrationStack` plugins
 The `IntegrationStack` suite of plugins for JBoss Developer Studio is a requirement for this reference architecture.
@@ -524,7 +525,7 @@ Execute the following to deploy the _processLifecycleMgmt_ from your local envir
 image::images/add_deployment.png[]
 
 .  Once deployed, the artifact needs to be enabled.  Select the newly deployed processInstanceMgmt artifact and click the _enable_ button.
-. Tail your Fuse Service Works `server.log` and notice a statement similar to the following:
+. Tail your Fuse Service Works `fsw/standalone/log/server.log` and notice a statement similar to the following:
 +
 --------
 JBAS018559: Deployed "processInstanceMgmt-1.1.1-p5-redhat-1.jar" (runtime-name : "processInstanceMgmt-1.1.1-p5-redhat-1.jar")
