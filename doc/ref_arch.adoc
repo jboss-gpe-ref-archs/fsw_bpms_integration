@@ -163,7 +163,7 @@ The following is a list of pre-requisites:
 . OPENTLC-SSO credentials
 +
 `OPENTLC-SSO` user credentials are used to log into the Red Hat Partner Demo System (PDS).
-If you do not currently have a `OPENTLC-SSO` userId, please email: `OPEN-program@redhat.com`.
+If you do not currently have an `OPENTLC-SSO` userId, please email: `OPEN-program@redhat.com`.
 
 . Familiarity with Partner Demo System
 +
@@ -181,7 +181,11 @@ Using this lab environment enables you to focus on developing services and busin
 
 === Provision Fuse Service Works application
 
-. In your local JBDS, right-click on the previously created connection to `broker00.ose.opentlc.com`.
+. Open the `Openshift Explorer` panel of the `JBoss` perspective of JBDS
+. Right-click on the previously created connection to `broker00.ose.opentlc.com`.
++
+Using your `OPENTLC-SSO` credentials, a connection to `broker00.ose.opentlc.com` should already exist after having completed the {mwlaboverviewsetup} guide.
+
 . Select: `New -> Application` .
 +
 Since you have already created a domain from the previous introductory lab, the workflow for creation of a new application will be slightly different than what you are used to.
@@ -219,7 +223,7 @@ image::images/publishfswlab.png[]
 
 === FSW App Verification
 
-. Using the Remote System Explorer, open an SSH terminal in JBDS and tail the server.log of your remote FSW Suite 6 enabled OSE application.
+. Using the `Remote System Explorer` perspective of JBDS, open an SSH terminal and tail the `fsw/standalone/log/server.log` of your remote FSW enabled OSE application.
 . Log messages similar to the following should appear:
 +
 image::images/tail_log_OSE_fsw.png[width=700]
@@ -231,7 +235,11 @@ Congratulations!  You have successfully provisioned your FSW 6 enabled applicati
 
 === Provision BPM Suite 6 application
 
-. In your local JBDS, right-click on the previously created connection to `broker00.ose.opentlc.com`.
+. Open the `Openshift Explorer` panel of the `JBoss` perspective of JBDS
+. Right-click on the previously created connection to `broker00.ose.opentlc.com`.
++
+Using your `OPENTLC-SSO` credentials, a connection to `broker00.ose.opentlc.com` should already exist after having completed the {mwlaboverviewsetup} guide.
+
 . Select: `New -> Application` .
 +
 Since you have already created a domain from the previous introductory lab, the workflow for creation of a new application will be slightly different than what you are used to.
@@ -270,7 +278,7 @@ image::images/publishbpmslab.png[]
 
 === BPM Suite 6 App Verification
 
-. Via JBDS, tail the server.log of your remote BPM Suite 6 enabled OSE application.
+. Using the `Remote System Explorer` perspective of JBDS, open an SSH terminal and tail the `bpms/standalone/log/server.log` of your remote BPM Suite 6 enabled OSE application
 . Log messages similar to the following should appear:
 +
 image::images/newbpmlogfile.png[]
@@ -413,7 +421,7 @@ This RESTful Service Task invokes a HTTP POST operation on a remote resource exp
 The values of this HTTP POST operation are configured in the parameters of the RESTful Service Task.
 To customize these parameters for your environment, execute the following:
 
-. Log into the Business-Central web application of BPM Suite 6 and navigate to:   Authoring -> Project Authoring.
+. Log into the `BPM Console` web application of BPM Suite 6 and navigate to:   Authoring -> Project Authoring.
 . In the _Project Explorer_ section, drill-down into:  com.redhat.gpe.refarch.fsw_bpms_integration.processTier
 . In the _Business Processes_ section, select:  _policyQuoteProcessMap_.
 . In the _policyQuoteProcessMap_ process definition, click the last node entitled: _POST Review Results_.
@@ -533,7 +541,7 @@ This time, however, select the following artifact to deploy:
 $REF_ARCH_HOME/serviceTier/policyQuote/target/policyQuote-1.1.1-p5-redhat-1.jar
 -----
 
-The last couple of statements in your Fuse Service Works server.log should be similar to the following:
+The last couple of statements in your Fuse Service Works `fsw/standalone/log/server.log` file should be similar to the following:
 
 --------
 Published RESTEasy context /policyQuoteMgmt
@@ -589,7 +597,7 @@ image::images/executeloadtest.png[]
 
 . Click `Apply` and `Run`
 
-If all goes well, you should expect statements similar to the following in your server.log of your remote BPM Suite 6 enabled OpenShift environment:
+If all goes well, you should expect statements similar to the following in your `bpms/standalone/log/server.log` of your remote BPM Suite 6 enabled OpenShift environment:
 
 ----------
 printIn() policyId = 149 : policyName = myPolicy
